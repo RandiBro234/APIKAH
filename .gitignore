@@ -1,0 +1,111 @@
+# ============================================================================
+#  APIKAH — .gitignore
+#  Dibuat: 2026-10-25
+#
+#  Tujuan: mencegah keluaran crawler (puluhan GB) masuk ke riwayat git.
+#  Repo ini PUBLIK, dan sebagian sumber melarang redistribusi.
+#
+#  CATATAN PENTING: .gitignore hanya mencegah file BARU masuk.
+#  File yang sudah terlacak TETAP terlacak. Lihat bagian 5 di bawah.
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# 1. Keluaran crawler — ini yang paling penting
+# ----------------------------------------------------------------------------
+# config.DATA_DIR = Path("data") relatif terhadap hotspot_crawler/hotspot_crawler/
+#   data/raw/era5land/{instant,accum}/*.nc   -> NetCDF, puluhan GB
+#   data/raw/cems_fire/*.nc
+#   data/static/                             -> Hansen, WorldCover, DEM, OSM, WorldPop
+#   data/processed/era5_daily/*.parquet
+#   data/logs/                               -> log + manifest
+hotspot_crawler/hotspot_crawler/data/
+
+# JEBAKAN: config.DATA_DIR memakai path RELATIF. Kalau skrip dijalankan dari
+# root repo (bukan dari folder crawler), keluaran akan mendarat di <root>/data/
+# dan tercampur dengan data label yang sudah dilacak. Baris berikut menjaganya.
+# (Diverifikasi 2026-10-25: belum ada apa pun yang terlacak di ketiga path ini.)
+data/raw/
+data/processed/
+data/static/
+
+# ----------------------------------------------------------------------------
+# 2. Format mentah — jaring pengaman
+# ----------------------------------------------------------------------------
+# (Diverifikasi 2026-10-25: belum ada satu pun yang terlacak. Aman.)
+*.nc
+*.nc4
+*.tif
+*.tiff
+*.hdf
+*.hdf5
+*.pbf
+*.grib
+*.cfgrib
+
+# Arsip unduhan
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+
+# ----------------------------------------------------------------------------
+# 3. Python
+# ----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ----------------------------------------------------------------------------
+# 4. OS dan editor
+# ----------------------------------------------------------------------------
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ----------------------------------------------------------------------------
+# 5. Log dan berkas sementara
+# ----------------------------------------------------------------------------
+*.log
+*.tmp
+*.part
+*.partial
+
+# ============================================================================
+#  YANG SENGAJA TIDAK DIABAIKAN (jangan ubah tanpa dibahas tim)
+# ============================================================================
+# Data label hotspot milik anggota tim lain SUDAH TERLACAK dan sengaja
+# dipertahankan:
+#   data/hotspot_indonesia/*.parquet          (177 file per bulan)
+#   data/hotspot_raw/*.parquet                (178 file per bulan)
+#   data/hotspot_indonesia_2012_2026-09.parquet
+#   data/hotspot_indonesia_2012_2026-09.csv
+#
+# Karena sudah terlacak, aturan di atas TIDAK menghapusnya dari riwayat.
+# Repo saat ini: 370 file terlacak, pack .git = 223,5 MiB.
+#
+# CATATAN LISENSI: gadm41_IDN_1.json sudah ada di riwayat repo, padahal
+# PIPELINE_DEV.md bagian 11.7 mencatat GADM melarang redistribusi. Jangan
+# tambahkan berkas GADM baru.
+# ============================================================================
