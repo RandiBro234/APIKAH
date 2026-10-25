@@ -169,6 +169,7 @@ Catatan: "hari" adalah hari UTC, bukan WIB. Selisih 7 jam bisa penting untuk pre
 - `data/processed/static_features.parquet`: satu baris per `(lat_c, lon_c)`; keluaran `build_static_features.py`.
 - `data/processed/features_daily/YYYY-MM.parquet`: fitur turunan harian; keluaran `build_derived_features.py`. Kolom turunan digeser `--lag` hari (default 1) sehingga berasal dari <= T-1 (uji anti-bocor ada di `test_derived.py`).
 - Setiap berkas `era5_daily/YYYY-MM.parquet` memuat **tepat bulan itu** (31 hari untuk Juli). Hari terakhir bulan dilengkapi dengan membaca berkas accum bulan BERIKUTNYA (bagian 9.1).
+- `data/processed/training/YYYY-MM.parquet`: **tabel latih siap pakai**; keluaran `build_training_table.py`. Satu baris per `(date, lat_c, lon_c)`, hanya sel darat. 47 kolom = 3 kunci + 16 cuaca + 4 indeks api + 20 turunan + 4 target. Baris untuk tanggal T hanya memuat informasi sampai T-1.
 - `data/logs/manifest_*.json`: `{kunci: {status: ok|failed|skipped|missing|manual_pending, note, ts}}`. Gunakan ini untuk membuat laporan kelengkapan.
 
 ## 6. Limitasi layanan
@@ -234,7 +235,7 @@ Urutkan sesuai prioritas. Setiap butir punya kriteria selesai.
 | 16 | ~~Tulis `build_derived_features.py`~~ **SELESAI 25 Okt 2026** | Ditulis. Isi: hujan berjalan 3/7/14/30 hari, rentetan hari kering, anomali klimatologis (suhu/RH/VPD/hujan), SPI empiris 30 & 90, indeks ENSO/IOD + lag 1-3 bulan, kalender. **Uji anti-bocor lulus** (`test_derived.py`: 16 OK) -- cuaca hari >= T diubah, fitur hari T tidak berubah. Sisa opsional: SPI gamma klasik via `climate-indices` |
 | 17 | Putuskan jalur **gambut** (bagian 11.2): GFW Global Peatlands sebagai utama; coba BBSDLP 2019 hanya bila bisa diunduh | Catatan keputusan + file ada di `data/static/peatlands/` |
 | 18 | Opsi validasi eksternal: CHIRPS v3, NASA POWER, atau BMKG Data Online untuk membandingkan hujan ERA5-Land (bagian 11.6) | Tabel selisih untuk beberapa sel/stasiun, bias dicatat |
-| 19 | **Tulis skrip penggabung** -> satu tabel latih per (tanggal, sel) | `era5_daily` + `fire_daily` + `features_daily` + `static_features` + label hotspot, satu baris per `(date, lat_c, lon_c)`, tanpa kunci ganda, sel laut dibuang. **INI SATU-SATUNYA SISA** untuk bisa training |
+| 19 | ~~Tulis skrip penggabung~~ **SELESAI 25 Okt 2026** | `build_training_table.py` dibuat. Menggabungkan `era5_daily` + `fire_daily` + `features_daily` + `static_features` + label hotspot menjadi satu tabel per (tanggal, sel). **Anti-bocor:** cuaca dan indeks api digeser 1 hari per sel; fitur turunan dipakai APA ADANYA (sudah digeser di sumbernya -- jangan digeser dua kali); kolom iklim bulan berjalan (`nino34`, `dmi`) DIBUANG karena rata-rata bulan T masih memuat hari T. Bulan SEBELUMNYA dibaca sebagai konteks agar hari pertama bulan tidak kosong; sel laut dibuang. Kolom target: `n_hotspot`, `n_hotspot_high`, `max_frp`, `ada_api`. **Bukti 2023-07/08:** 111.073 baris x 47 kolom per bulan, tanpa kunci ganda; cuaca tabel terbukti = era5 hari sebelumnya (cocok semua); 2023-08-01 terisi penuh. `test_training.py`: 15 OK |
 
 ### 9.1 Dua bug yang hanya terlihat setelah unduhan nyata (25 Okt 2026)
 

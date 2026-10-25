@@ -143,6 +143,12 @@ WORLDPOP_URL = ("https://data.worldpop.org/GIS/Population/Global_2000_2020_1km/"
 # EARTHDATA_USERNAME / EARTHDATA_PASSWORD.
 MCD64A1 = {"short_name": "MCD64A1", "version": "061"}
 
+# ---------------------------------------------------------------- label hotspot (milik tim lain)
+# Label titik api BUKAN bagian crawler ini; diambil anggota tim lain dan disimpan di
+# data/ repo (bukan data/ crawler). Dipakai hanya oleh build_training_table.py.
+# Path relatif terhadap folder crawler: ../../data -> APIKAH/data
+HOTSPOT_LABELS = Path("../../data/hotspot_indonesia_2012_2026-09.parquet")
+
 # ---------------------------------------------------------------- perilaku download
 RETRIES = 3
 BACKOFF_SECONDS = 30
