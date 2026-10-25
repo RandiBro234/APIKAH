@@ -62,8 +62,12 @@ def era5_request(year: int, month: int, group: str) -> dict:
     variables, times = ((config.ERA5_INSTANT, config.ERA5_INSTANT_TIMES) if group == "instant"
                         else (config.ERA5_ACCUM, config.ERA5_ACCUM_TIMES))
     n_fields = len(variables) * len(days) * len(times)
-    if n_fields > config.ERA5_FIELD_LIMIT:
-        raise ValueError(f"{n_fields} field > batas CDS {config.ERA5_FIELD_LIMIT}; kurangi variabel/jam")
+    # CDS membatasi "cost" (= 2 x field untuk dataset ini), bukan jumlah field.
+    cost = n_fields * config.ERA5_COST_PER_FIELD
+    if cost > config.ERA5_COST_LIMIT:
+        raise ValueError(
+            f"cost {cost} > batas CDS {config.ERA5_COST_LIMIT} "
+            f"({n_fields} field x {config.ERA5_COST_PER_FIELD}); kurangi variabel/hari/jam")
     return {
         "variable": variables, "year": str(year), "month": f"{month:02d}",
         "day": days, "time": times,
@@ -104,6 +108,13 @@ def run_era5(months, dry_run: bool) -> None:
 
 # ------------------------------------------------------------------ CEMS Fire
 def fire_request(year: int, month: int, dataset_type: str, with_area: bool) -> dict:
+    # CEMS Fire punya batas biaya sendiri (3720), terpisah dari batas ERA5-Land.
+    n_fields = len(config.FIRE_VARIABLES) * len(days_in_month(year, month))
+    cost = n_fields * config.FIRE_COST_PER_FIELD
+    if cost > config.FIRE_COST_LIMIT:
+        raise ValueError(
+            f"cost CEMS {cost} > batas {config.FIRE_COST_LIMIT} "
+            f"({n_fields} field x {config.FIRE_COST_PER_FIELD}); kurangi variabel/hari")
     req = {
         "product_type": config.FIRE_PRODUCT_TYPE,
         "variable": config.FIRE_VARIABLES,

@@ -5,5 +5,8 @@ netCDF4>=1.6
 pandas>=2.0
 pyarrow>=14
 numpy>=1.26
+scipy>=1.11       # SPI empiris di build_derived_features.py
+rasterio>=1.3     # fitur statis dari GeoTIFF: DEM, WorldCover, Hansen, WorldPop
+geopandas>=1.0    # vektor: batas wilayah, konsesi, jarak ke jalan/sungai OSM
 # opsional, hanya untuk MCD64A1 (burned area):
 earthaccess>=0.9

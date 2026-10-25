@@ -13,13 +13,17 @@ Dokumen serah-terima untuk developer atau agent lain yang melanjutkan pipeline i
 |---|---|
 | Struktur kode, retry, resume, manifest | Ditulis, lolos kompilasi, dry-run berjalan |
 | Logika agregasi harian (`postprocess_era5.py`) | Lolos uji dengan data sintetis (bukan data CDS asli) |
-| Logika tile Hansen/WorldCover/DEM dan parser PSL | Lolos uji offline |
-| Akses ke API/endpoint | **BELUM TERBUKTI.** Sandbox tempat kode ditulis memblokir semua koneksi keluar (HTTP 403 dari proxy), jadi tidak ada satu pun unduhan nyata yang pernah dijalankan |
-| Parameter request ERA5-Land | Disusun dari pola `cdsapi` umum; verifikasi lewat "Show API request" |
-| Parameter request CEMS Fire | **Belum terverifikasi** (nama variabel, `dataset_type`, `system_version`, `grid`, dukungan `area`) |
-| URL ENSO/DMI, WorldPop, DEM | Belum terverifikasi (lihat bagian 9) |
+| Logika tile Hansen/WorldCover/DEM dan parser PSL | **Sebagian terbukti (21 Okt 2026).** Konvensi nama tile dipastikan dengan membaca titik kiri-atas GeoTIFF asli, bukan dari ingatan (lihat bagian 2.1). Parser PSL diuji pada berkas PSL asli |
+| Akses ke API/endpoint | **Sebagian terbukti (21 Okt 2026).** Dari mesin berinternet: CDS & EWDS root + katalog hijau, dan SELURUH endpoint statis hijau (lihat `preflight.py`). Yang tetap belum: **unduhan data nyata** — butuh kredensial + penerimaan lisensi manual |
+| Parameter request ERA5-Land | **Nama parameter terverifikasi (21 Okt 2026)** lewat `verify_params.py`: 9 variabel, 4 jam, `netcdf`, `unarchived`, urutan `area`, dan kunci request cocok persis dengan 8 input resmi. Sisa: nama variabel DI DALAM berkas NetCDF belum dicek |
+| Parameter request CEMS Fire | **Nama parameter terverifikasi (21 Okt 2026)**: 4 variabel, `product_type`, `dataset_type`, `system_version=4_1`, `grid`, dan dukungan `area` cocok dengan 14 nilai enum + 10 input resmi. Sisa: perilaku `intermediate_dataset` per bulan belum diuji |
+| URL ENSO/DMI, WorldPop, DEM | **Terverifikasi (21 Okt 2026).** Satu URL ternyata mati dan sudah diperbaiki: `nino34.long.anom.data` (404) -> `data/correlation/nina34.anom.data` |
+| Batas field ERA5-Land | **Bisa dibaca API, dan satuannya beda dari dokumentasi (24 Okt 2026).** Dokumentasi CDS menulis "12.000 field", tetapi API membatasi nilai **`cost`**, dan `cost = 2 x field`. Batas field praktis = **6.000**, bukan 12.000. Guard di `era5_request()` sudah diperbaiki |
+| Batas field CEMS Fire | **Baru ketahuan 24 Okt 2026: 3.720** (`cost = variabel x hari`). Sebelumnya tidak dijaga sama sekali; sekarang ada guard di `fire_request()` |
 
-Aturan utama: jalankan `preflight.py` di mesin yang punya internet **sebelum** crawl apa pun, dan jangan percaya klaim "tersedia" di dokumen ini sebelum preflight hijau.
+Aturan utama: jalankan `preflight.py` **dan** `verify_params.py` di mesin yang punya internet
+**sebelum** crawl apa pun. `verify_params.py` tidak butuh kredensial, jadi bisa dijalankan lebih dulu.
+Jangan percaya klaim "tersedia" di dokumen ini sebelum kedua skrip itu hijau.
 
 ## 2. Struktur folder
 
@@ -28,6 +32,7 @@ hotspot_crawler/
   config.py              # satu-satunya tempat parameter (rentang, area, variabel, URL)
   common.py              # iter_months, with_retry, download_file (resume .part), manifest, helper tile
   preflight.py           # cek library, kredensial, endpoint, dataset ada, limit, disk
+  verify_params.py       # validasi config.py vs enum/skema resmi CDS+EWDS (tanpa kredensial)
   crawl_copernicus.py    # ERA5-Land (CDS) + CEMS Fire (EWDS), per bulan
   crawl_static.py        # ENSO/DMI, batas wilayah, Hansen, WorldCover, DEM, OSM, WorldPop, MCD64A1, gambut
   postprocess_era5.py    # NetCDF mentah -> parquet harian per sel 0,25 derajat
@@ -41,6 +46,23 @@ hotspot_crawler/
     logs/{copernicus,static,postprocess}.log  dan  manifest_*.json
 ```
 
+### 2.1 Konvensi nama tile (sudah dipastikan, jangan diganti tanpa bukti)
+
+Sumber peta tile sering dinamai dari sudut yang berbeda-beda. Yang berlaku di kode ini,
+**diverifikasi 21 Oktober 2026 dengan membaca tag `ModelTiepoint` di header GeoTIFF asli**
+(bukan dari dokumentasi atau ingatan):
+
+| Produk | Penamaan | Bukti |
+|---|---|---|
+| Hansen GFC | tepi **UTARA**, kotak 10 derajat | `Hansen_..._00N_090E.tif` titik kiri-atasnya `lat=0.0, lon=90.0` -> menutupi lintang 0 s/d -10 |
+| Copernicus DEM 90m | sudut **BARAT-DAYA**, kotak 1 derajat | URL `S06_00_E102_00` hidup, `N06_00_E096_00` 404 (laut) |
+| ESA WorldCover | sudut **BARAT-DAYA**, kotak 3 derajat | `S06E102` hidup, `S06E093` 404 (laut) |
+
+Catatan Hansen: karena label = tepi utara, `hansen_tiles()` menambahkan 10 ke lintang
+kiri-bawah. Untuk bbox `sumkal` hasilnya 6 tile (`00N`+`10N` x `090E`+`100E`+`110E`),
+menutupi lintang -10..10 yang mencakup bbox -6..6. Tile 404 di lautan **normal** dan
+dicatat dengan status `missing`, bukan kegagalan.
+
 ## 3. Cara menjalankan (urutan wajib)
 
 ```bash
@@ -52,6 +74,7 @@ pip install -r requirements.txt
 #    (format: dua baris "url: ..." dan "key: ...")
 #    Terima lisensi dataset secara manual di halaman ERA5-Land dan CEMS Fire.
 
+python verify_params.py                      # tanpa kredensial: config vs enum resmi CDS/EWDS
 python preflight.py                          # harus tanpa FAIL untuk sumber yang dipakai
 python crawl_copernicus.py all --dry-run     # lihat request tanpa mengirim
 python crawl_copernicus.py era5 --from 2023-07 --to 2023-07   # uji satu bulan dulu
@@ -76,7 +99,47 @@ Semua skrip idempoten: file yang sudah ada dilewati, unduhan terputus dilanjutka
 | `FIRE_VARIABLES` | FWI, DC, DMC, KBDI | Nama belum terverifikasi |
 | `FIRE_INTERMEDIATE_LAST_N_MONTHS` | 4 | Bulan terbaru dicoba sebagai `intermediate_dataset` dulu |
 
-Alasan desain ERA5-Land: batas CDS untuk ERA5-Land hourly adalah 12.000 field per request (variabel x hari x jam). Mengambil 24 jam penuh membuat file sangat besar. Karena itu variabel instan hanya diambil 4 jam per hari (07, 13, 19, 01 WIB, sehingga RH minimum siang tertangkap) dan variabel akumulasi cukup 1 nilai per hari. Per request: 744 field (instan) dan 93 field (akumulasi), jauh di bawah batas.
+Alasan desain ERA5-Land: batas CDS adalah **cost 12.000 per request**, dan untuk dataset ini
+`cost = 2 x (variabel x hari x jam)` -> **6.000 field** per request. (Dokumentasi CDS menulis
+"12.000 field"; satuannya berbeda dan angka itu terlalu longgar 2x. Diukur 24 Okt 2026.)
+Mengambil 24 jam penuh membuat file sangat besar. Karena itu variabel instan hanya diambil
+4 jam per hari (00, 06, 12, 18 UTC = 07, 13, 19, 01 WIB, sehingga RH minimum siang tertangkap)
+dan variabel akumulasi cukup 1 nilai per hari. Per request: 744 field (instan) dan 93 field
+(akumulasi) = cost 1488 (12,4%) dan 186 (1,6%), jauh di bawah batas.
+
+Catatan penting: karena `cost = 2 x field` untuk ERA5-Land tetapi `cost = 1 x field` untuk
+CEMS Fire, **jangan pakai satu rumus yang sama untuk keduanya.** Dua konstanta terpisah ada di
+`config.py` (`ERA5_COST_PER_FIELD`, `FIRE_COST_PER_FIELD`).
+
+### 4.1 Opsi "rata-rata bulanan" dan mengapa belum dipakai (24 Okt 2026)
+
+Ada dataset `reanalysis-era5-land-monthly-means`. Diukur: **seluruh 177 bulan bisa diambil
+dalam SATU request** (1620 field, cost 3240 dari limit 120.000), dan kesembilan variabel yang
+kita pakai tersedia. Jadi dari sisi biaya sangat murah.
+
+**Belum dipakai karena dua alasan:**
+
+1. **Informasi harian hilang permanen.** Agregasi harian -> bulanan selalu bisa dilakukan
+   kapan saja; arah sebaliknya tidak. Dua bulan dengan total hujan sama tetapi pola berbeda
+   (merata vs 28 hari kering lalu hujan besar) menghasilkan rata-rata bulanan yang identik,
+   padahal risiko apinya sangat berbeda. Fitur seperti hari kering beruntun dan akumulasi
+   hujan 7/14/30 hari hanya bisa dihitung dari data harian.
+2. **CEMS Fire tidak punya versi bulanan.** Hanya ada `cems-fire-historical-v1` (harian) dan
+   `cems-fire-seasonal` (prakiraan). Jadi 177 request EWDS tetap harus dijalankan, dan itu
+   justru bagian yang paling lambat. Beralih ke bulanan untuk ERA5-Land hanya menghemat sisi
+   CDS, tidak menghilangkan hambatan utamanya.
+
+**Keputusan sementara: unduh harian, tunda keputusan bulanan ke tahap fitur.** Karena versi
+bulanan hanya 1 request dan filenya kecil, mengambilnya juga sebagai cadangan hampir tanpa
+biaya. Kalau target model akhirnya memang bulanan, agregasi dilakukan di `build_derived_features.py`
+(TODO #16) — dengan fitur sub-bulanan dihitung LEBIH DULU, baru diringkas ke bulanan.
+
+**Jangan memadatkan beberapa bulan ke satu request.** Terukur bahwa 8 bulan bisa masuk satu
+request (5.376 field, 89,6%), tetapi: (a) dokumentasi CDS justru menyarankan request kecil
+karena request besar dapat prioritas antrean lebih rendah; (b) resume jadi kasar — satu
+kegagalan membuang 8 bulan kerja; (c) `apply_constraints` tidak bisa diandalkan untuk
+kombinasi bulan/hari yang tidak valid (mis. Februari + tanggal 30), sehingga kesalahan bisa
+lolos tanpa terdeteksi. Desain per bulan tetap dipakai.
 
 ## 5. Kontrak data
 
@@ -89,6 +152,8 @@ Satu baris per (hari, sel 0,25 derajat). Kunci: `date` (hari UTC), `lat_c`, `lon
 | `t2m_mean/max/min` | derajat C | rata-rata/ekstrem 4 langkah waktu |
 | `rh_mean`, `rh_min` | % | Magnus dari t2m dan d2m, dihitung per langkah waktu lalu diagregasi |
 | `wind_mean`, `wind_max` | m/s | sqrt(u10^2 + v10^2) |
+| `u10_mean`, `v10_mean` | m/s | KOMPONEN angin mentah, bukan sudut -- untuk transport asap (25 Okt 2026) |
+| `vpd_mean`, `vpd_max` | kPa | `es(T) - es(Td)` rumus Magnus; prediktor cuaca-api terpenting (25 Okt 2026) |
 | `swvl1_mean`, `swvl4_mean` | m3/m3 | lapisan 0-7 cm dan 100-289 cm |
 | `precip_mm` | mm | tp pada 00:00 UTC hari D+1 x 1000, diberi tanggal hari D |
 | `ssrd_mjm2` | MJ/m2 | ssrd pada 00:00 UTC hari D+1 / 1e6 |
@@ -100,14 +165,18 @@ Catatan: "hari" adalah hari UTC, bukan WIB. Selisih 7 jam bisa penting untuk pre
 
 - `data/static/climate_index/{nino34,dmi}.csv`: kolom `year,month,<nama>`; nilai hilang dibuang. File mentah disimpan berdampingan (`.raw.txt`).
 - `data/static/boundaries/idn_adm{1,2}.geojson`: dari geoBoundaries gbOpen; cek `*.meta.json` untuk lisensi (file IDN tercatat ODbL di HDX).
-- `data/raw/cems_fire/YYYY-MM.nc`: belum ada skrip postprocess (lihat TODO).
+- `data/raw/cems_fire/YYYY-MM.nc`: diolah oleh `postprocess_fire.py` -> `data/processed/fire_daily/YYYY-MM.parquet` (kolom `date, lat_c, lon_c, fwi, dc, dmc, kbdi`; perhatikan nama variabel NetCDF berbeda dari nama request dan gridnya berselisih setengah sel -- bagian 9.2).
+- `data/processed/static_features.parquet`: satu baris per `(lat_c, lon_c)`; keluaran `build_static_features.py`.
+- `data/processed/features_daily/YYYY-MM.parquet`: fitur turunan harian; keluaran `build_derived_features.py`. Kolom turunan digeser `--lag` hari (default 1) sehingga berasal dari <= T-1 (uji anti-bocor ada di `test_derived.py`).
+- Setiap berkas `era5_daily/YYYY-MM.parquet` memuat **tepat bulan itu** (31 hari untuk Juli). Hari terakhir bulan dilengkapi dengan membaca berkas accum bulan BERIKUTNYA (bagian 9.1).
 - `data/logs/manifest_*.json`: `{kunci: {status: ok|failed|skipped|missing|manual_pending, note, ts}}`. Gunakan ini untuk membuat laporan kelengkapan.
 
 ## 6. Limitasi layanan
 
 | Layanan | Limit/syarat | Dampak pada desain |
 |---|---|---|
-| CDS ERA5-Land | Maks 12.000 field per request. Request yang melebihi batas masuk antrean. Jumlah request per user tidak dipublikasikan dan sering berubah | Request kecil per bulan, sekuensial, retry + resume. Sudah ada guard di `era5_request()` |
+| CDS ERA5-Land | Batas API: `cost` maks **12.000**, dan `cost = 2 x field` -> **6.000 field** per request. Dokumentasi CDS menulis "12.000 field" karena memakai satuan berbeda | Request kecil per bulan, sekuensial, retry + resume. Guard di `era5_request()` memakai satuan `cost` yang benar |
+| EWDS CEMS Fire | Batas API: `cost` maks **3.720**, dan `cost = variabel x hari` (rasio 1, beda dari ERA5-Land) | Pemakaian 4 variabel x 31 hari = 124 (3,3%). Guard di `fire_request()` |
 | CDS/EWDS | Lisensi harus diterima manual per dataset; akun ECMWF gratis | Preflight mengingatkan; error lisensi muncul saat request pertama |
 | CEMS Fire | Hanya di EWDS (sejak 26 Sep 2024), bukan CDS | Klien terpisah dan kredensial terpisah |
 | ERA5T | Data terbaru sekitar 5 hari di belakang waktu nyata | Bulan berjalan tidak diambil; fitur real-time harus dari sumber prakiraan terpisah |
@@ -133,6 +202,12 @@ Semua angka limit di atas berasal dari halaman dokumentasi resmi yang dibaca pad
 - Skrip dijalankan tanpa flag `python -I` (mode itu menyembunyikan modul lokal).
 - Tambahkan uji untuk setiap fungsi murni (tile, parser, agregasi); uji jaringan dipisahkan dan hanya dijalankan manual.
 - Hormati batas: jangan menambah paralelisme ke CDS/EWDS tanpa mengukur dampak antrean.
+- **Klaim tentang sumber luar wajib berbukti.** Nama tile, nama variabel, dan format berkas harus
+  dipastikan dari sumber aslinya (header berkasnya sendiri, atau skema API resmi), lalu bukti itu
+  ditulis di dokumen ini. Contoh nyata: konvensi tile Hansen di bagian 2.1 awalnya diasumsikan
+  dari ingatan; setelah dibuktikan dengan membaca `ModelTiepoint`, asumsinya benar, tetapi itu
+  kebetulan, bukan jaminan. URL Niño 3.4 juga diasumsikan benar dan ternyata 404.
+- Sebelum crawl apa pun: `python verify_params.py` (tanpa kredensial) lalu `python preflight.py`.
 
 ## 9. TODO untuk developer/agent berikutnya
 
@@ -140,24 +215,79 @@ Urutkan sesuai prioritas. Setiap butir punya kriteria selesai.
 
 | # | Tugas | Kriteria selesai |
 |---|---|---|
-| 1 | Jalankan `preflight.py` di mesin berinternet; perbaiki semua FAIL | Output tanpa FAIL untuk `cds`, `ewds`, `noaa`, `static` |
-| 2 | Verifikasi parameter ERA5-Land lewat "Show API request"; uji 1 bulan (2023-07) | Dua file `.nc` terunduh; `postprocess_era5.py` menghasilkan parquet; nama variabel NetCDF (`t2m`, `d2m`, `u10`, `v10`, `swvl1`, `swvl4`, `tp`, `ssrd`, `pev`) dan koordinat waktu (`valid_time`) sesuai; sesuaikan `SHORT`/`time_name` bila beda |
-| 3 | Verifikasi parameter CEMS Fire (nama variabel, `dataset_type`, `system_version`, `grid`, dukungan `area`); uji 1 bulan | `data/raw/cems_fire/2023-07.nc` terunduh; `config.FIRE_*` diperbarui sesuai kenyataan; hapus peringatan di config |
-| 4 | Tulis `postprocess_fire.py` (NetCDF CEMS -> parquet harian per sel 0,25 derajat; grid sudah 0,25 sehingga cukup pilih sel dalam bbox) | Kolom `fwi`, `dc`, `dmc`, `kbdi` per `date, lat_c, lon_c`; uji sintetis seperti ERA5 |
+| 1 | ~~Jalankan `preflight.py` di mesin berinternet; perbaiki semua FAIL~~ **SELESAI 21 Okt 2026** | `preflight.py`: 20 OK, 2 WARN, 2 FAIL — dan kedua FAIL hanya kredensial CDS/EWDS yang belum dibuat (bukan masalah kode). Semua endpoint `cds`, `ewds`, `noaa`, `static` hijau. Bug yang ditemukan & diperbaiki: URL Niño 3.4 mati (404) -> diganti |
+| 1b | ~~Tambahkan verifikasi parameter otomatis~~ **SELESAI 21 Okt 2026** | `verify_params.py` ditambahkan; menjalankan `python verify_params.py` -> 20 OK, 0 FAIL, tanpa kredensial. Menggantikan langkah manual "Show API request" untuk pengecekan NAMA parameter |
+| 2 | Verifikasi parameter ERA5-Land **SELESAI 25 Okt 2026** | Unduhan nyata 2023-07 (area `indonesia`) berhasil: instant 34,745 MB, accum 6,024 MB. Nama variabel NetCDF **terbukti dari berkas**: `t2m, d2m, u10, v10, swvl1, swvl4` + `tp, ssrd, pev`, koordinat `valid_time` -- cocok persis dengan `SHORT`/`time_name` di `postprocess_era5.py`. `postprocess_era5.py` menghasilkan parquet (420.391 baris, 31 hari). **Bonus: dua bug ditemukan & diperbaiki** (lihat bagian 9.1) |
+| 3 | Verifikasi parameter CEMS Fire **SELESAI 25 Okt 2026** | `data/raw/cems_fire/2023-07.nc` terunduh (1,804 MB). Nama variabel **terbukti**: `fwinx, drtcode, dufmcode, kbdi` -- **bukan** `fire_weather_index` dst. Perilaku `dataset_type` per bulan sudah diverifikasi lewat `verify_params.py` (Agt-Sep 2026 hanya `intermediate_dataset`) |
+| 4 | `postprocess_fire.py` **SELESAI 25 Okt 2026** | Ditulis dan teruji pada berkas asli: 420.391 baris, 31 hari, kunci identik dengan `era5_daily`. Menangani **dua jebakan**: (a) nama variabel NetCDF berbeda dari nama request; (b) grid CEMS berselisih **setengah sel** dari grid label -> dirata-ratakan 4 sel, kalau tidak akan NOL baris cocok. Lihat bagian 9.2 |
 | 5 | Pastikan pusat sel ERA5-Land (0,1 derajat) dan grid label hotspot 0,25 derajat konsisten (konvensi pusat sel `n*0,25+0,125`) | Uji: tiap sel 0,25 derajat punya jumlah sel-sumber yang masuk akal (sekitar 6 sel 0,1 derajat per sel penuh di darat, karena 0,25/0,1 = 2,5 per sisi; sel pesisir lebih sedikit) |
 | 6 | Verifikasi URL ENSO/DMI (`psl.noaa.gov/gcos_wgsp/Timeseries/Data/...`), WorldPop, dan pola URL DEM | `preflight --only noaa static` hijau; perbarui `config.py` bila URL berubah |
-| 7 | Tambah laporan kelengkapan dari manifest (bulan gagal, bulan hilang, ukuran file) | `python report_manifest.py` mencetak ringkasan dan daftar bulan yang perlu diulang |
+| 7 | ~~Tambah laporan kelengkapan dari manifest~~ **SELESAI 25 Okt 2026** | `report_manifest.py` dibuat. Membedakan `belum` / `gagal` / `hilang` (manifest bilang ok tapi berkas tidak ada), membandingkan manifest dengan daftar yang seharusnya ada DAN berkas di disk. Diuji: benar melaporkan 354 + 177 = 531 kunci |
 | 8 | Skrip agregasi lapisan statis ke grid (fraksi gambut, fraksi WorldCover, rata-rata elevasi/slope, loss Hansen tahunan, jarak OSM) | Tabel `static_features.parquet` per `lat_c, lon_c` |
 | 9 | Pipeline real-time: sumber cuaca untuk H+1 sampai H+3 (ERA5T/prakiraan) dengan koreksi bias terhadap ERA5-Land | Dokumen keputusan + skrip harian terjadwal (cron) |
 | 10 | Validasi silang: bandingkan sampel `precip_mm` dengan sumber lain (CHIRPS/BMKG) untuk beberapa sel | Plot/tabel selisih; catat bias |
-| 11 | (Opsional) coba `derived-era5-land-daily-statistics` (belum diverifikasi ada) sebagai pengganti pengambilan 4 jam | Perbandingan hasil dan ukuran file; adopsi hanya bila lebih sederhana |
+| 11 | ~~coba `derived-era5-land-daily-statistics` sebagai pengganti pengambilan 4 jam~~ **SELESAI 24 Okt 2026: JANGAN DIPAKAI** | Dataset itu **ADA**, tetapi **tidak layak menggantikan** cara sekarang: dari 31 variabelnya, `total_precipitation`, `surface_solar_radiation_downwards`, dan `potential_evaporation` **tidak tersedia**, dan statistiknya hanya `daily_mean`/`daily_minimum`/`daily_maximum` — **tidak ada `daily_sum`**, padahal hujan dan radiasi butuh penjumlahan. Hujan adalah prediktor terpenting untuk kebakaran, jadi dataset ini justru membuang variabel paling penting. Cara lama (ambil 4 jam lalu agregasi sendiri) tetap dipakai. Sisi baiknya: dataset ini mendukung `time_zone=utc+07:00`, jadi konvensi WIB bisa dipakai bila kelak dibutuhkan |
 | 12 | Tambah crawler **konsesi sawit/HTI** (bagian 11.2) ke `crawl_static.py` dan `config.py` | File poligon terunduh; lisensi tiap sumber dicatat di manifest; hasil `preflight` untuk URL baru hijau |
 | 13 | Tambah crawler **kanal drainase gambut** Dadap dkk. 2021 (bagian 11.2) | Berkas Stanford terunduh; lisensi dicek dan dicatat |
-| 14 | Hitung **VPD** (dan opsional arah angin sin/cos) di `postprocess_era5.py` (bagian 11.3) | Kolom `vpd_mean`, `vpd_max` ada di parquet; uji sintetis lulus |
-| 15 | Tulis `build_static_features.py`: agregasi semua lapisan statis ke sel 0,25 derajat (bagian 11.4) | `static_features.parquet` dengan satu baris per `lat_c, lon_c`; tidak ada sel ganda |
-| 16 | Tulis `build_derived_features.py`: fitur turunan dari tabel harian (bagian 11.5) | Akumulasi hujan, hari kering beruntun, SPI/SPEI, lag; uji anti-bocor (tidak ada fitur dari hari T) |
+| 14 | ~~Hitung **VPD** (dan opsional arah angin sin/cos)~~ **SELESAI 25 Okt 2026** | `postprocess_era5.py` kini menghitung `vpd_mean`/`vpd_max` (rumus Magnus) dan menyimpan **`u10_mean`/`v10_mean`** (komponen mentah, bukan sudut). Diuji `test_postprocess.py`: 17 OK (termasuk nilai acuan VPD 1,110 kPa pada T=20/Td=10 dan slope kasus 45 derajat) |
+| 15 | ~~Tulis `build_static_features.py`~~ **SELESAI 25 Okt 2026** | Ditulis. Menangani DEM (elevasi + **slope** dengan koreksi kosinus per lintang), WorldCover (fraksi 11 kelas), Hansen (treecover + `loss_frac_{1,3,5}y` dengan lag), WorldPop, gambut, dan OSM (opt-in). Raster besar dibaca dengan `out_shape` supaya tidak pernah masuk memori penuh. `test_static.py`: **18 OK**; `smoke_static.py`: **LULUS** (17 cek end-to-end) |
+| 16 | ~~Tulis `build_derived_features.py`~~ **SELESAI 25 Okt 2026** | Ditulis. Isi: hujan berjalan 3/7/14/30 hari, rentetan hari kering, anomali klimatologis (suhu/RH/VPD/hujan), SPI empiris 30 & 90, indeks ENSO/IOD + lag 1-3 bulan, kalender. **Uji anti-bocor lulus** (`test_derived.py`: 16 OK) -- cuaca hari >= T diubah, fitur hari T tidak berubah. Sisa opsional: SPI gamma klasik via `climate-indices` |
 | 17 | Putuskan jalur **gambut** (bagian 11.2): GFW Global Peatlands sebagai utama; coba BBSDLP 2019 hanya bila bisa diunduh | Catatan keputusan + file ada di `data/static/peatlands/` |
 | 18 | Opsi validasi eksternal: CHIRPS v3, NASA POWER, atau BMKG Data Online untuk membandingkan hujan ERA5-Land (bagian 11.6) | Tabel selisih untuk beberapa sel/stasiun, bias dicatat |
+| 19 | **Tulis skrip penggabung** -> satu tabel latih per (tanggal, sel) | `era5_daily` + `fire_daily` + `features_daily` + `static_features` + label hotspot, satu baris per `(date, lat_c, lon_c)`, tanpa kunci ganda, sel laut dibuang. **INI SATU-SATUNYA SISA** untuk bisa training |
+
+### 9.1 Dua bug yang hanya terlihat setelah unduhan nyata (25 Okt 2026)
+
+Keduanya menghasilkan kesalahan **diam-diam** (tanpa error), jadi tidak akan tertangkap
+oleh `verify_params.py` maupun uji fungsi murni.
+
+**Bug A -- hari terakhir setiap bulan kehilangan hujan, radiasi, dan PET.**
+Nilai akumulasi ERA5-Land pada 00:00 UTC tanggal 1 bulan berikutnya adalah total untuk hari
+terakhir bulan ini, jadi letaknya di berkas bulan **berikutnya**.
+
+- `2023-07-31` punya suhu tetapi `precip_mm`/`ssrd_mjm2`/`pev_mm` KOSONG untuk semua 3.583 sel darat
+- Fatal karena `hujan_7h/14h/30h` memakai `min_periods = jendela penuh`: satu nilai kosong
+  membuat fitur hujan **NaN sampai 30 hari ke depan** (~360 hari per tahun)
+- Diperbaiki di `process_month()` dengan **lookahead** ke berkas accum bulan berikutnya
+- Sekaligus: keluaran dipotong ke bulan itu saja (sebelumnya terbawa hari "leak-back" bulan
+  sebelumnya -> 32 hari, dan hari itu muncul di dua berkas)
+- Dan: bulan **tidak dianggap selesai** sampai accum bulan berikutnya ada. Kalau tidak,
+  `done(dest)` akan melewatinya selamanya dan perbaikan tidak pernah terjadi
+
+**Bukti terukur 2023-07:** sebelum = **433.952 baris / 32 hari**; sesudah = **420.391 baris / 31 hari**.
+
+**Bug B -- lapisan gambut mencari folder yang salah.**
+`build_static_features.py` mencari `data/static/peat`, padahal `crawl_static.py` menyimpan di
+`data/static/peatlands/`. **Peta gambut tidak akan pernah terbaca.** Diperbaiki dengan peta
+`DIRS` (lapisan -> folder). Ditemukan oleh **`smoke_static.py`**, bukan oleh uji fungsi murni --
+alasan konkret kenapa uji end-to-end perlu ada.
+
+`verify_params.py` kini punya **LAPIS 0** yang memeriksa invarian `config.py` tanpa jaringan,
+termasuk memastikan setiap lapisan statis punya folder di `DIRS`. Target baru: **60 OK, 0 FAIL**.
+
+### 9.2 Grid CEMS Fire berselisih SETENGAH SEL dari grid label
+
+Pusat sel CEMS Fire ada di **kelipatan 0,25** (94.0, 94.25, ... 141.5; lat 6.0 .. -11.5),
+sedangkan grid label dan ERA5 memakai **n*0,25 + 0,125**. Keduanya 71 x 191 sel tetapi
+bergeser 0,125. Menggabungkan langsung berdasarkan koordinat menghasilkan **NOL baris cocok**
+-- fitur api jadi NaN semua, **tanpa error apa pun**.
+
+Karena pusat sel CEMS jatuh tepat di **tepi** sel label, tumpang tindih areanya selalu 50/50
+per arah, jadi nilai sel label = **rata-rata 4 sel CEMS** di sekitarnya. `postprocess_fire.py`
+melakukan itu dan mengabaikan NaN supaya sel pesisir tidak kosong hanya karena satu
+tetangganya laut.
+
+Nama variabel di NetCDF juga **berbeda** dari nama parameter request:
+
+| Request | Isi NetCDF |
+|---|---|
+| `fire_weather_index` | `fwinx` |
+| `drought_code` | `drtcode` |
+| `duff_moisture_code` | `dufmcode` |
+| `keetch_byram_drought_index` | `kbdi` |
+
+**Bukti:** gabung `inner` era5 x fire = **420.391 baris** (sama, tanpa kunci ganda). Pusat sel
+lulus uji `% 0,25 == 0,125`. Cakupan di sel darat: **FWI 98,6%**, hujan 96,8%.
 
 ## 11. Cakupan variabel dan rencana penambahan
 

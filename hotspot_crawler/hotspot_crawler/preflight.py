@@ -42,16 +42,34 @@ def check_libs() -> None:
 
 
 # ------------------------------------------------------------------ 2. kredensial
+# Nilai contoh dari template TIDAK boleh dianggap kredensial sah: kalau lolos,
+# preflight melaporkan OK padahal request pertama pasti ditolak 401.
+PLACEHOLDERS = {
+    "ganti_dengan_token_cds_kamu", "ganti_dengan_token_ewds_kamu", "ganti_disini",
+    "token_di_sini", "personal-access-token", "<personal-access-token>",
+    "changeme", "xxx", "your-token-here",
+}
+
+
+def key_state(key: str | None) -> tuple[bool, str]:
+    if not key or not key.strip():
+        return False, "belum ada"
+    if key.strip().lower() in PLACEHOLDERS:
+        return False, f"masih nilai contoh ({key.strip()}) - ganti dengan token asli dari situsnya"
+    return True, "ada"
+
+
 def check_creds(only: set[str]) -> None:
     if "cds" in only:
         rc = read_rc(Path.home() / ".cdsapirc")
-        key = os.getenv("CDSAPI_KEY") or rc.get("key")
-        rec(OK if key else FAIL, "kredensial CDS", "ada" if key else "buat ~/.cdsapirc (url + key dari profil CDS)")
+        ok, msg = key_state(os.getenv("CDSAPI_KEY") or rc.get("key"))
+        rec(OK if ok else FAIL, "kredensial CDS",
+            msg if ok else f"{msg}; isi ~/.cdsapirc (url + key dari cds.climate.copernicus.eu/how-to-api)")
     if "ewds" in only:
         rc = read_rc(Path.home() / ".ewdsapirc")
-        key = os.getenv("EWDS_API_KEY") or rc.get("key")
-        rec(OK if key else FAIL, "kredensial EWDS",
-            "ada" if key else "buat ~/.ewdsapirc (url=https://ewds.climate.copernicus.eu/api + key dari profil EWDS)")
+        ok, msg = key_state(os.getenv("EWDS_API_KEY") or rc.get("key"))
+        rec(OK if ok else FAIL, "kredensial EWDS",
+            msg if ok else f"{msg}; isi ~/.ewdsapirc (url=https://ewds.climate.copernicus.eu/api + key dari ewds.climate.copernicus.eu/how-to-api)")
     if "earthdata" in only:
         ok = os.getenv("EARTHDATA_USERNAME") and os.getenv("EARTHDATA_PASSWORD")
         rec(OK if ok else WARN, "kredensial Earthdata", "ada" if ok else "belum diset (hanya perlu untuk burned area)")
