@@ -9,7 +9,7 @@ Diperbarui 2026-10-31, setelah verifikasi akhir refactor.
 - Climate index NOAA sekarang dibaca sebagai Parquet; sumber `.raw.txt` disimpan untuk provenance.
 - Audit jumlah baris menunjukkan CSV hotspot legacy hanya 1.048.575 baris, sedangkan Parquet memuat 3.941.038. Keduanya **tidak setara**; CSV lama tetap tracked untuk kompatibilitas/historis, tetapi jangan digunakan sebagai tabel lengkap. Parquet adalah tabel kanonis.
 - `features_processed/` memiliki sembilan file total: dua climate-index Parquet kecil tracked; tujuh keluaran lama untuk dua bulan (~81.8 MB, file terbesar 16.2 MB) tetap lokal/untracked karena hanya sampel parsial dan lisensi redistribusi belum diaudit. Hasil pipeline lengkap 2012–2026 belum dibangun.
-- MCD64A1 sudah diunduh tetapi sementara hanya raw HDF; tidak ada processor/fitur. Job crawl-nya mengunci direktori dan melewati dataset lengkap.
+- MCD64A1 sudah diunduh tetapi sementara hanya raw HDF; tidak ada processor/fitur. Job crawl-nya mengunci direktori dan hanya skip bila fingerprint query serta semua nama granula HDF cocok.
 - Label bulanan tetap di `hotspot_indonesia/` dan `hotspot_raw/`; tabel gabungan ada di `hotspot_indonesia/combined/`.
 
 ## Kode dan verifikasi

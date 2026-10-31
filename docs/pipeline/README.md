@@ -33,7 +33,7 @@ Semua path keluaran ditentukan dari lokasi package, bukan current working direct
 - Pertahankan sumber grid/vektor dalam format aslinya: ERA5/CEMS `.nc`, MCD64A1 `.hdf`, raster `.tif`, OSM `.pbf`, dan GeoJSON.
 - Tabel tabular yang sudah diparse/diolah disimpan sebagai Parquet. Climate-index NOAA yang dipakai pipeline tersedia di `data/features_processed/climate_index/{nino34,dmi}.parquet`; sumber teks `.raw.txt` tetap di `features_raw` untuk provenance.
 - ERA5/CEMS sudah memiliki processor menuju Parquet (`postprocess_era5.py`, `postprocess_fire.py`); raster statis masuk ke `static_features.parquet`. Feature builder membuat `features_daily` dan tabel training.
-- MCD64A1 untuk saat ini **hanya data mentah**; belum ada processor burned-area. Job `burned` memakai lock direktori dan melewati dataset lengkap berdasarkan manifest + jumlah granula lokal.
+- MCD64A1 untuk saat ini **hanya data mentah**; belum ada processor burned-area. Job `burned` memakai lock direktori dan skip hanya jika fingerprint query serta semua nama granula HDF yang diharapkan ada sebagai file lokal non-kosong.
 - CSV gabungan hotspot legacy hanya berisi 1.048.575 baris; Parquet gabungan berisi 3.941.038. Gunakan Parquet untuk analisis lengkap; CSV dipertahankan sebagai file historis/kompatibilitas.
 
 ## Setup dan kredensial

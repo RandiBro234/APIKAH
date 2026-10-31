@@ -39,6 +39,7 @@ Refactor bertujuan membuat struktur mudah dipahami dan dirawat, mengurangi kode 
 - Data mentah crawler dikecualikan dari Git. Data processed boleh di-track jika ukurannya wajar setelah audit; file besar dikecualikan.
 - Format sumber mentah non-tabular dipertahankan; tabel tabular/hasil olahan memakai Parquet. Snapshot teks sumber tetap dijaga untuk provenance, dan salinan CSV lama tidak dihapus sebelum konsumen serta kesetaraan datanya diverifikasi.
 - MCD64A1 sementara hanya disimpan sebagai data mentah; pemrosesan burned-area bukan bagian refactor ini.
+- MCD64A1 skip hanya dilakukan jika fingerprint parameter query cocok dan setiap nama granula yang disediakan CMR ada sebagai HDF non-kosong lokal; jumlah file saja tidak dianggap bukti lengkap.
 - Audit CSV/Parquet gabungan: CSV legacy 1.048.575 baris vs Parquet 3.941.038; hasil tidak setara. CSV dipertahankan tracked sebagai legacy, Parquet kanonis untuk analisis.
 - Tujuh hasil processed lama (~81.8 MB, hanya dua bulan) tetap lokal dan tidak di-track karena parsial dan lisensi redistribusi belum diverifikasi.
 - Perintah CLI serta skema hasil dipertahankan.
