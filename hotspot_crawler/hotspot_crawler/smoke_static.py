@@ -64,10 +64,12 @@ def siapkan_lapisan(static: Path) -> None:
     tif(static / "worldpop" / "idn_ppp_2020_1km_sintetis.tif",
         np.full((ny, nx), 10.0, "float32"), w, n)
 
-    # Gambut: 1 di kuadran kiri-atas. PENTING: folder bernama "peatlands".
-    peat = np.zeros((ny, nx), "float32")
-    peat[: ny // 2, : nx // 2] = 1.0
-    tif(static / "peatlands" / "peat_sintetis.tif", peat, w, n)
+    # Gambut: kuadran kiri-atas. Dua hal yang WAJIB: folder bernama "peatlands", dan nama
+    # berkas BAKU (dipakai `peat_berkas`). Nilainya PEAT_THRESHOLD, bukan 1 -- peta gambut
+    # asli berisi probabilitas 0-100, jadi `> 0` akan menandai hampir semua piksel.
+    peat = np.zeros((ny, nx), "uint8")
+    peat[: ny // 2, : nx // 2] = config.PEAT_THRESHOLD
+    tif(static / "peatlands" / b.PEAT_ROLES["extent"], peat, w, n)
 
 
 def main(argv=None) -> int:
@@ -148,11 +150,16 @@ def main(argv=None) -> int:
         # --- WorldPop
         cek("pop_density_mean ~10", np.allclose(d["pop_density_mean"].dropna().unique(), 10.0))
 
-        # --- Gambut (bug yang ditemukan smoke test: folder "peatlands", bukan "peat")
+        # --- Gambut. Dua bug nyata pernah ditemukan lewat smoke test: folder "peat"
+        #     (padahal "peatlands"), dan ambang `> 0` yang salah untuk peta probabilitas.
         cek("peat_fraksi ADA (folder peatlands terbaca)", "peat_fraksi" in d.columns)
         pf = d.get("peat_fraksi", pd.Series(dtype="float64")).dropna()
-        cek("peat_fraksi antara 0..1", len(pf) > 0 and bool(((pf >= 0) & (pf <= 1)).all()),
-            f"n={len(pf)}, rentang {pf.min() if len(pf) else '-'}..{pf.max() if len(pf) else '-'}")
+        cek("peat_fraksi ~0.25 (seperempat berkas)", len(pf) > 0 and np.allclose(pf.max(), 0.25, atol=0.02),
+            f"maks={pf.max() if len(pf) else '-'}")
+        cek("peat_loss_frac_1y ADA", "peat_loss_frac_1y" in d.columns)
+        pl = d.get("peat_loss_frac_1y", pd.Series(dtype="float64")).dropna()
+        cek("peat_loss_frac_1y antara 0..1", len(pl) > 0 and bool(((pl >= 0) & (pl <= 1)).all()),
+            f"maks={pl.max() if len(pl) else '-'}")
 
         # --- bentuk tabel
         cek("jumlah baris = 192", len(d) == 192, f"dapat {len(d)}")

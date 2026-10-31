@@ -208,32 +208,35 @@ def test_build_menempelkan_indeks_iklim_pada_bulan_yang_benar():
 @test
 def test_load_climate_membuat_lag_bulanan():
     """nino34_lag1 di bulan M harus sama dengan nino34 bulan M-1, dan seterusnya."""
-    tmp = Path(config.STATIC) / "climate_index"
-    ada = tmp.exists()
-    tmp.mkdir(parents=True, exist_ok=True)
-    dibuat = []
+    # WAJIB pakai folder sementara. Versi lama menulis ke `data/static/climate_index` ASLI dan
+    # hanya membersihkannya kalau FOLDER-nya baru dibuat. Karena mkdir meninggalkan foldernya,
+    # jalan kedua membuat `ada=True` -> berkas PALSU tertinggal selamanya, lalu crawl_static.py
+    # melihat berkasnya ada dan MELEWATI unduhan NOAA yang asli. Terbukti 28 Okt 2026:
+    # isinya cuma 6 baris tahun 2012 dengan nilai 0,1..0,6 (placeholder).
+    import tempfile
+
     bulan = [1, 2, 3, 4, 5, 6]
-    for name, vals in (("nino34", [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]),
-                       ("dmi", [0.0, 0.1, 0.2, 0.3, 0.4, 0.5])):
-        p = tmp / f"{name}.csv"
-        if p.exists():
-            continue
-        pd.DataFrame({"year": [2012] * len(bulan), "month": bulan, name: vals}).to_csv(p, index=False)
-        dibuat.append(p)
-    try:
-        clim = load_climate()
-        assert not clim.empty, "load_climate mengembalikan kosong"
-        for col in ("nino34_lag1", "nino34_lag2", "nino34_lag3"):
-            assert col in clim.columns, f"{col} tidak ada"
-        jun = clim[(clim["y"] == 2012) & (clim["m"] == 6)]
-        assert np.allclose(jun["nino34"], 0.6), f"dapat {jun['nino34'].to_numpy()}"
-        assert np.allclose(jun["nino34_lag1"], 0.5), f"lag1={jun['nino34_lag1'].to_numpy()}"
-        assert np.allclose(jun["nino34_lag2"], 0.4), f"lag2={jun['nino34_lag2'].to_numpy()}"
-        assert np.allclose(jun["nino34_lag3"], 0.3), f"lag3={jun['nino34_lag3'].to_numpy()}"
-    finally:
-        if not ada:
-            for p in dibuat:
-                p.unlink(missing_ok=True)
+    static_asli = config.STATIC
+    with tempfile.TemporaryDirectory() as td:
+        config.STATIC = Path(td)
+        try:
+            tmp = config.STATIC / "climate_index"
+            tmp.mkdir(parents=True, exist_ok=True)
+            for name, vals in (("nino34", [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]),
+                               ("dmi", [0.0, 0.1, 0.2, 0.3, 0.4, 0.5])):
+                pd.DataFrame({"year": [2012] * len(bulan), "month": bulan, name: vals}) \
+                    .to_csv(tmp / f"{name}.csv", index=False)
+            clim = load_climate()
+        finally:
+            config.STATIC = static_asli
+    assert not clim.empty, "load_climate mengembalikan kosong"
+    for col in ("nino34_lag1", "nino34_lag2", "nino34_lag3"):
+        assert col in clim.columns, f"{col} tidak ada"
+    jun = clim[(clim["y"] == 2012) & (clim["m"] == 6)]
+    assert np.allclose(jun["nino34"], 0.6), f"dapat {jun['nino34'].to_numpy()}"
+    assert np.allclose(jun["nino34_lag1"], 0.5), f"lag1={jun['nino34_lag1'].to_numpy()}"
+    assert np.allclose(jun["nino34_lag2"], 0.4), f"lag2={jun['nino34_lag2'].to_numpy()}"
+    assert np.allclose(jun["nino34_lag3"], 0.3), f"lag3={jun['nino34_lag3'].to_numpy()}"
 
 
 def main() -> int:

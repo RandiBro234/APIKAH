@@ -165,11 +165,17 @@ def distance_to_features(mask: np.ndarray, res_deg: float, row_lat) -> np.ndarra
 
 
 # ---------------------------------------------------------------- pembaca raster
-def read_decimated(path: Path, res_deg: float = RES_DEFAULT, categorical: bool = False):
+def read_decimated(path: Path, res_deg: float = RES_DEFAULT, categorical: bool = False,
+                   bbox: tuple[float, float, float, float] | None = None):
     """Baca band pertama pada resolusi diturunkan. Kembalikan (data, transform).
 
     Kategorikal -> resampling "mode" (kelas tidak boleh dirata-rata), dan nodata
     dipetakan ke -1. Kontinu -> resampling "average", nodata dipetakan ke NaN.
+
+    `bbox` = (barat, selatan, timur, utara) membatasi bacaan ke wilayah itu. Penting untuk
+    raster GLOBAL seperti peta gambut (43.200 x 18.285 piksel): tanpa pembatasan, satu
+    lapisan saja bisa memakan ratusan MB--GB padahal yang dipakai cuma Indonesia.
+    bbox=None harus berperilaku PERSIS seperti sebelumnya.
     """
     import rasterio
     from rasterio import Affine
@@ -178,14 +184,33 @@ def read_decimated(path: Path, res_deg: float = RES_DEFAULT, categorical: bool =
     with rasterio.open(path) as src:
         if src.count < 1 or src.width < 1 or src.height < 1:
             raise ValueError(f"raster kosong: {path}")
-        k = decimation_for(abs(src.transform.a), res_deg)
-        out_h = max(1, src.height // k)
-        out_w = max(1, src.width // k)
+        kwargs = {}
+        win_w, win_h, base_t = src.width, src.height, src.transform
+        if bbox is not None:
+            from rasterio.windows import from_bounds
+            # Pangkas bbox ke batas raster. Tanpa ini, bbox yang lebih luas dari raster
+            # (mis. uji dengan raster 0,25 derajat) akan minta jendela raksasa berisi
+            # piksel kosong -- lambat, boros memori, dan hasilnya menyesatkan.
+            bb = src.bounds
+            w, e = max(bbox[0], bb.left), min(bbox[2], bb.right)
+            s, n = max(bbox[1], bb.bottom), min(bbox[3], bb.top)
+            if not (w < e and s < n):
+                raise ValueError(f"bbox {bbox} tidak beririsan dengan raster {path.name}")
+            win = from_bounds(w, s, e, n, src.transform)
+            win = win.round_offsets().round_lengths()
+            if win.width < 1 or win.height < 1:
+                raise ValueError(f"bbox {bbox} tidak menyentuh raster {path.name}")
+            kwargs["window"] = win
+            base_t = src.window_transform(win)
+            win_w, win_h = int(win.width), int(win.height)
+        k = decimation_for(abs(base_t.a), res_deg)
+        out_h = max(1, win_h // k)
+        out_w = max(1, win_w // k)
         band = src.read(1, out_shape=(out_h, out_w),
-                        resampling=Resampling.mode if categorical else Resampling.average)
-        sx, sy = src.width / out_w, src.height / out_h
-        t = src.transform
-        tr = Affine(t.a * sx, t.b, t.c, t.d, t.e * sy, t.f)
+                        resampling=Resampling.mode if categorical else Resampling.average,
+                        **kwargs)
+        sx, sy = win_w / out_w, win_h / out_h
+        tr = Affine(base_t.a * sx, base_t.b, base_t.c, base_t.d, base_t.e * sy, base_t.f)
         nodata = src.nodata
     band = np.asarray(band, dtype="float64")
     if nodata is not None:
@@ -308,17 +333,181 @@ def build_worldpop(res_deg: float) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
 
 
-def build_peat(res_deg: float) -> pd.DataFrame:
-    """Fraksi luas gambut. Hanya raster .tif; shapefile perlu dirasterisasi lebih dulu."""
-    frames = []
-    for p in tiles("peat"):
-        band, tr = read_decimated(p, res_deg, categorical=False)
-        ids, n_ids, lat_c, lon_c, _, _ = grid_of(tr, band.shape)
-        frames.append(pd.DataFrame({
-            "lat_c": lat_c, "lon_c": lon_c,
-            "peat_fraksi": aggregate((band > 0).astype("float64"), ids, n_ids, "mean"),
-        }))
-    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+PEAT_ROLES = {                      # peran -> nama berkas di data/static/peatlands/
+    "extent": "peat_extent_1km_2000_2020.tif",
+    "thickness": "peat_thickness_1km_2000_2020.tif",
+    "carbon": "peat_carbon_1km_2000_2020.tif",
+}
+FINE_STEP = 0.05                    # derajat (~5,5 km), grid untuk mengawinkan gambut x Hansen
+
+
+PEAT_ROLE_KEYS = {                  # kata kunci untuk menebak peran dari NAMA berkas
+    "extent": ("extent", "luas", "peatland", "gambut"),
+    "thickness": ("thickness", "tebal", "depth"),
+    "carbon": ("carbon", "soc", "karbon"),
+}
+
+
+def peat_berkas() -> dict[str, Path]:
+    """Berkas gambut yang ada, dipetakan peran -> path. `extent` yang wajib.
+
+    Nama baku (hasil `crawl_static.py peat`) diutamakan. Kalau berkasnya bernama lain --
+    mis. peta gambut Indonesia dari WRI yang diunduh manual lalu dirasterisasi -- perannya
+    ditebak dari kata kunci nama berkas dan pilihannya DICATAT di log, supaya tidak ada
+    lapisan yang dipakai untuk peran yang salah tanpa disadari.
+    """
+    folder = config.STATIC / DIRS["peat"]
+    if not folder.exists():
+        return {}
+    out = {peran: folder / nama for peran, nama in PEAT_ROLES.items() if (folder / nama).exists()}
+    if "extent" in out:
+        return out
+    kandidat = sorted(p for p in folder.rglob("*")
+                      if p.is_file() and p.suffix.lower() in (".tif", ".tiff"))
+    for peran, kunci in PEAT_ROLE_KEYS.items():
+        if peran in out:
+            continue
+        for p in kandidat:
+            if any(k in p.name.lower() for k in kunci):
+                out[peran] = p
+                log.info("gambut '%s' <- %s (ditebak dari nama berkas)", peran, p.name)
+                break
+    if "extent" not in out and len(kandidat) == 1:
+        out["extent"] = kandidat[0]
+        log.info("gambut 'extent' <- %s (satu-satunya berkas .tif di folder)", kandidat[0].name)
+    return out
+
+
+def native_pixel_deg(path: Path) -> float:
+    """Ukuran piksel ASLI (derajat).
+
+    Dipakai untuk membaca peta gambut pada resolusi aslinya. Kalau dibaca lebih kasar,
+    nilai probabilitasnya DIRATA-RATAKAN lebih dulu -- mis. piksel bernilai 1 dan 100
+    bercampur menjadi 50, lalu gagal ambang `== 100`. Fraksi yang dihasilkan jadi salah.
+    """
+    import rasterio
+    with rasterio.open(path) as src:
+        return abs(src.transform.a)
+
+
+def _fine_cells(path: Path, categorical: bool, step: float = FINE_STEP,
+                res_deg: float | None = None,
+                bbox: tuple[float, float, float, float] | None = None):
+    """Baca raster, lalu kumpulkan pikselnya ke sel berukuran `step`.
+
+    `res_deg` = sasaran resolusi SAAT MEMBACA; sengaja dipisah dari `step` (ukuran sel hasil).
+    Menggabungkan keduanya berbahaya: pembacaan yang terlalu kasar merata-ratakan nilai
+    sebelum diperiksa, sehingga ambang batas dan fraksi kehilangan hutan jadi keliru.
+    """
+    band, tr = read_decimated(path, res_deg if res_deg is not None else step,
+                              categorical=categorical, bbox=bbox)
+    ids, n_ids, lat_c, lon_c, _, _ = grid_of(tr, band.shape, step=step)
+    return band, ids, n_ids, lat_c, lon_c
+
+
+def _step_centers(info: tuple) -> tuple[np.ndarray, np.ndarray]:
+    """Pusat sel (lat_c, lon_c) untuk sel-sel yang tercakup.
+
+    `info` = (r0, c0, n_lat, n_lon) keluaran `cell_ids` -- BUKAN keluaran `cell_index_of`
+    (yang berbentuk (r, c)). Tertukar di antara keduanya menghasilkan galat unpack.
+    """
+    r0, c0, n_lat, n_lon = info
+    rr, cc = np.meshgrid(np.arange(r0, r0 + n_lat), np.arange(c0, c0 + n_lon), indexing="ij")
+    return (rr * STEP + STEP / 2).ravel(), (cc * STEP + STEP / 2).ravel()
+
+
+def build_peat(res_deg: float, lag_years: tuple[int, ...] = (1, 3, 5)) -> pd.DataFrame:
+    """Fitur gambut: luas, ketebalan, karbon, dan deforestasi DI ATAS gambut.
+
+    `extent` berisi PROBABILITAS 0-100: berapa dari 3 peta sumber (WRI/GFW, PEATGRIDS,
+    Global Peatlands Map 2.0) yang menyebut piksel itu gambut. Karena itu ambangnya
+    `config.PEAT_THRESHOLD` -- lihat komentar panjang di config.py. Memakai `> 0` SALAH:
+    terukur menandai 98,6 juta ha (7x lipat literatur Indonesia).
+
+    `thickness`/`carbon` dirata-ratakan HANYA di piksel gambut, jadi maknanya "tebal gambut
+    di sel ini", bukan "tebal rata-rata seluruh sel".
+
+    Deforestasi gambut DIKAWINKAN lebih dulu pada grid halus FINE_STEP (~5,5 km), baru
+    dirata-ratakan ke sel 0,25 derajat. Mengalikan dua fraksi langsung di sel 0,25 derajat
+    (25 km) menyimpang sistematis: kehilangan hutan di dalam satu sel tidak menyebar merata,
+    ia memusat di bagian gambut yang sudah dibuka -- jadi hasilnya akan TERTEKAN.
+
+    Gambut dan hutan itu DUA SUMBU BERBEDA (jenis tanah vs tutupan di atasnya). Yang
+    menjawab "dampak kalau terbakar" adalah gabungannya, bukan salah satu saja.
+    """
+    berkas = peat_berkas()
+    if "extent" not in berkas:
+        log.warning("peta gambut tidak ada di %s -- jalankan: python crawl_static.py peat",
+                    config.STATIC / DIRS["peat"])
+        return pd.DataFrame()
+
+    bbox = (config.AREA[1], config.AREA[2], config.AREA[3], config.AREA[0])  # W,S,E,N
+    nat = native_pixel_deg(berkas["extent"])   # baca pada resolusi ASLI, jangan dirata-ratakan
+
+    # ---- 1. kolom per sel 0,25 derajat -----------------------------------------------
+    band, ids, n_ids, lat_c, lon_c = _fine_cells(berkas["extent"], False, STEP, nat, bbox)
+    is_peat = np.isfinite(band) & (band >= config.PEAT_THRESHOLD)
+    kasar = pd.DataFrame({"lat_c": lat_c, "lon_c": lon_c,
+                          "peat_fraksi": aggregate(is_peat.astype("float64"), ids, n_ids, "mean")})
+    log.info("gambut: %d piksel asli, %.1f%% di antaranya gambut (ambang %d)",
+             band.size, 100 * float(is_peat.mean()), config.PEAT_THRESHOLD)
+
+    for peran, kolom in (("thickness", "peat_thickness_mean"), ("carbon", "peat_carbon_mean")):
+        if peran not in berkas:
+            log.warning("lapisan gambut '%s' tidak ada -> kolom %s kosong", peran, kolom)
+            continue
+        b2, _, _, _, _ = _fine_cells(berkas[peran], False, STEP, nat, bbox)
+        if b2.shape != band.shape:
+            log.warning("bentuk %s (%s) != extent (%s); dilewati", peran, b2.shape, band.shape)
+            continue
+        kasar[kolom] = aggregate(np.where(is_peat, b2, np.nan), ids, n_ids, "mean")
+
+    # ---- 2. deforestasi di atas gambut ------------------------------------------------
+    halus = None
+    for kunci, bk in hansen_pairs().items():
+        if "lossyear" not in bk:
+            log.warning("tile Hansen %s tanpa lossyear; dilewati untuk gambut", kunci)
+            continue
+        ly, ids2, n2, lat2, lon2 = _fine_cells(bk["lossyear"], True, FINE_STEP, res_deg)
+        bagian = pd.DataFrame({"lat_c": lat2, "lon_c": lon2})
+        for lag in lag_years:
+            # `lossyear` menyimpan TAHUN - 2000 (1..25 = 2001..2025), bukan tahun penuh.
+            # Lupa mengurangi 2000 membuat fitur ini SEMUANYA NOL tanpa error apa pun.
+            th = config.HANSEN_LOSS_REF_YEAR - lag - 2000
+            bagian[f"loss{lag}"] = aggregate((ly == th).astype("float64"), ids2, n2, "mean")
+        halus = bagian if halus is None else pd.concat([halus, bagian], ignore_index=True)
+
+    if halus is None:
+        log.warning("Hansen lossyear tidak ada -> fitur deforestasi gambut dilewati")
+        return kasar
+
+    # Gabung tile yang bertumpang tindih, lalu kawinkan dengan lapisan gambut pada grid halus.
+    halus = halus.groupby(["lat_c", "lon_c"], as_index=False).mean(numeric_only=True)
+    pf, ids3, n3, lat3, lon3 = _fine_cells(berkas["extent"], False, FINE_STEP, nat, bbox)
+    gambut_halus = pd.DataFrame({
+        "lat_c": lat3, "lon_c": lon3,
+        "peat_f": aggregate((np.isfinite(pf) & (pf >= config.PEAT_THRESHOLD)).astype("float64"),
+                            ids3, n3, "mean")})
+    m = gambut_halus.merge(halus, on=["lat_c", "lon_c"], how="inner")
+    # JANGAN buang sel halus yang bukan gambut. Penyebutnya harus SELURUH sel, supaya
+    # artinya tetap "bagian SEL yang gambut DAN kehilangan hutan" (langsung bisa dikali
+    # luas sel). Kalau yang bukan gambut dibuang, artinya berubah menjadi "bagian dari
+    # luas GAMBUT yang hilang" -- besaran yang berbeda, dan mudah tertukar.
+    if m.empty:
+        log.warning("tidak ada irisan gambut x lossyear; fitur deforestasi gambut dilewati")
+        return kasar
+
+    ids4_rc = cell_index_of(m["lat_c"].to_numpy(), m["lon_c"].to_numpy(), STEP)
+    ids4, info4 = cell_ids(*ids4_rc)            # info4 = (r0, c0, n_lat, n_lon)
+    n4 = info4[2] * info4[3]
+    lat_o, lon_o = _step_centers(info4)
+    halus_out = pd.DataFrame({"lat_c": lat_o, "lon_c": lon_o})
+    for lag in lag_years:
+        # rata-rata (bagian gambut x bagian yang hilang) di tiap sel 0,25 derajat
+        halus_out[f"peat_loss_frac_{lag}y"] = aggregate(
+            (m["peat_f"] * m[f"loss{lag}"]).to_numpy(), ids4, n4, "mean")
+    log.info("  + %d kolom deforestasi gambut dari %d piksel halus", len(lag_years), len(m))
+    return kasar.merge(halus_out, on=["lat_c", "lon_c"], how="outer")
 
 
 def build_osm(res_deg: float, kelas: tuple[str, ...] = ("jalan", "sungai")) -> pd.DataFrame:

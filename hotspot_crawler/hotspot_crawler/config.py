@@ -31,6 +31,14 @@ STATIC = DATA_DIR / "static"
 PROCESSED = DATA_DIR / "processed"
 LOGS = DATA_DIR / "logs"
 
+# ---------------------------------------------------------------- klien (setelan jaringan)
+# Bawaan cdsapi.Client: sleep_max=120 detik, retry_max=500. Diukur 25 Okt 2026: pada jaringan
+# yang putus-putus, 21 koneksi putus x 120 detik = ~15% waktu crawl habis HANYA untuk menunggu.
+# Delay-nya yang mahal, bukan percobaan ulangnya -- jadi sleep_max diturunkan, retry_max tetap.
+# Kalau jaringan stabil, angka ini tidak berpengaruh sama sekali.
+CLIENT_SLEEP_MAX = 10     # bawaan 120; jeda maksimum antar percobaan ulang (detik)
+CLIENT_RETRY_MAX = 500    # bawaan 500; jumlah percobaan ulang sebelum menyerah
+
 # ---------------------------------------------------------------- ERA5-Land (CDS)
 CDS_DATASET = "reanalysis-era5-land"
 # Batas CDS berlaku pada nilai "cost" yang dilaporkan API, BUKAN pada jumlah field.
@@ -142,6 +150,36 @@ WORLDPOP_URL = ("https://data.worldpop.org/GIS/Population/Global_2000_2020_1km/"
 # NASA Earthdata (MCD64A1 burned area). Butuh akun gratis; kredensial lewat env var
 # EARTHDATA_USERNAME / EARTHDATA_PASSWORD.
 MCD64A1 = {"short_name": "MCD64A1", "version": "061"}
+
+# ---------------------------------------------------------------- gambut
+# Sebelumnya manual lewat browser (peta WRI/GFW). Diganti 28 Okt 2026: paket
+# Open-Earth-Monitor di Zenodo punya GeoTIFF 1 km EPSG:4326 yang bisa diunduh LANGSUNG
+# tanpa akun, jadi tidak perlu lagi langkah manual. Server WRI sendiri
+# (gis-gfw.wri.org) TIDAK bisa dihubungi dari mesin ini (HTTP & HTTPS), dan versi
+# Indonesia-nya minta token API -- karena itu jalur browser ditinggalkan.
+#
+# Isi `extent` adalah PROBABILITAS 0-100: berapa dari 3 peta sumber (WRI/GFW global
+# peatlands, PEATGRIDS, Global Peatlands Map 2.0) yang menyebut piksel itu gambut.
+# Karena itu `> 0` SALAH (menandai hampir semua piksel). Diukur 28 Okt 2026 di jendela
+# Indonesia (94-142E, 12S-7N):
+#     > 0   -> 98,6 juta ha   (7x literatur -- jelas salah)
+#     >= 25 -> 47,7 juta ha
+#     >= 50 -> 33,2 juta ha
+#     >= 75 -> 23,3 juta ha
+#     == 100 -> 11,6 juta ha  <- paling dekat literatur 13-15 juta ha
+# `== 100` juga bermakna: irisan yang disepakati KETIGA peta. Jangan turunkan tanpa
+# mengukur ulang dan membandingkan dengan literatur.
+PEAT_BASE_URL = "https://zenodo.org/records/13951439/files/"
+PEAT_FILES = {
+    "extent": "peatland.extent_wri.gfw_p_1km_s_2000_2020_go_epsg4326_v20241017.tif",
+    "thickness": "peatland.thickness.cm_peatgrids.v1_m_1km_s_2000_2020_go_epsg4326_v20241017.tif",
+    "carbon": "peatland.soc.mgc.ha_peatgrids.v1_m_1km_s_2000_2020_go_epsg4326_v20241017.tif",
+}
+PEAT_THRESHOLD = 100          # ambang "ini gambut" pada raster `extent` (0-100)
+PEAT_REQUIRED = ("extent",)   # `thickness`/`carbon` opsional: tanpa itu fiturnya kosong
+
+# Status drainase/konsesi gambut TIDAK tersedia terbuka di mana pun; itu justru pemicu
+# api gambut yang paling kuat. Catat sebagai keterbatasan, jangan diakali.
 
 # ---------------------------------------------------------------- label hotspot (milik tim lain)
 # Label titik api BUKAN bagian crawler ini; diambil anggota tim lain dan disimpan di

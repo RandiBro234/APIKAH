@@ -53,7 +53,11 @@ def make_client(service: str):
         key = os.getenv("EWDS_API_KEY", rc.get("key"))
     if not key:
         raise SystemExit(f"Kredensial {service.upper()} tidak ditemukan. Jalankan preflight.py dulu.")
-    return cdsapi.Client(url=url, key=key, quiet=True, progress=False)
+    # sleep_max/retry_max dari config: bawaan cdsapi 120 detik terlalu lama untuk jaringan
+    # yang putus-putus. Lihat komentar di config.py bagian "klien (setelan jaringan)".
+    return cdsapi.Client(url=url, key=key, quiet=True, progress=False,
+                         sleep_max=config.CLIENT_SLEEP_MAX,
+                         retry_max=config.CLIENT_RETRY_MAX)
 
 
 # ------------------------------------------------------------------ ERA5-Land
@@ -181,10 +185,14 @@ def main(argv=None) -> int:
     ap.add_argument("--from", dest="start", type=parse_ym, default=config.START)
     ap.add_argument("--to", dest="end", type=parse_ym, default=config.END)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--tag", default="",
+                    help="akhiran nama log (mis. --tag b -> logs/copernicus_b.log); "
+                         "dipakai kalau menjalankan beberapa worker paralel agar log tidak bercampur")
     args = ap.parse_args(argv)
-    setup_logging("copernicus")
+    setup_logging(f"copernicus_{args.tag}" if args.tag else "copernicus")
     months = list(iter_months(args.start, args.end))
-    log.info("%d bulan, area=%s, dry_run=%s", len(months), config.ACTIVE_AREA, args.dry_run)
+    log.info("%d bulan, area=%s, dry_run=%s, tag=%s", len(months), config.ACTIVE_AREA,
+             args.dry_run, args.tag or "-")
     if args.what in ("era5", "all"):
         run_era5(months, args.dry_run)
     if args.what in ("fire", "all"):

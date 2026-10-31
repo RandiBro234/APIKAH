@@ -167,16 +167,22 @@ def do_burned(dry: bool) -> None:
     manifest_update("static", "mcd64a1", "ok", f"{len(results)} granule")
 
 
-# ------------------------------------------------------------------ gambut (manual)
+# ------------------------------------------------------------------ gambut
 def do_peat(dry: bool) -> None:
+    """Unduh peta gambut 1 km (paket Open-Earth-Monitor di Zenodo).
+
+    Dulu langkah MANUAL lewat browser karena tidak ada URL langsung yang terverifikasi,
+    dan server WRI (gis-gfw.wri.org) memang tidak bisa dihubungi dari mesin ini.
+    Sejak 28 Okt 2026 diunduh otomatis: ketiga berkasnya GeoTIFF 1 km EPSG:4326 tanpa akun.
+    """
     folder = config.STATIC / "peatlands"
     folder.mkdir(parents=True, exist_ok=True)
-    have = [p.name for p in folder.glob("*") if p.is_file()]
-    print("Peta gambut TIDAK diunduh otomatis (tidak ada URL langsung yang terverifikasi).")
-    print("Unduh manual dari: https://data.globalforestwatch.org/datasets/gfw::global-peatlands/about")
-    print(f"Taruh file di: {folder.resolve()}")
-    print("File saat ini:", have or "(kosong)")
-    manifest_update("static", "peatlands", "ok" if have else "manual_pending", ", ".join(have))
+    for peran, berkas in config.PEAT_FILES.items():
+        url = config.PEAT_BASE_URL + berkas + "?download=1"
+        dest = folder / f"peat_{peran}_1km_2000_2020.tif"
+        fetch("peatlands", url, dest, dry)
+    log.info("versi WRI/Miettinen 2016 (paling akurat untuk Indonesia) tetap perlu manual: "
+             "https://data.globalforestwatch.org/datasets/indonesia-peat-lands -> %s", folder)
 
 
 # ------------------------------------------------------------------ util unduh + CLI

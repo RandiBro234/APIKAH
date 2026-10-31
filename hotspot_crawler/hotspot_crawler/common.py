@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import logging
 import math
+import os
 import time
 from calendar import monthrange
 from datetime import date, datetime
@@ -91,14 +92,28 @@ def manifest_path(name: str) -> Path:
 
 def manifest_load(name: str) -> dict:
     p = manifest_path(name)
-    return json.loads(p.read_text()) if p.exists() else {}
+    if not p.exists():
+        return {}
+    try:
+        return json.loads(p.read_text())
+    except (json.JSONDecodeError, OSError):
+        # Bisa terjadi kalau proses lain sedang menulis berkas yang sama (crawl paralel).
+        # Manifest hanya untuk PELAPORAN -- jangan sampai menjatuhkan crawl karenanya.
+        log.warning("manifest %s tidak terbaca (mungkin ditulis proses lain); dianggap kosong", name)
+        return {}
 
 
 def manifest_update(name: str, key: str, status: str, note: str = "") -> None:
     config.LOGS.mkdir(parents=True, exist_ok=True)
     m = manifest_load(name)
     m[key] = {"status": status, "note": note[:300], "ts": datetime.now().isoformat(timespec="seconds")}
-    manifest_path(name).write_text(json.dumps(m, indent=1, ensure_ascii=False))
+    # Ditulis atomik (tulis ke berkas sementara lalu os.replace) dan nama sementara unik
+    # per proses. Tanpa ini, beberapa crawl paralel bisa saling menimpa sehingga berkas
+    # terbaca separuh dan JSON-nya rusak. Konsekuensi yang tersisa hanya entri hilang
+    # (kosmetik), bukan kerusakan -- lihat catatan "crawl paralel".
+    tmp = manifest_path(name).with_suffix(f".{os.getpid()}.tmp")
+    tmp.write_text(json.dumps(m, indent=1, ensure_ascii=False))
+    os.replace(tmp, manifest_path(name))
 
 
 # ---------------------------------------------------------------- tile helper

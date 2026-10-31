@@ -265,6 +265,196 @@ def test_build_hansen_memakai_lag_dari_config():
     assert nilai == 24, f"dapat {nilai}, harap 24"
 
 
+# ------------------------------------------------------------------ gambut
+@test
+def test_read_decimated_bbox_membatasi_wilayah():
+    """bbox harus benar-benar memotong jendela, bukan membaca seluruh raster."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _tif(Path(td) / "kecil.tif", np.ones((10, 10), "float32"), west=100.0, north=0.0)
+        band, tr = b.read_decimated(p, res_deg=0.0025, bbox=(100.005, -0.020, 100.020, -0.005))
+        assert band.shape == (6, 6), f"bentuk: {band.shape}"
+        assert np.isclose(tr.c, 100.005) and np.isclose(tr.f, -0.005), f"transform: {tr.c},{tr.f}"
+
+
+@test
+def test_read_decimated_bbox_lebih_luas_dipangkas_ke_raster():
+    """bbox yang lebih luas dari raster tidak boleh minta jendela raksasa berisi kosong."""
+    with tempfile.TemporaryDirectory() as td:
+        p = _tif(Path(td) / "kecil2.tif", np.ones((10, 10), "float32"), west=100.0, north=0.0)
+        band, tr = b.read_decimated(p, res_deg=0.0025, bbox=(94.0, -11.5, 141.5, 6.0))
+        assert band.shape == (10, 10), f"bentuk: {band.shape}"
+        assert np.isclose(tr.c, 100.0) and np.isclose(tr.f, 0.0), f"transform: {tr.c},{tr.f}"
+
+
+def _static_gambut(td: str, extent, thickness=None, carbon=None) -> None:
+    """Siapkan data/static/peatlands di dalam folder sementara."""
+    folder = Path(td) / "peatlands"
+    folder.mkdir(parents=True, exist_ok=True)
+    _tif(folder / b.PEAT_ROLES["extent"], extent, west=100.0, north=0.0)
+    if thickness is not None:
+        _tif(folder / b.PEAT_ROLES["thickness"], thickness, west=100.0, north=0.0)
+    if carbon is not None:
+        _tif(folder / b.PEAT_ROLES["carbon"], carbon, west=100.0, north=0.0)
+
+
+@test
+def test_build_peat_memakai_ambang_bukan_nol():
+    """extent berisi probabilitas 0-100: `> 0` SALAH (7x lipat literatur).
+
+    Raster uji: separuh piksel bernilai 1 (hanya 1 dari 3 peta bilang gambut) dan separuh
+    bernilai 100 (ketiga peta setuju). Dengan ambang 100, fraksi gambut harus 0,5 -- bukan 1,0.
+    """
+    import config
+    with tempfile.TemporaryDirectory() as td:
+        extent = np.ones((100, 100), "uint8")
+        extent[:, 50:] = 100
+        _static_gambut(td, extent)
+        asli = config.STATIC
+        config.STATIC = Path(td)
+        try:
+            hasil = b.build_peat(0.0025)
+        finally:
+            config.STATIC = asli
+    assert len(hasil) == 1, f"harus 1 sel, dapat {len(hasil)}: {hasil[['lat_c','lon_c']]}"
+    f = hasil["peat_fraksi"].iloc[0]
+    assert np.isclose(f, 0.5), f"peat_fraksi={f}; ambang PEAT_THRESHOLD tidak dipakai"
+    assert config.PEAT_THRESHOLD == 100, "ambang di config berubah -- ukur ulang dulu!"
+
+
+@test
+def test_build_peat_ketebalan_dan_karbon_hanya_di_piksel_gambut():
+    """Rata-rata ketebalan/karbon HARUS hanya dari piksel gambut, bukan seluruh sel."""
+    import config
+    with tempfile.TemporaryDirectory() as td:
+        extent = np.ones((100, 100), "uint8")
+        extent[:, 50:] = 100
+        tebal = np.full((100, 100), 50.0, "float32")
+        tebal[:, 50:] = 300.0
+        karbon = np.full((100, 100), 10.0, "float32")
+        karbon[:, 50:] = 2000.0
+        _static_gambut(td, extent, tebal, karbon)
+        asli = config.STATIC
+        config.STATIC = Path(td)
+        try:
+            hasil = b.build_peat(0.0025)
+        finally:
+            config.STATIC = asli
+    t = hasil["peat_thickness_mean"].iloc[0]
+    k = hasil["peat_carbon_mean"].iloc[0]
+    assert np.isclose(t, 300.0), f"tebal={t} (harus 300, bukan rata-rata 175)"
+    assert np.isclose(k, 2000.0), f"karbon={k} (harus 2000, bukan rata-rata 1005)"
+
+
+@test
+def test_build_peat_tanpa_extent_mengembalikan_kosong():
+    """Tanpa peta gambut: kembalikan kosong (dengan peringatan), jangan meledak."""
+    import config
+    with tempfile.TemporaryDirectory() as td:
+        (Path(td) / "peatlands").mkdir(parents=True, exist_ok=True)
+        asli = config.STATIC
+        config.STATIC = Path(td)
+        try:
+            hasil = b.build_peat(0.0025)
+        finally:
+            config.STATIC = asli
+    assert hasil.empty, f"harus kosong, dapat {hasil.shape}"
+
+
+@test
+def test_peat_berkas_memakai_nama_baku():
+    """peat_berkas() hanya mengenali nama baku; berkas lain diabaikan (dan itu wajar)."""
+    import config
+    with tempfile.TemporaryDirectory() as td:
+        folder = Path(td) / "peatlands"
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / b.PEAT_ROLES["extent"]).write_bytes(b"x")
+        (folder / "gambut_entah.tif").write_bytes(b"x")
+        asli = config.STATIC
+        config.STATIC = Path(td)
+        try:
+            peran = b.peat_berkas()
+        finally:
+            config.STATIC = asli
+    assert set(peran) == {"extent"}, f"peran terdeteksi: {set(peran)}"
+
+
+@test
+def test_build_peat_deforestasi_di_atas_gambut():
+    """peat_loss_frac harus menggabungkan gambut dan lossyear, bukan salah satu saja.
+
+    Raster 0,25 derajat (100x100 px @0,0025). Seluruhnya gambut. Kehilangan hutan
+    hanya di kolom 40-79, yaitu TEPAT 2 dari 5 sel halus (0,05 derajat) -> fraksi 0,4.
+    Kalau gambut diabaikan hasilnya 0,4 juga, jadi kita juga uji kasus gambut=0 -> NaN.
+    """
+    import config
+    th1 = config.HANSEN_LOSS_REF_YEAR - 1
+    with tempfile.TemporaryDirectory() as td:
+        extent = np.full((100, 100), 100, "uint8")          # semuanya gambut
+        _static_gambut(td, extent)
+        hdir = Path(td) / "hansen"
+        hdir.mkdir(parents=True, exist_ok=True)
+        ly = np.zeros((100, 100), "uint8")
+        ly[:, 40:80] = th1 - 2000                            # lossyear = tahun - 2000
+        _tif(hdir / f"Hansen_{config.HANSEN_VERSION}_lossyear_00N_100E.tif",
+             ly, west=100.0, north=0.0)
+        asli = config.STATIC
+        config.STATIC = Path(td)
+        try:
+            hasil = b.build_peat(0.0025)
+        finally:
+            config.STATIC = asli
+    assert len(hasil) == 1, f"harus 1 sel, dapat {len(hasil)}"
+    f = hasil["peat_loss_frac_1y"].iloc[0]
+    assert np.isclose(f, 0.4), f"peat_loss_frac_1y={f}, harap 0.4"
+    f2 = hasil["peat_loss_frac_3y"].iloc[0]
+    assert (np.isnan(f2) or np.isclose(f2, 0.0)), f"peat_loss_frac_3y={f2}, harap 0/NaN"
+
+
+@test
+def test_build_peat_deforestasi_nol_kalau_tidak_ada_gambut():
+    """Tanpa piksel gambut, wilayah 'gambut yang hilang' harus 0 (bukan terisi diam-diam)."""
+    import config
+    th1 = config.HANSEN_LOSS_REF_YEAR - 1
+    with tempfile.TemporaryDirectory() as td:
+        extent = np.zeros((100, 100), "uint8")              # tidak ada gambut
+        _static_gambut(td, extent)
+        hdir = Path(td) / "hansen"
+        hdir.mkdir(parents=True, exist_ok=True)
+        ly = np.full((100, 100), th1 - 2000, "uint8")
+        _tif(hdir / f"Hansen_{config.HANSEN_VERSION}_lossyear_00N_100E.tif",
+             ly, west=100.0, north=0.0)
+        asli = config.STATIC
+        config.STATIC = Path(td)
+        try:
+            hasil = b.build_peat(0.0025)
+        finally:
+            config.STATIC = asli
+    assert np.isclose(hasil["peat_fraksi"].iloc[0], 0.0), "peat_fraksi harus 0"
+    if "peat_loss_frac_1y" in hasil.columns:
+        nilai = hasil["peat_loss_frac_1y"].fillna(0.0)
+        assert np.allclose(nilai, 0.0), f"harus 0 tanpa gambut, dapat {nilai.to_list()}"
+
+
+@test
+def test_peat_berkas_menebak_peran_dari_nama():
+    """Berkas bernama lain (mis. WRI manual) harus tetap dikenali, dan dipilih yang benar."""
+    import config
+    with tempfile.TemporaryDirectory() as td:
+        folder = Path(td) / "peatlands"
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / "indonesia_peatlands_extent.tif").write_bytes(b"x")
+        (folder / "peat_thickness_cm.tif").write_bytes(b"x")
+        asli = config.STATIC
+        config.STATIC = Path(td)
+        try:
+            peran = b.peat_berkas()
+        finally:
+            config.STATIC = asli
+    assert set(peran) == {"extent", "thickness"}, f"peran terdeteksi: {set(peran)}"
+    assert peran["extent"].name == "indonesia_peatlands_extent.tif", peran["extent"].name
+    assert peran["thickness"].name == "peat_thickness_cm.tif", peran["thickness"].name
+
+
 def main() -> int:
     print(f"\nRingkasan: {_lulus} OK, {_gagal} FAIL\n")
     return 1 if _gagal else 0
