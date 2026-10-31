@@ -14,6 +14,13 @@
 # ----------------------------------------------------------------------------
 # Sumber mentah crawler lokal (NetCDF, HDF, raster, PBF, snapshot indeks, dll.).
 /data/features_raw/
+# Safety nets for pre-refactor worktrees/migration sources. These are crawler
+# output paths only; they do not match tracked label folders (`hotspot_raw`).
+/hotspot_crawler/hotspot_crawler/data/
+/data/raw/
+/data/static/
+/data/processed/
+/data/logs/
 # Log runtime dan lock per-target/per-manifest tidak dibutuhkan di riwayat.
 /data/metadata/logs/
 /data/metadata/locks/
