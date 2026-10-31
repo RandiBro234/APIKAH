@@ -12,14 +12,16 @@ Pakai:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import sys
 import time
-from pathlib import Path
+from pathlib import Path, PurePosixPath
+from urllib.parse import unquote, urlsplit
 
 from . import config
-from .common import (done, download_file, log, manifest_load, manifest_update, ns_ew,
+from .common import (done, download_file, log, manifest_update, ns_ew,
                      setup_logging, target_lock, tile_origins, with_retry)
 from .climate_tables import write_climate_parquet
 
@@ -149,20 +151,47 @@ def do_worldpop(dry: bool) -> None:
 
 
 # ------------------------------------------------------------------ MCD64A1 (Earthdata)
+def _mcd64a1_query_hash() -> str:
+    query = {
+        "short_name": config.MCD64A1["short_name"],
+        "version": config.MCD64A1["version"],
+        "bbox_wsen": [W, S, E, N],
+        "temporal": [config.START.isoformat(), config.END.isoformat()],
+    }
+    return hashlib.sha256(json.dumps(query, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def _mcd64a1_hdf_names(granule) -> tuple[str, ...]:
+    links = granule.data_links(access="external") or []
+    return tuple(sorted({
+        name for link in links
+        if (name := PurePosixPath(unquote(urlsplit(link).path)).name).lower().endswith(".hdf")
+    }))
+
+
 def do_burned(dry: bool) -> None:
     out = config.MCD64A1_DIR
     if dry:
         print("BURNED", config.MCD64A1, "bbox", (W, S, E, N), "->", out)
         return
     with target_lock(out / "mcd64a1-dataset"):
-        previous = manifest_load("static").get("mcd64a1", {})
+        query_hash = _mcd64a1_query_hash()
+        inventory_path = config.METADATA / "manifests" / "mcd64a1_files.json"
         try:
-            expected = int(previous.get("note", "").split(maxsplit=1)[0])
-        except (ValueError, IndexError):
-            expected = -1
-        existing = [path for path in out.glob("*.hdf") if done(path)]
-        if previous.get("status") == "ok" and expected >= 0 and len(existing) == expected:
-            log.info("lewati MCD64A1: %d granule sudah lengkap", expected)
+            inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            inventory = {}
+        if not isinstance(inventory, dict):
+            inventory = {}
+        names = inventory.get("granules", [])
+        expected_names = (
+            names if inventory.get("query_sha256") == query_hash and isinstance(names, list)
+            and all(isinstance(name, str) and PurePosixPath(name).name == name
+                    and name.lower().endswith(".hdf") for name in names)
+            else []
+        )
+        if expected_names and all(done(out / name) for name in expected_names):
+            log.info("lewati MCD64A1: %d granula untuk query ini sudah lengkap", len(expected_names))
             return
         try:
             import earthaccess
@@ -180,9 +209,28 @@ def do_burned(dry: bool) -> None:
                 temporal=(config.START.isoformat(), config.END.isoformat()),
             )
             log.info("MCD64A1: %d granule ditemukan", len(results))
+            if not results:
+                raise RuntimeError("Earthdata tidak mengembalikan granula MCD64A1")
+
+            granules = [(item, _mcd64a1_hdf_names(item)) for item in results]
+            if any(not names for _, names in granules):
+                raise RuntimeError("tidak dapat menentukan identitas file HDF untuk semua granula")
+            expected_names = sorted({name for _, names in granules for name in names})
+            pending = [item for item, names in granules if any(not done(out / name) for name in names)]
             out.mkdir(parents=True, exist_ok=True)
-            with_retry(earthaccess.download, results, str(out))
-            manifest_update("static", "mcd64a1", "ok", f"{len(results)} granule")
+            if pending:
+                with_retry(earthaccess.download, pending, str(out))
+            missing = [name for name in expected_names if not done(out / name)]
+            if missing:
+                raise RuntimeError(f"unduhan MCD64A1 belum lengkap: {len(missing)} HDF tidak ada")
+            inventory_tmp = inventory_path.with_name(f"{inventory_path.name}.{os.getpid()}.tmp")
+            inventory_tmp.parent.mkdir(parents=True, exist_ok=True)
+            inventory_tmp.write_text(json.dumps({
+                "query_sha256": query_hash,
+                "granules": expected_names,
+            }, indent=1), encoding="utf-8")
+            inventory_tmp.replace(inventory_path)
+            manifest_update("static", "mcd64a1", "ok", f"{len(expected_names)} granule")
         except Exception as exc:  # noqa: BLE001
             log.error("GAGAL MCD64A1: %s", exc)
             manifest_update("static", "mcd64a1", "failed", str(exc))
