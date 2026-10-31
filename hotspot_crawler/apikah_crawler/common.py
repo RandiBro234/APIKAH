@@ -7,6 +7,7 @@ import json
 import logging
 import math
 import os
+import re
 import threading
 import time
 from calendar import monthrange
@@ -132,6 +133,40 @@ def finalize_download(part: Path, dest: Path) -> bool:
     return True
 
 
+def _resume_metadata_path(part: Path) -> Path:
+    return part.with_name(part.name + ".meta.json")
+
+
+def _read_resume_metadata(path: Path) -> dict | None:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+        return value if isinstance(value, dict) else None
+    except (OSError, json.JSONDecodeError):
+        return None
+
+
+def _write_resume_metadata(path: Path, value: dict) -> None:
+    temporary = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+    temporary.write_text(json.dumps(value), encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def _clear_partial(part: Path, metadata: Path) -> None:
+    part.unlink(missing_ok=True)
+    metadata.unlink(missing_ok=True)
+
+
+def _parse_content_range(value: str | None) -> tuple[int, int, int] | None:
+    match = re.fullmatch(r"bytes (\d+)-(\d+)/(\d+)", value or "")
+    return tuple(map(int, match.groups())) if match else None
+
+
+def _publish_partial(part: Path, dest: Path, metadata: Path) -> str:
+    status = "ok" if finalize_download(part, dest) else "skipped"
+    metadata.unlink(missing_ok=True)
+    return status
+
+
 def download_file(url: str, dest: Path, timeout: int = config.HTTP_TIMEOUT) -> str:
     """Unduh dengan resume (.part). Return 'ok' | 'skipped' | 'missing' (404)."""
     import requests
@@ -142,19 +177,96 @@ def download_file(url: str, dest: Path, timeout: int = config.HTTP_TIMEOUT) -> s
             return "skipped"
         dest.parent.mkdir(parents=True, exist_ok=True)
         part = dest.with_suffix(dest.suffix + ".part")
+        metadata_path = _resume_metadata_path(part)
+        metadata = _read_resume_metadata(metadata_path) if part.exists() else None
+        validator = (metadata or {}).get("etag") or (metadata or {}).get("last_modified")
+        total = (metadata or {}).get("total_length")
         pos = part.stat().st_size if part.exists() else 0
-        headers = {"Range": f"bytes={pos}-"} if pos else {}
-        with requests.get(url, stream=True, headers=headers, timeout=timeout) as r:
-            if r.status_code == 404:
-                return "missing"
-            if r.status_code == 416:      # part dianggap lengkap oleh server
-                return "ok" if finalize_download(part, dest) else "skipped"
-            r.raise_for_status()
-            mode = "ab" if (pos and r.status_code == 206) else "wb"
-            with open(part, mode) as f:
-                for chunk in r.iter_content(1024 * 1024):
-                    f.write(chunk)
-        return "ok" if finalize_download(part, dest) else "skipped"
+
+        # Legacy or unvalidated partials cannot be safely appended to.
+        if part.exists() and (not validator or not isinstance(total, int) or pos > total):
+            _clear_partial(part, metadata_path)
+            metadata, validator, total, pos = None, None, None, 0
+        if part.exists() and pos == total:
+            return _publish_partial(part, dest, metadata_path)
+
+        for attempt in range(2):
+            headers = {}
+            if pos:
+                headers["Range"] = f"bytes={pos}-"
+                headers["If-Range"] = validator
+            with requests.get(url, stream=True, headers=headers, timeout=timeout) as response:
+                if response.status_code == 404:
+                    return "missing"
+
+                if response.status_code == 416:
+                    if attempt == 0:
+                        _clear_partial(part, metadata_path)
+                        metadata, validator, total, pos = None, None, None, 0
+                        continue
+                    response.raise_for_status()
+                    raise IOError("server rejected the full restart with HTTP 416")
+
+                if response.status_code == 206:
+                    content_range = _parse_content_range(response.headers.get("Content-Range"))
+                    etag = response.headers.get("ETag")
+                    last_modified = response.headers.get("Last-Modified")
+                    valid_range = bool(pos and content_range and content_range[0] == pos)
+                    if content_range:
+                        start, end, received_total = content_range
+                        valid_range = valid_range and end >= start and received_total > end
+                        valid_range = valid_range and (total is None or received_total == total)
+                        content_length = response.headers.get("Content-Length")
+                        if content_length is not None:
+                            valid_range = valid_range and int(content_length) == end - start + 1
+                    if metadata and metadata.get("etag"):
+                        valid_range = valid_range and etag == metadata["etag"]
+                    elif metadata and metadata.get("last_modified"):
+                        valid_range = valid_range and last_modified == metadata["last_modified"]
+                    if not valid_range:
+                        if attempt == 0:
+                            _clear_partial(part, metadata_path)
+                            metadata, validator, total, pos = None, None, None, 0
+                            continue
+                        raise IOError("server returned an invalid or mismatched Content-Range")
+                    new_total = content_range[2]
+                    mode = "ab"
+                elif response.status_code == 200:
+                    if pos:
+                        _clear_partial(part, metadata_path)
+                        metadata, pos = None, 0
+                    response.raise_for_status()
+                    content_length = response.headers.get("Content-Length")
+                    new_total = int(content_length) if content_length is not None else None
+                    mode = "wb"
+                    etag = response.headers.get("ETag")
+                    last_modified = response.headers.get("Last-Modified")
+                else:
+                    response.raise_for_status()
+                    raise IOError(f"unexpected HTTP status {response.status_code}")
+
+                new_metadata = {
+                    "etag": etag or (metadata or {}).get("etag"),
+                    "last_modified": last_modified or (metadata or {}).get("last_modified"),
+                    "total_length": new_total,
+                }
+                _write_resume_metadata(metadata_path, new_metadata)
+                with part.open(mode) as stream:
+                    for chunk in response.iter_content(1024 * 1024):
+                        if chunk:
+                            stream.write(chunk)
+
+            size = part.stat().st_size if part.exists() else 0
+            if not size:
+                _clear_partial(part, metadata_path)
+                raise IOError("download returned an empty file")
+            if new_total is not None and size != new_total:
+                if size > new_total:
+                    _clear_partial(part, metadata_path)
+                raise IOError(f"download size {size} does not match expected length {new_total}")
+            return _publish_partial(part, dest, metadata_path)
+
+        raise IOError("download restart exhausted without a response")
 
 
 # ---------------------------------------------------------------- manifest

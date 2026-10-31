@@ -1,6 +1,7 @@
 """Local HTTP tests for skip, range-resume, and failed-download finalization."""
 from __future__ import annotations
 
+import json
 import threading
 import time
 import unittest
@@ -21,14 +22,26 @@ class Handler(BaseHTTPRequestHandler):
     payload = b"abcdefgh"
     status = 200
     last_range = None
+    last_if_range = None
+    range_history = []
+    if_range_history = []
     request_count = 0
     delay_seconds = 0.0
+    etag = '"v1"'
+    last_modified = "Wed, 21 Oct 2015 07:28:00 GMT"
+    omit_etag = False
+    ignore_range = False
+    range_start_delta = 0
+    force_416_once = False
     request_lock = threading.Lock()
 
     def do_GET(self):
         with type(self).request_lock:
             type(self).request_count += 1
             type(self).last_range = self.headers.get("Range")
+            type(self).last_if_range = self.headers.get("If-Range")
+            type(self).range_history.append(type(self).last_range)
+            type(self).if_range_history.append(type(self).last_if_range)
         if self.delay_seconds:
             time.sleep(self.delay_seconds)
         if self.status != 200:
@@ -36,14 +49,26 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Content-Length", "0")
             self.end_headers()
             return
+        if type(self).force_416_once:
+            type(self).force_416_once = False
+            self.send_response(416)
+            self.send_header("Content-Range", f"bytes */{len(self.payload)}")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
 
         start = 0
-        if self.last_range:
+        partial = bool(self.last_range and not self.ignore_range)
+        if partial:
             start = int(self.last_range.removeprefix("bytes=").split("-", 1)[0])
-        body = self.payload[start:]
-        self.send_response(206 if self.last_range else 200)
+            start += self.range_start_delta
+        body = self.payload[start:] if partial else self.payload
+        self.send_response(206 if partial else 200)
         self.send_header("Content-Length", str(len(body)))
-        if self.last_range:
+        if self.etag and not self.omit_etag:
+            self.send_header("ETag", self.etag)
+        self.send_header("Last-Modified", self.last_modified)
+        if partial:
             self.send_header("Content-Range", f"bytes {start}-{len(self.payload)-1}/{len(self.payload)}")
         self.end_headers()
         self.wfile.write(body)
@@ -56,18 +81,30 @@ class DownloadFileTests(unittest.TestCase):
     def setUp(self):
         Handler.status = 200
         Handler.last_range = None
+        Handler.last_if_range = None
+        Handler.range_history = []
+        Handler.if_range_history = []
         Handler.request_count = 0
         Handler.delay_seconds = 0.0
+        Handler.etag = '"v1"'
+        Handler.last_modified = "Wed, 21 Oct 2015 07:28:00 GMT"
+        Handler.omit_etag = False
+        Handler.ignore_range = False
+        Handler.range_start_delta = 0
+        Handler.force_416_once = False
         self.server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
         self.thread.start()
         self.url = f"http://127.0.0.1:{self.server.server_port}/sample"
         self.temp = TemporaryDirectory()
+        self.old_metadata = config.METADATA
+        config.METADATA = Path(self.temp.name) / "metadata"
 
     def tearDown(self):
         self.server.shutdown()
         self.server.server_close()
         self.thread.join(timeout=2)
+        config.METADATA = self.old_metadata
         self.temp.cleanup()
 
     def test_existing_complete_file_is_skipped_without_request(self):
@@ -84,19 +121,123 @@ class DownloadFileTests(unittest.TestCase):
         destination = Path(self.temp.name) / "sample.bin"
         part = destination.with_suffix(destination.suffix + ".part")
         part.write_bytes(Handler.payload[:3])
+        part.with_name(part.name + ".meta.json").write_text(json.dumps({
+            "etag": Handler.etag, "last_modified": Handler.last_modified,
+            "total_length": len(Handler.payload),
+        }))
 
         result = download_file(self.url, destination)
 
         self.assertEqual(result, "ok")
         self.assertEqual(Handler.last_range, "bytes=3-")
+        self.assertEqual(Handler.last_if_range, Handler.etag)
         self.assertEqual(destination.read_bytes(), Handler.payload)
         self.assertFalse(part.exists())
+        self.assertFalse(part.with_name(part.name + ".meta.json").exists())
+
+    def test_partial_without_validator_is_restarted_not_appended(self):
+        destination = Path(self.temp.name) / "sample.bin"
+        part = destination.with_suffix(destination.suffix + ".part")
+        part.write_bytes(b"old")
+
+        result = download_file(self.url, destination)
+
+        self.assertEqual(result, "ok")
+        self.assertEqual(Handler.range_history, [None])
+        self.assertEqual(destination.read_bytes(), Handler.payload)
+
+    def test_mismatched_content_range_restarts_from_zero(self):
+        destination = Path(self.temp.name) / "sample.bin"
+        part = destination.with_suffix(destination.suffix + ".part")
+        part.write_bytes(Handler.payload[:3])
+        part.with_name(part.name + ".meta.json").write_text(json.dumps({
+            "etag": Handler.etag, "last_modified": Handler.last_modified,
+            "total_length": len(Handler.payload),
+        }))
+        Handler.range_start_delta = 1
+
+        result = download_file(self.url, destination)
+
+        self.assertEqual(result, "ok")
+        self.assertEqual(Handler.range_history, ["bytes=3-", None])
+        self.assertEqual(destination.read_bytes(), Handler.payload)
+
+    def test_missing_resume_etag_restarts_instead_of_appending(self):
+        destination = Path(self.temp.name) / "sample.bin"
+        part = destination.with_suffix(destination.suffix + ".part")
+        part.write_bytes(Handler.payload[:3])
+        part.with_name(part.name + ".meta.json").write_text(json.dumps({
+            "etag": Handler.etag, "last_modified": Handler.last_modified,
+            "total_length": len(Handler.payload),
+        }))
+        Handler.omit_etag = True
+
+        result = download_file(self.url, destination)
+
+        self.assertEqual(result, "ok")
+        self.assertEqual(Handler.range_history, ["bytes=3-", None])
+        self.assertEqual(destination.read_bytes(), Handler.payload)
+
+    def test_changed_etag_200_response_replaces_old_partial(self):
+        destination = Path(self.temp.name) / "sample.bin"
+        part = destination.with_suffix(destination.suffix + ".part")
+        part.write_bytes(Handler.payload[:3])
+        part.with_name(part.name + ".meta.json").write_text(json.dumps({
+            "etag": '"old"', "last_modified": Handler.last_modified,
+            "total_length": len(Handler.payload),
+        }))
+        Handler.etag = '"new"'
+        Handler.payload = b"new representation"
+        Handler.ignore_range = True
+
+        result = download_file(self.url, destination)
+
+        self.assertEqual(result, "ok")
+        self.assertEqual(Handler.last_range, "bytes=3-")
+        self.assertEqual(Handler.last_if_range, '"old"')
+        self.assertEqual(destination.read_bytes(), Handler.payload)
+
+    def test_416_with_incomplete_part_restarts_from_zero(self):
+        destination = Path(self.temp.name) / "sample.bin"
+        part = destination.with_suffix(destination.suffix + ".part")
+        part.write_bytes(Handler.payload[:3])
+        part.with_name(part.name + ".meta.json").write_text(json.dumps({
+            "etag": Handler.etag, "last_modified": Handler.last_modified,
+            "total_length": len(Handler.payload),
+        }))
+        Handler.force_416_once = True
+
+        result = download_file(self.url, destination)
+
+        self.assertEqual(result, "ok")
+        self.assertEqual(Handler.range_history, ["bytes=3-", None])
+        self.assertEqual(destination.read_bytes(), Handler.payload)
+
+    def test_complete_part_finalizes_without_request(self):
+        destination = Path(self.temp.name) / "sample.bin"
+        part = destination.with_suffix(destination.suffix + ".part")
+        part.write_bytes(Handler.payload)
+        part.with_name(part.name + ".meta.json").write_text(json.dumps({
+            "etag": Handler.etag, "last_modified": Handler.last_modified,
+            "total_length": len(Handler.payload),
+        }))
+
+        with patch("requests.get", side_effect=AssertionError("complete part should finalize locally")):
+            result = download_file(self.url, destination)
+
+        self.assertEqual(result, "ok")
+        self.assertEqual(destination.read_bytes(), Handler.payload)
+        self.assertEqual(Handler.request_count, 0)
 
     def test_http_failure_never_creates_a_successful_final_file(self):
         Handler.status = 503
         destination = Path(self.temp.name) / "sample.bin"
         part = destination.with_suffix(destination.suffix + ".part")
         part.write_bytes(b"partial")
+        part.with_name(part.name + ".meta.json").write_text(json.dumps({
+            "etag": Handler.etag, "last_modified": Handler.last_modified,
+            "total_length": len(Handler.payload),
+        }))
 
         with self.assertRaises(requests.HTTPError):
             download_file(self.url, destination)
