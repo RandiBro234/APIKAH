@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from migrate_data_layout import apply_plan, build_plan
+from apikah_crawler.migrate_data_layout import apply_plan, build_plan
 
 
 class DataMigrationTests(unittest.TestCase):

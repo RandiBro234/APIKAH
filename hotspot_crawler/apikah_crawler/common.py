@@ -11,7 +11,7 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Callable, Iterator
 
-import config
+from . import config
 
 log = logging.getLogger("crawler")
 

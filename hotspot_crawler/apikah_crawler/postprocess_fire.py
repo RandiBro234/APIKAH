@@ -42,9 +42,9 @@ from datetime import date
 import numpy as np
 import pandas as pd
 
-import config
-from common import done, iter_months, log, setup_logging
-from postprocess_era5 import time_name
+from . import config
+from .common import done, iter_months, log, setup_logging
+from .postprocess_era5 import time_name
 
 # nama di NetCDF -> nama kolom keluaran (dibuktikan dari berkas, lihat docstring)
 SHORT = {"fwinx": "fwi", "drtcode": "dc", "dufmcode": "dmc", "kbdi": "kbdi"}

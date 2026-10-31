@@ -18,10 +18,10 @@ import sys
 import time
 from pathlib import Path
 
-import config
-from common import (done, download_file, log, manifest_update, ns_ew, setup_logging,
+from . import config
+from .common import (done, download_file, log, manifest_update, ns_ew, setup_logging,
                     tile_origins, with_retry)
-from climate_tables import write_climate_parquet
+from .climate_tables import write_climate_parquet
 
 N, W, S, E = config.AREA
 

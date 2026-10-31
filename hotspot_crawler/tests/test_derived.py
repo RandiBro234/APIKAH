@@ -12,9 +12,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-import config
-from build_derived_features import (DERIVED_COLS, build, dry_streak,
-                                    empirical_spi, load_climate)
+from apikah_crawler import config
+from apikah_crawler.build_derived_features import (DERIVED_COLS, build, dry_streak,
+                                                   empirical_spi, load_climate)
 
 TESTS = []
 

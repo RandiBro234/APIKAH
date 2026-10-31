@@ -8,9 +8,9 @@ from unittest.mock import patch
 
 import pandas as pd
 
-import config
-from crawl_static import do_enso
-from climate_tables import write_climate_parquet
+from apikah_crawler import config
+from apikah_crawler.crawl_static import do_enso
+from apikah_crawler.climate_tables import write_climate_parquet
 
 
 class ClimateParquetTests(unittest.TestCase):

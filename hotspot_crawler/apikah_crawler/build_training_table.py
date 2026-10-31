@@ -42,9 +42,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-import config
-from common import iter_months, log, setup_logging
-from postprocess_era5 import cell_center
+from . import config
+from .common import iter_months, log, setup_logging
+from .postprocess_era5 import cell_center
 
 KEYS = ["date", "lat_c", "lon_c"]
 TARGET_COLS = ["n_hotspot", "n_hotspot_high", "max_frp", "ada_api"]

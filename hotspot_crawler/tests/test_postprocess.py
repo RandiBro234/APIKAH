@@ -14,10 +14,10 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 
-import config  # noqa: F401  (dipastikan bisa diimpor dari folder ini)
-from common import ns_ew, tile_origins
-from postprocess_era5 import (accum_daily, cell_center, es_kpa, instant_daily,
-                             rh_from_t_td, vpd_from_t_td, time_name)
+from apikah_crawler import config  # noqa: F401
+from apikah_crawler.common import ns_ew, tile_origins
+from apikah_crawler.postprocess_era5 import (accum_daily, cell_center, es_kpa, instant_daily,
+                                             rh_from_t_td, vpd_from_t_td, time_name)
 
 TESTS: list[tuple[str, callable]] = []
 

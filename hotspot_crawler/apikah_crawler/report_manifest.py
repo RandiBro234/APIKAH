@@ -23,8 +23,8 @@ import sys
 from collections import Counter
 from typing import Iterator
 
-import config
-from common import done, iter_months, manifest_load
+from . import config
+from .common import done, iter_months, manifest_load
 
 STATUSES = ["ok", "failed", "missing", "skipped", "manual_pending"]
 BELUM = "belum"

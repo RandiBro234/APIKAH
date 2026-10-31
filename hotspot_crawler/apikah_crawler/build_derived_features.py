@@ -39,8 +39,8 @@ from datetime import date
 import numpy as np
 import pandas as pd
 
-import config
-from common import iter_months, log, setup_logging
+from . import config
+from .common import iter_months, log, setup_logging
 
 LAG = 1                     # hari: fitur turunan digeser sebanyak ini
 DRY_MM = 1.0                # ambang hari kering (mm)

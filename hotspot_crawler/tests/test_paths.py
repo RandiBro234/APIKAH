@@ -9,9 +9,8 @@ from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
 
-import config
-import crawl_static
-from common import manifest_path
+from apikah_crawler import config, crawl_static
+from apikah_crawler.common import manifest_path
 
 TESTS = []
 
@@ -67,11 +66,11 @@ def test_burned_crawler_mengarah_ke_nasa_raw():
 
 @test
 def test_path_sama_saat_diimport_dari_cwd_lain():
-    config_dir = Path(config.__file__).resolve().parent
+    package_root = Path(config.__file__).resolve().parents[1]
     script = (
         "import sys; "
-        f"sys.path.insert(0, {str(config_dir)!r}); "
-        "import config; print(config.DATA_DIR.resolve())"
+        f"sys.path.insert(0, {str(package_root)!r}); "
+        "from apikah_crawler import config; print(config.DATA_DIR.resolve())"
     )
     with tempfile.TemporaryDirectory() as tmp:
         result = subprocess.run(

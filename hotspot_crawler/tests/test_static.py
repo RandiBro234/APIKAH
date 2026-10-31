@@ -11,7 +11,7 @@ from pathlib import Path
 
 import numpy as np
 
-import build_static_features as b
+from apikah_crawler import build_static_features as b
 
 _lulus = 0
 _gagal = 0
@@ -255,7 +255,7 @@ def test_hansen_pairs_per_nama_berkas():
 @test
 def test_build_hansen_memakai_lag_dari_config():
     """loss_frac_{lag}y harus memakai HANSEN_LOSS_REF_YEAR - lag, bukan tahun berjalan."""
-    import config
+    from apikah_crawler import config
     acuan = config.HANSEN_LOSS_REF_YEAR
     th1 = acuan - 1
     # lossyear berisi tahun-2000, jadi nilai piksel = th1 - 2000
@@ -304,7 +304,7 @@ def test_build_peat_memakai_ambang_bukan_nol():
     Raster uji: separuh piksel bernilai 1 (hanya 1 dari 3 peta bilang gambut) dan separuh
     bernilai 100 (ketiga peta setuju). Dengan ambang 100, fraksi gambut harus 0,5 -- bukan 1,0.
     """
-    import config
+    from apikah_crawler import config
     with tempfile.TemporaryDirectory() as td:
         extent = np.ones((100, 100), "uint8")
         extent[:, 50:] = 100
@@ -324,7 +324,7 @@ def test_build_peat_memakai_ambang_bukan_nol():
 @test
 def test_build_peat_ketebalan_dan_karbon_hanya_di_piksel_gambut():
     """Rata-rata ketebalan/karbon HARUS hanya dari piksel gambut, bukan seluruh sel."""
-    import config
+    from apikah_crawler import config
     with tempfile.TemporaryDirectory() as td:
         extent = np.ones((100, 100), "uint8")
         extent[:, 50:] = 100
@@ -348,7 +348,7 @@ def test_build_peat_ketebalan_dan_karbon_hanya_di_piksel_gambut():
 @test
 def test_build_peat_tanpa_extent_mengembalikan_kosong():
     """Tanpa peta gambut: kembalikan kosong (dengan peringatan), jangan meledak."""
-    import config
+    from apikah_crawler import config
     with tempfile.TemporaryDirectory() as td:
         (Path(td) / "peatlands").mkdir(parents=True, exist_ok=True)
         asli = config.STATIC
@@ -363,7 +363,7 @@ def test_build_peat_tanpa_extent_mengembalikan_kosong():
 @test
 def test_peat_berkas_memakai_nama_baku():
     """peat_berkas() hanya mengenali nama baku; berkas lain diabaikan (dan itu wajar)."""
-    import config
+    from apikah_crawler import config
     with tempfile.TemporaryDirectory() as td:
         folder = Path(td) / "peatlands"
         folder.mkdir(parents=True, exist_ok=True)
@@ -386,7 +386,7 @@ def test_build_peat_deforestasi_di_atas_gambut():
     hanya di kolom 40-79, yaitu TEPAT 2 dari 5 sel halus (0,05 derajat) -> fraksi 0,4.
     Kalau gambut diabaikan hasilnya 0,4 juga, jadi kita juga uji kasus gambut=0 -> NaN.
     """
-    import config
+    from apikah_crawler import config
     th1 = config.HANSEN_LOSS_REF_YEAR - 1
     with tempfile.TemporaryDirectory() as td:
         extent = np.full((100, 100), 100, "uint8")          # semuanya gambut
@@ -413,7 +413,7 @@ def test_build_peat_deforestasi_di_atas_gambut():
 @test
 def test_build_peat_deforestasi_nol_kalau_tidak_ada_gambut():
     """Tanpa piksel gambut, wilayah 'gambut yang hilang' harus 0 (bukan terisi diam-diam)."""
-    import config
+    from apikah_crawler import config
     th1 = config.HANSEN_LOSS_REF_YEAR - 1
     with tempfile.TemporaryDirectory() as td:
         extent = np.zeros((100, 100), "uint8")              # tidak ada gambut
@@ -438,7 +438,7 @@ def test_build_peat_deforestasi_nol_kalau_tidak_ada_gambut():
 @test
 def test_peat_berkas_menebak_peran_dari_nama():
     """Berkas bernama lain (mis. WRI manual) harus tetap dikenali, dan dipilih yang benar."""
-    import config
+    from apikah_crawler import config
     with tempfile.TemporaryDirectory() as td:
         folder = Path(td) / "peatlands"
         folder.mkdir(parents=True, exist_ok=True)

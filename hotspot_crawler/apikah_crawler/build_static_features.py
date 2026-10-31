@@ -38,8 +38,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-import config
-from common import log, setup_logging
+from . import config
+from .common import log, setup_logging
 
 STEP = 0.25                     # derajat, konvensi sel bersama dengan label
 RES_DEFAULT = 0.0025            # derajat, resolusi kerja ~250 m

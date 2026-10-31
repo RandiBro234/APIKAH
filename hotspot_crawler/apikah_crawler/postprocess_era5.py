@@ -20,8 +20,8 @@ from datetime import date
 import numpy as np
 import pandas as pd
 
-import config
-from common import done, iter_months, log, setup_logging
+from . import config
+from .common import done, iter_months, log, setup_logging
 
 SHORT = {  # nama pendek NetCDF CDS baru -> nama internal
     "t2m": "t2m", "d2m": "d2m", "u10": "u10", "v10": "v10",

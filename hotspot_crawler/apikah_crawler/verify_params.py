@@ -27,9 +27,9 @@ from pathlib import Path
 
 import requests
 
-import config
-from common import days_in_month, iter_months, months_from_end
-from crawl_copernicus import CDS_URL, EWDS_URL, era5_request, fire_request, read_rc
+from . import config
+from .common import days_in_month, iter_months, months_from_end
+from .crawl_copernicus import CDS_URL, EWDS_URL, era5_request, fire_request, read_rc
 
 CDS_BASE = CDS_URL
 EWDS_BASE = EWDS_URL
@@ -253,7 +253,7 @@ def check_config_consistency() -> None:
     #    Ini penjaga bug nyata: lapisan `peat` disimpan di folder "peatlands",
     #    jadi tanpa peta DIRS berkas gambut tidak akan pernah ditemukan.
     try:
-        import build_static_features as bsf
+        from . import build_static_features as bsf
         kurang = [x for x in (*bsf.LAYERS, *bsf.OPTIONAL_LAYERS) if x not in bsf.DIRS]
         if kurang:
             rec(FAIL, "folder lapisan statis", f"lapisan tanpa folder di DIRS: {kurang}")

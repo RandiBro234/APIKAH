@@ -21,8 +21,8 @@ import time
 from datetime import date
 from pathlib import Path
 
-import config
-from common import (days_in_month, done, iter_months, log, manifest_update,
+from . import config
+from .common import (days_in_month, done, iter_months, log, manifest_update,
                     months_from_end, setup_logging, with_retry)
 
 CDS_URL = "https://cds.climate.copernicus.eu/api"

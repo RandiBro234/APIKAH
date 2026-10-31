@@ -19,8 +19,8 @@ from pathlib import Path
 
 import numpy as np
 
-import build_static_features as b
-import config
+from . import build_static_features as b
+from . import config
 
 PX = 0.0025          # derajat, ~250 m
 

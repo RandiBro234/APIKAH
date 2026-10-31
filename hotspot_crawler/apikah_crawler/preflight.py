@@ -15,9 +15,9 @@ import sys
 import time
 from pathlib import Path
 
-import config
-from common import ns_ew, tile_origins
-from crawl_copernicus import CDS_URL, EWDS_URL, read_rc
+from . import config
+from .common import ns_ew, tile_origins
+from .crawl_copernicus import CDS_URL, EWDS_URL, read_rc
 
 OK, WARN, FAIL = "OK  ", "WARN", "FAIL"
 results: list[tuple[str, str, str]] = []
@@ -141,7 +141,7 @@ def check_endpoints(only: set[str]) -> None:
 
 # ------------------------------------------------------------------ 4. limitasi + disk
 def show_limits() -> None:
-    from common import iter_months
+    from .common import iter_months
 
     n_months = len(list(iter_months()))
     n_inst = len(config.ERA5_INSTANT) * 31 * len(config.ERA5_INSTANT_TIMES)

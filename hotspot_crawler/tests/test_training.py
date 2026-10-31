@@ -8,8 +8,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from build_training_table import (KEYS, TARGET_COLS, aggregate_labels,
-                                  derived_columns, prev_month, shift_by_cell)
+from apikah_crawler.build_training_table import (KEYS, TARGET_COLS, aggregate_labels,
+                                                 derived_columns, prev_month, shift_by_cell)
 
 TESTS = []
 
