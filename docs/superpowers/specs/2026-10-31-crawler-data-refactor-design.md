@@ -1,6 +1,6 @@
 # Desain: Refactor crawler dan tata letak data APIKAH
 
-**Status:** draf untuk persetujuan pengguna. Implementasi belum boleh dimulai sebelum desain ini disetujui.
+**Status:** disetujui pengguna 2026-10-31; implementasi berjalan di branch `refactor/crawler-data-layout`.
 
 ## Maksud dan alasan
 
@@ -147,3 +147,11 @@ Setiap tahap bermakna mendapat commit terpisah pada branch refactor. Tidak ada p
 - `data/features_raw` berisi sekitar 17 GB. Penyalinan memerlukan waktu dan ruang, walau ruang disk bebas terakhir sekitar 105 GB.
 - Risiko utama: path lama di notebook/test/docs, file tersalin dua kali atau terunduh ulang jika migrasi tidak lengkap, aturan ignore menyembunyikan label atau memasukkan data besar, dan race manifest saat proses paralel.
 - Repo memuat data GADM yang sudah tercatat punya batas redistribusi; jangan menambahkan atau memindahkan salinan GADM baru ke Git.
+
+## Status implementasi (2026-10-31)
+
+- Sudah dilakukan: remote tim di-fetch, baseline crawler dikomit, branch dibuat; root data dipusatkan ke `APIKAH/data/`; data mentah disalin dan diverifikasi SHA-256 sebelum salinan lama dihapus; label gabungan dipindah tanpa mengubah tracking.
+- Sudah dilakukan: package `apikah_crawler`, wrapper CLI kompatibel, pemisahan tests/docs, Parquet untuk climate-index, manifest lock lintas proses, `.gitignore` spesifik, AGENTS/docs/agent-notes.
+- MCD64A1 tetap raw-only seperti keputusan pengguna.
+- Masih perlu pemeriksaan akhir ukuran/lisensi untuk 7 keluaran processed yang belum tracked dan kesetaraan CSV gabungan lama terhadap Parquet. CSV legacy masih disimpan; notebook aktif memakai Parquet.
+- Push/merge belum dilakukan.

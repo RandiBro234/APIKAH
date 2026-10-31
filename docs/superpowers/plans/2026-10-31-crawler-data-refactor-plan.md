@@ -4,6 +4,15 @@
 **Desain:** [2026-10-31-crawler-data-refactor-design.md](../specs/2026-10-31-crawler-data-refactor-design.md)
 **Aturan:** setiap tahap bermakna dikomit terpisah; jangan commit data mentah.
 
+## Progres pelaksanaan (2026-10-31)
+
+- Selesai: remote `origin/main` diperbarui dengan commit tim `cd1b892`; baseline crawler lokal dikomit; branch refactor dibuat.
+- Selesai: project-root path resolver, data migrator salin+SHA-256, migrasi lokal seluruh crawler data (~16.99 GiB), relokasi combined labels, raw/source `.raw.txt` dipertahankan, salinan nested lama dihapus setelah verifikasi.
+- Selesai: package `apikah_crawler`, wrapper CLI bernama sama, tests di `hotspot_crawler/tests/`, dan `requirements.txt`/`status.ps1` di crawler root.
+- Selesai: NOAA climate table Parquet (177 baris NINO3.4, 173 DMI; sama dengan tabel CSV lama), notebook aktif memakai Parquet, MCD64A1 tidak diolah.
+- Selesai: manifest cross-process lock, root `AGENTS.md`, runbook/agent notes dipisahkan dan arsip lama diberi peringatan.
+- Verifikasi akhir masih perlu dijalankan sebelum klaim selesai. CSV gabungan legacy tetap disimpan sampai kesetaraan baris/nilai dengan Parquet diverifikasi; 7 Parquet hasil olahan lama (81.8 MB) tidak di-stage massal.
+
 ## Prasyarat dan baseline (selesai)
 
 - Crawl lengkap dan manifest tervalidasi: ERA5 354/354 kunci, CEMS 177/177; MCD64A1 2.992 granula.
