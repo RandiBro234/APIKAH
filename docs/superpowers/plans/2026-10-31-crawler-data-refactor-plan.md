@@ -12,8 +12,8 @@
 - Selesai: NOAA climate table Parquet (177 baris NINO3.4, 173 DMI; sama dengan tabel CSV lama), notebook aktif memakai Parquet, MCD64A1 tidak diolah.
 - Selesai: manifest cross-process lock, root `AGENTS.md`, runbook/agent notes dipisahkan dan arsip lama diberi peringatan.
 - Selesai setelah review: migrator memakai no-clobber finalisasi lintas platform; tes mencakup skip valid, resume Range, HTTP failure, 404, failed manifest status, serta race destination.
-- Audit data: CSV hotspot legacy 1.048.575 baris vs Parquet 3.941.038, jadi tetap disimpan sebagai file historis dan tidak dipakai pipeline. Tujuh Parquet hasil olahan lama (81.8 MB, hanya dua bulan) tidak di-stage karena parsial dan lisensi redistribusi belum diaudit.
-- Final suite dan review read-only masih dijalankan; hasilnya akan dicatat di handoff sebelum penutupan branch.
+- Audit data: CSV hotspot legacy 1.048.575 baris vs Parquet 3.941.038, jadi tetap disimpan sebagai file historis dan tidak dipakai pipeline. Tujuh Parquet hasil olahan lama (81.8 MB, hanya dua bulan) tidak di-stage karena parsial dan lisensi redistribusi belum diaudit; dua Parquet climate-index kecil sudah tracked.
+- Verifikasi akhir selesai: 83 tes custom, 18 tes unittest, 2 tes EDA notebook, smoke test, compileall, manifest report, dan `verify_params.py` (60 OK/0 WARN/0 FAIL) lulus. Review read-only menemukan isu migrator no-clobber; sudah diperbaiki dan ditambah regression test. Follow-up review masih diperlukan.
 
 ## Prasyarat dan baseline (selesai)
 
