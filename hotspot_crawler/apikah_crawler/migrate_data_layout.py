@@ -2,6 +2,7 @@
 
 Run a read-only inventory first; use --apply only after confirming the plan.
 Every copied file is SHA-256 checked. Conflicts are never overwritten.
+Publishing uses a same-filesystem hard link; the destination filesystem must support it.
 """
 from __future__ import annotations
 

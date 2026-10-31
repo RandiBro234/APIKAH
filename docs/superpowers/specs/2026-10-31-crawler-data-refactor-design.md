@@ -156,7 +156,8 @@ Setiap tahap bermakna mendapat commit terpisah pada branch refactor. Tidak ada p
 - Sudah dilakukan: remote tim di-fetch, baseline crawler dikomit, branch dibuat; root data dipusatkan ke `APIKAH/data/`; data mentah disalin dan diverifikasi SHA-256 sebelum salinan lama dihapus; label gabungan dipindah tanpa mengubah tracking.
 - Sudah dilakukan: package `apikah_crawler`, wrapper CLI kompatibel, pemisahan tests/docs, Parquet untuk climate-index, manifest lock lintas proses, `.gitignore` spesifik, AGENTS/docs/agent-notes.
 - Review menemukan no-clobber migration race dan shared-target download race; implementasi kini melock target unduhan (termasuk MCD64A1 dataset) di metadata pusat serta finalisasi migrasi tanpa overwrite. Tes mencakup dua worker, skip/resume, HTTP error, 404, dan failed manifest status.
-- HTTP resume mencatat ETag/Last-Modified dan panjang representasi; `206 Content-Range` divalidasi, `If-Range` dipakai, dan partial yang tidak tervalidasi diulang penuh sebelum dipublikasikan.
+- HTTP resume mencatat hash URL, ETag/Last-Modified dan panjang representasi; `206 Content-Range` divalidasi, `If-Range` dipakai, serta partial tanpa validator/berukuran nol diulang penuh sebelum dipublikasikan.
+- Migrasi no-clobber memakai hard link atomik pada filesystem target; bila hard link tidak didukung, operasi berhenti tanpa mengganti file tujuan.
 - MCD64A1 tetap raw-only seperti keputusan pengguna.
 - Audit CSV/Parquet menemukan jumlah baris berbeda (lihat keputusan di atas); keluaran processed parsial ditahan lokal dan tidak distage. Notebook aktif memakai Parquet.
 - Push/merge belum dilakukan.

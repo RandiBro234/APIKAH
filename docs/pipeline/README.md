@@ -75,7 +75,7 @@ powershell -ExecutionPolicy Bypass -File "C:\path\ke\APIKAH\hotspot_crawler\stat
 
 Gunakan rentang `--from YYYY-MM --to YYYY-MM` untuk uji/lanjutan terbatas. Lock per target mencegah dua worker mengunduh/menulis berkas yang sama; manifest juga dikunci lintas proses. Tetap bagi rentang worker agar tidak membuang request pada bulan yang sama.
 
-Unduhan HTTP hanya melanjutkan `.part` jika metadata sidecar, validator (ETag/Last-Modified), dan `Content-Range` cocok. Jika sumber berubah atau range tidak valid, file parsial dibuang dan unduhan dimulai ulang agar byte dari versi berbeda tidak tercampur.
+Unduhan HTTP hanya melanjutkan `.part` jika sidecar cocok dengan URL sumber, validator (ETag/Last-Modified), panjang total, dan `Content-Range`. Jika URL/objek/range berubah atau metadata tidak tersedia, file parsial dibuang dan unduhan dimulai ulang agar byte dari versi berbeda tidak tercampur. Migrasi memakai hard-link no-clobber untuk memublikasikan file; filesystem target harus mendukung hard links (NTFS lokal yang dipakai sudah mendukung). Jika tidak, migrasi gagal dengan aman dan salinan sumber tetap ada.
 
 ## Tes dan verifikasi
 
