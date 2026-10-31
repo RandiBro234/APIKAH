@@ -15,13 +15,14 @@ Diperbarui 2026-10-31, setelah verifikasi akhir refactor.
 ## Kode dan verifikasi
 
 - Implementasi di `hotspot_crawler/apikah_crawler/`; wrapper CLI bernama lama di `hotspot_crawler/`.
+- Unduhan static, ERA5/CEMS, dan climate-index output memakai lock per-target di `metadata/locks/`; manifest read-modify-write juga dikunci lintas proses.
 - Tes custom dijalankan sebagai `python -m tests.test_*`; tes `unittest` dijalankan melalui `python -m unittest tests.<module>`.
-- Verifikasi akhir 2026-10-31: 83 tes custom + 18 tes unittest lulus; tes EDA notebook 2/2; `smoke_static.py` lulus; `verify_params.py` 60 OK/0 WARN/0 FAIL; `compileall` lulus; report manifest lengkap dan tidak ada `.part`.
+- Verifikasi akhir 2026-10-31: 83 tes custom + 21 tes unittest lulus; tes EDA notebook 2/2; `smoke_static.py` lulus; `verify_params.py` 60 OK/0 WARN/0 FAIL; `compileall` lulus; report manifest lengkap dan tidak ada `.part`.
 - Hindari klaim percepatan unduh jaringan; perubahan efisiensi yang diukur saat ini adalah path, penyimpanan, resume/manifest dan format tabular.
 
 ## Git dan branch
 
 - Branch kerja: `refactor/crawler-data-layout`.
-- Remote commit tim `cd1b892` sudah diambil. Branch ini memuat baseline `0afc14d` dan commit refactor bertahap sampai `22c0ad9` saat catatan ini ditulis. Belum ada push/merge.
+- Remote commit tim `cd1b892` sudah diambil. Branch ini memuat baseline `0afc14d` dan commit refactor bertahap; lihat `git log`. Belum ada push/merge.
 - Setiap perubahan bermakna di-commit; jangan push/merge tanpa instruksi.
 - EDA lokal yang tidak terkait (`eda_awal.ipynb`, `tests/`, `.opencode/`) dipertahankan dan tidak boleh di-stage massal.

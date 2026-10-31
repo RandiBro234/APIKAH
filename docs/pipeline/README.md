@@ -18,7 +18,7 @@ APIKAH/
 │   ├── features_processed/
 │   │   ├── era5_daily/  ├── fire_daily/  ├── climate_index/
 │   │   ├── static/      ├── features_daily/  └── training/
-│   └── metadata/{manifests,logs}/
+│   └── metadata/{manifests,logs,locks}/
 ├── hotspot_crawler/
 │   ├── apikah_crawler/                 # implementasi package
 │   ├── tests/                          # unit, integrasi sintetis, CLI
@@ -73,7 +73,7 @@ python build_training_table.py
 powershell -ExecutionPolicy Bypass -File "C:\path\ke\APIKAH\hotspot_crawler\status.ps1"
 ```
 
-Gunakan rentang `--from YYYY-MM --to YYYY-MM` untuk uji/lanjutan terbatas. Jangan jalankan dua worker pada berkas/bulan yang sama. Manifest memiliki lock lintas proses agar update worker tidak saling menimpa.
+Gunakan rentang `--from YYYY-MM --to YYYY-MM` untuk uji/lanjutan terbatas. Lock per target mencegah dua worker mengunduh/menulis berkas yang sama; manifest juga dikunci lintas proses. Tetap bagi rentang worker agar tidak membuang request pada bulan yang sama.
 
 ## Tes dan verifikasi
 
@@ -85,7 +85,7 @@ python -m tests.test_postprocess
 python -m tests.test_static
 python -m tests.test_training
 python -m tests.test_paths
-python -m unittest tests.test_cli_wrappers tests.test_climate_parquet tests.test_migrate_data_layout tests.test_manifest_concurrency tests.test_download_file
+python -m unittest tests.test_cli_wrappers tests.test_climate_parquet tests.test_migrate_data_layout tests.test_manifest_concurrency tests.test_download_file tests.test_copernicus_concurrency
 python smoke_static.py
 python verify_params.py
 ```
@@ -96,5 +96,5 @@ Tes tidak memakai network/dataset produksi kecuali `verify_params.py` yang memer
 
 - `data/features_raw/` dan `data/metadata/logs/` di-ignore Git. Label hotspot yang telah dilacak tetap tracked.
 - `features_processed/` tidak di-ignore menyeluruh; sebelum staging, audit ukuran dan lisensi. Hindari file tunggal lebih dari 100 MB dan jangan stage semua folder sekaligus.
-- `data/metadata/manifests/` berisi catatan status kecil yang boleh dilacak; file `.lock` bersifat runtime dan di-ignore.
+- `data/metadata/manifests/` berisi catatan status kecil yang boleh dilacak; lock files lintas proses berada di `data/metadata/locks/` dan di-ignore.
 - `migrate_data_layout.py` default hanya menampilkan dry-run. `--apply` menyalin data lama dan memverifikasi SHA-256, **tanpa menghapus sumber**. Hapus sumber lama hanya setelah count/hash/status semua tervalidasi.

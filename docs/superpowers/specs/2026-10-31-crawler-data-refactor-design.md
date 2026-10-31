@@ -72,6 +72,7 @@ APIKAH/
 │   └── metadata/
 │       ├── manifests/
 │       ├── logs/             # runtime; tidak di-track
+│       ├── locks/            # lock file per target; tidak di-track
 │       └── data-catalog.md
 ├── hotspot_crawler/
 │   ├── crawl_copernicus.py   # wrapper CLI, nama/argumen tetap
@@ -99,9 +100,9 @@ Struktur internal package/file dapat disederhanakan atau disesuaikan setelah aud
 
 - Sediakan wrapper bernama sama untuk perintah yang sudah ada (`crawl_copernicus.py`, `crawl_static.py`, postprocess/build scripts), lalu pindahkan implementasi inti ke package `apikah_crawler`.
 - `paths.py` menentukan root project dan pemetaan path data; tes boleh mengarahkan root sementara tanpa menyentuh dataset produksi.
-- `downloads.py` menangani helper umum yang memang sama: retry/backoff, file sementara/atomik, validasi hasil, dan mekanisme resume yang sesuai kemampuan endpoint. Klien Copernicus/Earthdata/HTTP tetap mempertahankan detail autentikasi dan request masing-masing.
+- `downloads.py` menangani helper umum yang memang sama: retry/backoff, file sementara/atomik, validasi hasil, resume, serta lock per-target lintas proses. Klien Copernicus/Earthdata/HTTP tetap mempertahankan detail autentikasi dan request masing-masing.
 - `manifests.py` menjaga pembaruan metadata aman untuk beberapa proses. Pilih file lock lintas proses atau manifest per worker setelah mengevaluasi kompatibilitas Windows dan kebutuhan merge; atomic replace saja belum mencegah lost update.
-- Batas paralelisme tetap terukur dan tidak dinaikkan sebagai bagian refactor tanpa hasil uji serta persetujuan; satu bulan/file tidak boleh diunduh oleh dua worker.
+- Batas paralelisme tetap terukur dan tidak dinaikkan sebagai bagian refactor tanpa hasil uji serta persetujuan; lock per-target memastikan satu file tidak ditulis bersamaan oleh dua worker.
 - Pengolahan raster/NetCDF tetap berbatas area atau chunk bila memungkinkan; hindari memuat raster nasional penuh ke RAM.
 - Tidak menambah dependency wajib tanpa alasan. Standarisasi satu cara menjalankan test tanpa mengasumsikan pytest terpasang; baseline saat ini memakai skrip test standalone.
 - Produk tabular persisten (indeks iklim terparse, tabel harian/turunan/training) menggunakan Parquet. Untuk NOAA, pertahankan response mentah `.raw.txt` sebagai provenance dan tulis tabel terparse sebagai Parquet; CSV lama hanya dipertahankan sementara bila dibutuhkan kompatibilitas.
@@ -154,7 +155,7 @@ Setiap tahap bermakna mendapat commit terpisah pada branch refactor. Tidak ada p
 
 - Sudah dilakukan: remote tim di-fetch, baseline crawler dikomit, branch dibuat; root data dipusatkan ke `APIKAH/data/`; data mentah disalin dan diverifikasi SHA-256 sebelum salinan lama dihapus; label gabungan dipindah tanpa mengubah tracking.
 - Sudah dilakukan: package `apikah_crawler`, wrapper CLI kompatibel, pemisahan tests/docs, Parquet untuk climate-index, manifest lock lintas proses, `.gitignore` spesifik, AGENTS/docs/agent-notes.
-- Review menemukan no-clobber migration race; implementasi kini finalisasi tanpa overwrite dan tes meliputi race destination, download skip/resume, HTTP error, 404, dan failed manifest status.
+- Review menemukan no-clobber migration race dan shared-target download race; implementasi kini melock target unduhan di metadata pusat serta finalisasi migrasi tanpa overwrite. Tes mencakup dua worker, skip/resume, HTTP error, 404, dan failed manifest status.
 - MCD64A1 tetap raw-only seperti keputusan pengguna.
 - Audit CSV/Parquet menemukan jumlah baris berbeda (lihat keputusan di atas); keluaran processed parsial ditahan lokal dan tidak distage. Notebook aktif memakai Parquet.
 - Push/merge belum dilakukan.
