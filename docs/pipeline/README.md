@@ -85,7 +85,7 @@ python -m tests.test_postprocess
 python -m tests.test_static
 python -m tests.test_training
 python -m tests.test_paths
-python -m unittest tests.test_cli_wrappers tests.test_climate_parquet tests.test_migrate_data_layout tests.test_manifest_concurrency
+python -m unittest tests.test_cli_wrappers tests.test_climate_parquet tests.test_migrate_data_layout tests.test_manifest_concurrency tests.test_download_file
 python smoke_static.py
 python verify_params.py
 ```
