@@ -1,12 +1,15 @@
 """Utilitas bersama: bulan, retry, download dengan resume, manifest, logging."""
 from __future__ import annotations
 
+import errno
 import json
 import logging
 import math
 import os
+import threading
 import time
 from calendar import monthrange
+from contextlib import contextmanager
 from datetime import date, datetime
 from pathlib import Path
 from typing import Callable, Iterator
@@ -14,6 +17,7 @@ from typing import Callable, Iterator
 from . import config
 
 log = logging.getLogger("crawler")
+_MANIFEST_THREAD_LOCK = threading.RLock()
 
 
 def setup_logging(name: str) -> None:
@@ -90,6 +94,43 @@ def manifest_path(name: str) -> Path:
     return config.METADATA / "manifests" / f"manifest_{name}.json"
 
 
+@contextmanager
+def _manifest_lock(path: Path):
+    """Serialize manifest read-modify-write across threads and processes."""
+    lock_path = path.with_suffix(".lock")
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with _MANIFEST_THREAD_LOCK, lock_path.open("a+b") as stream:
+        if os.name == "nt":
+            import msvcrt
+
+            stream.seek(0, os.SEEK_END)
+            if stream.tell() == 0:
+                stream.write(b"\0")
+                stream.flush()
+            while True:
+                stream.seek(0)
+                try:
+                    msvcrt.locking(stream.fileno(), msvcrt.LK_NBLCK, 1)
+                    break
+                except OSError as exc:
+                    if exc.errno not in (errno.EACCES, errno.EDEADLK) and getattr(exc, "winerror", None) != 33:
+                        raise
+                    time.sleep(0.02)
+            try:
+                yield
+            finally:
+                stream.seek(0)
+                msvcrt.locking(stream.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(stream.fileno(), fcntl.LOCK_EX)
+            try:
+                yield
+            finally:
+                fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
+
+
 def manifest_load(name: str) -> dict:
     p = manifest_path(name)
     if not p.exists():
@@ -104,16 +145,13 @@ def manifest_load(name: str) -> dict:
 
 
 def manifest_update(name: str, key: str, status: str, note: str = "") -> None:
-    manifest_path(name).parent.mkdir(parents=True, exist_ok=True)
-    m = manifest_load(name)
-    m[key] = {"status": status, "note": note[:300], "ts": datetime.now().isoformat(timespec="seconds")}
-    # Ditulis atomik (tulis ke berkas sementara lalu os.replace) dan nama sementara unik
-    # per proses. Tanpa ini, beberapa crawl paralel bisa saling menimpa sehingga berkas
-    # terbaca separuh dan JSON-nya rusak. Konsekuensi yang tersisa hanya entri hilang
-    # (kosmetik), bukan kerusakan -- lihat catatan "crawl paralel".
-    tmp = manifest_path(name).with_suffix(f".{os.getpid()}.tmp")
-    tmp.write_text(json.dumps(m, indent=1, ensure_ascii=False))
-    os.replace(tmp, manifest_path(name))
+    path = manifest_path(name)
+    with _manifest_lock(path):
+        m = manifest_load(name)
+        m[key] = {"status": status, "note": note[:300], "ts": datetime.now().isoformat(timespec="seconds")}
+        tmp = path.with_suffix(f".{os.getpid()}.tmp")
+        tmp.write_text(json.dumps(m, indent=1, ensure_ascii=False))
+        os.replace(tmp, path)
 
 
 # ---------------------------------------------------------------- tile helper

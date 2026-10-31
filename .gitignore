@@ -31,6 +31,7 @@ data/static/
 # Tata letak baru: sumber crawler tetap lokal, tetapi satu root data di project.
 /data/features_raw/
 /data/metadata/logs/
+/data/metadata/manifests/*.lock
 # Jangan abaikan seluruh features_processed: setiap keluaran harus ditinjau
 # ukuran/lisensinya sebelum ditambahkan. Manifest kecil tetap boleh dilacak.
 
