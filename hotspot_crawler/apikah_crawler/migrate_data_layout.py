@@ -93,8 +93,9 @@ def apply_plan(plan: list[tuple[Path, Path]], *, dry_run: bool) -> dict[str, int
             shutil.copystat(source, temp_path)
             if source.stat().st_size != temp_path.stat().st_size or sha256(source) != sha256(temp_path):
                 raise IOError(f"copy verification failed: {source}")
-            # rename (not replace) refuses to overwrite a destination created concurrently.
-            os.rename(temp_path, destination)
+            # A hard link is atomic and fails if another process created destination.
+            os.link(temp_path, destination)
+            temp_path.unlink()
         except Exception:
             temp_path.unlink(missing_ok=True)
             raise

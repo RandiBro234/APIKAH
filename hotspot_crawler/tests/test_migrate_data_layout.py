@@ -1,9 +1,11 @@
 """Safety tests for migrating crawler outputs into APIKAH/data."""
 from __future__ import annotations
 
+import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from apikah_crawler.migrate_data_layout import apply_plan, build_plan
 
@@ -88,6 +90,23 @@ class DataMigrationTests(unittest.TestCase):
         with self.assertRaises(FileExistsError):
             apply_plan(self.plan(), dry_run=False)
         self.assertEqual(destination.read_bytes(), b"other data")
+
+    def test_destination_created_during_copy_is_not_overwritten(self):
+        source = self.put("raw/cems_fire/2022-12.nc", b"source")
+        destination = self.repo / "data" / "features_raw" / "copernicus" / "cems_fire" / source.name
+        competing_bytes = b"created by another worker"
+        real_link = os.link
+
+        def create_destination_then_link(temp_path, final_path):
+            Path(final_path).write_bytes(competing_bytes)
+            return real_link(temp_path, final_path)
+
+        with patch("apikah_crawler.migrate_data_layout.os.link", side_effect=create_destination_then_link):
+            with self.assertRaises(FileExistsError):
+                apply_plan(self.plan(), dry_run=False)
+
+        self.assertEqual(destination.read_bytes(), competing_bytes)
+        self.assertTrue(source.is_file())
 
     def test_partial_source_blocks_migration(self):
         self.put("raw/era5land/instant/2022-12.nc.part")
