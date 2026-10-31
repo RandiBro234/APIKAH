@@ -10,55 +10,18 @@
 # ============================================================================
 
 # ----------------------------------------------------------------------------
-# 1. Keluaran crawler — ini yang paling penting
+# 1. Keluaran crawler — satu root data project
 # ----------------------------------------------------------------------------
-# config.DATA_DIR = Path("data") relatif terhadap hotspot_crawler/hotspot_crawler/
-#   data/raw/era5land/{instant,accum}/*.nc   -> NetCDF, puluhan GB
-#   data/raw/cems_fire/*.nc
-#   data/static/                             -> Hansen, WorldCover, DEM, OSM, WorldPop
-#   data/processed/era5_daily/*.parquet
-#   data/logs/                               -> log + manifest
-hotspot_crawler/hotspot_crawler/data/
-
-# JEBAKAN: config.DATA_DIR memakai path RELATIF. Kalau skrip dijalankan dari
-# root repo (bukan dari folder crawler), keluaran akan mendarat di <root>/data/
-# dan tercampur dengan data label yang sudah dilacak. Baris berikut menjaganya.
-# (Diverifikasi 2026-10-25: belum ada apa pun yang terlacak di ketiga path ini.)
-data/raw/
-data/processed/
-data/static/
-
-# Tata letak baru: sumber crawler tetap lokal, tetapi satu root data di project.
+# Sumber mentah crawler lokal (NetCDF, HDF, raster, PBF, snapshot indeks, dll.).
 /data/features_raw/
+# Log runtime dan lock manifest tidak dibutuhkan di riwayat.
 /data/metadata/logs/
 /data/metadata/manifests/*.lock
 # Jangan abaikan seluruh features_processed: setiap keluaran harus ditinjau
 # ukuran/lisensinya sebelum ditambahkan. Manifest kecil tetap boleh dilacak.
 
 # ----------------------------------------------------------------------------
-# 2. Format mentah — jaring pengaman
-# ----------------------------------------------------------------------------
-# (Diverifikasi 2026-10-25: belum ada satu pun yang terlacak. Aman.)
-*.nc
-*.nc4
-*.tif
-*.tiff
-*.hdf
-*.hdf5
-*.pbf
-*.grib
-*.cfgrib
-
-# Arsip unduhan
-*.zip
-*.rar
-*.7z
-*.tar
-*.tar.gz
-*.tgz
-
-# ----------------------------------------------------------------------------
-# 3. Python
+# 2. Python
 # ----------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
@@ -76,7 +39,7 @@ ENV/
 .ipynb_checkpoints/
 
 # ----------------------------------------------------------------------------
-# 4. OS dan editor
+# 3. OS dan editor
 # ----------------------------------------------------------------------------
 .DS_Store
 ._*
@@ -92,7 +55,7 @@ desktop.ini
 *~
 
 # ----------------------------------------------------------------------------
-# 5. Log dan berkas sementara
+# 4. Log dan berkas sementara
 # ----------------------------------------------------------------------------
 *.log
 *.tmp
@@ -106,13 +69,12 @@ desktop.ini
 # dipertahankan:
 #   data/hotspot_indonesia/*.parquet          (177 file per bulan)
 #   data/hotspot_raw/*.parquet                (178 file per bulan)
-#   data/hotspot_indonesia_2012_2026-09.parquet
-#   data/hotspot_indonesia_2012_2026-09.csv
+#   data/hotspot_indonesia/combined/hotspot_indonesia_2012_2026-09.parquet
+#   data/hotspot_indonesia/combined/hotspot_indonesia_2012_2026-09.csv (legacy export)
 #
 # Karena sudah terlacak, aturan di atas TIDAK menghapusnya dari riwayat.
-# Repo saat ini: 370 file terlacak, pack .git = 223,5 MiB.
 #
 # CATATAN LISENSI: gadm41_IDN_1.json sudah ada di riwayat repo, padahal
-# PIPELINE_DEV.md bagian 11.7 mencatat GADM melarang redistribusi. Jangan
+# docs/agent-notes/archive/PIPELINE_DEV_history.md mencatat batas redistribusi GADM. Jangan
 # tambahkan berkas GADM baru.
 # ============================================================================
