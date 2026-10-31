@@ -10,7 +10,8 @@ from unittest.mock import patch
 
 import requests
 
-from apikah_crawler.common import done, download_file
+from apikah_crawler import config, crawl_static
+from apikah_crawler.common import done, download_file, manifest_load
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -91,6 +92,22 @@ class DownloadFileTests(unittest.TestCase):
         self.assertFalse(destination.exists())
         self.assertFalse(done(destination))
         self.assertEqual(part.read_bytes(), b"partial")
+
+    def test_crawler_marks_http_failure_failed_not_ok(self):
+        Handler.status = 503
+        destination = Path(self.temp.name) / "sample.bin"
+        previous_metadata = config.METADATA
+        config.METADATA = Path(self.temp.name) / "metadata"
+        try:
+            with patch.object(crawl_static, "with_retry", side_effect=lambda fn, *a, **kw: fn(*a, **kw)), \
+                 patch.object(crawl_static.time, "sleep"):
+                crawl_static.fetch("test", self.url, destination, dry=False)
+            record = manifest_load("static")["test/sample.bin"]
+        finally:
+            config.METADATA = previous_metadata
+
+        self.assertEqual(record["status"], "failed")
+        self.assertFalse(destination.exists())
 
     def test_not_found_is_recorded_without_creating_destination(self):
         Handler.status = 404
