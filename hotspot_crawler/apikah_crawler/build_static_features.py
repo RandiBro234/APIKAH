@@ -6,15 +6,15 @@
     python build_static_features.py --only osm               # terpisah, lihat catatan OSM
 
 Masukan (dari crawl_static.py)
-    data/static/dem/*.tif            Copernicus DEM 30 m      -> elevasi_mean/max, slope_mean/max
-    data/static/worldcover/*.tif     ESA WorldCover 10 m 2021 -> wc_<kelas> fraksi
-    data/static/hansen/*.tif         Hansen treecover2000 + lossyear
+    data/features_raw/static/dem/*.tif            Copernicus DEM 30 m      -> elevasi_mean/max, slope_mean/max
+    data/features_raw/static/worldcover/*.tif     ESA WorldCover 10 m 2021 -> wc_<kelas> fraksi
+    data/features_raw/static/hansen/*.tif         Hansen treecover2000 + lossyear
                                                               -> treecover2000_mean, loss_frac_{1,3,5}y
-    data/static/worldpop/*.tif       WorldPop 1 km            -> pop_density_mean/sum
-    data/static/peatlands/*.tif      peta gambut (manual)     -> peat_fraksi
-    data/static/osm/*.osm.pbf        Geofabrik                -> jarak_jalan_m, jarak_sungai_m (opt-in)
+    data/features_raw/static/worldpop/*.tif       WorldPop 1 km            -> pop_density_mean/sum
+    data/features_raw/static/peatlands/*.tif      peta gambut              -> peat_fraksi
+    data/features_raw/static/osm/*.osm.pbf        Geofabrik                -> jarak_jalan_m, jarak_sungai_m (opt-in)
 Keluaran
-    data/processed/static_features.parquet   satu baris per (lat_c, lon_c)
+    data/features_processed/static_features.parquet   satu baris per (lat_c, lon_c)
 
 Konvensi sel SAMA dengan grid label dan era5: pusat sel = n*0,25 + 0,125.
 
@@ -53,7 +53,7 @@ WORLDCOVER = {10: "pohon", 20: "semak", 30: "rumput", 40: "tanaman", 50: "terban
 LAYERS = ("dem", "worldcover", "hansen", "worldpop", "peat")
 OPTIONAL_LAYERS = ("osm",)
 
-# Nama lapisan -> nama folder di data/static/.
+# Nama lapisan -> nama folder di data/features_raw/static/.
 # PENTING: `peat` disimpan crawl_static.py di folder "peatlands", bukan "peat".
 # Tanpa peta ini, lapisan gambut tidak akan pernah ditemukan (bug tertangkap uji smoke).
 DIRS = {"dem": "dem", "worldcover": "worldcover", "hansen": "hansen",
@@ -333,7 +333,7 @@ def build_worldpop(res_deg: float) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
 
 
-PEAT_ROLES = {                      # peran -> nama berkas di data/static/peatlands/
+PEAT_ROLES = {                      # peran -> nama berkas di data/features_raw/static/peatlands/
     "extent": "peat_extent_1km_2000_2020.tif",
     "thickness": "peat_thickness_1km_2000_2020.tif",
     "carbon": "peat_carbon_1km_2000_2020.tif",

@@ -3,7 +3,7 @@
     python postprocess_era5.py                 # semua bulan yang ada
     python postprocess_era5.py --from 2023-01 --to 2023-12
 
-Keluaran: data/processed/era5_daily/YYYY-MM.parquet
+Keluaran: data/features_processed/era5_daily/YYYY-MM.parquet
 Kolom   : date, lat_c, lon_c, t2m_mean/max/min, rh_mean/min, wind_mean/max, u10_mean, v10_mean,
           vpd_mean/max, swvl1_mean, swvl4_mean, precip_mm, ssrd_mjm2, pev_mm
 Catatan : hari = hari UTC. Akumulasi (hujan, radiasi, PET) diambil dari nilai 00:00 UTC hari D+1

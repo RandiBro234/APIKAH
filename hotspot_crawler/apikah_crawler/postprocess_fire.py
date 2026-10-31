@@ -3,7 +3,7 @@
     python postprocess_fire.py                  # semua bulan yang ada
     python postprocess_fire.py --from 2023-07 --to 2023-08
 
-Keluaran: data/processed/fire_daily/YYYY-MM.parquet
+Keluaran: data/features_processed/fire_daily/YYYY-MM.parquet
 Kolom   : date, lat_c, lon_c, fwi, dc, dmc, kbdi
 
 DUA HAL YANG DIBUKTIKAN DARI BERKAS ASLI (2023-07), BUKAN DARI DOKUMENTASI:

@@ -287,7 +287,7 @@ def test_read_decimated_bbox_lebih_luas_dipangkas_ke_raster():
 
 
 def _static_gambut(td: str, extent, thickness=None, carbon=None) -> None:
-    """Siapkan data/static/peatlands di dalam folder sementara."""
+    """Siapkan data/features_raw/static/peatlands di dalam folder sementara."""
     folder = Path(td) / "peatlands"
     folder.mkdir(parents=True, exist_ok=True)
     _tif(folder / b.PEAT_ROLES["extent"], extent, west=100.0, north=0.0)

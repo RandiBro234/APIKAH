@@ -5,15 +5,15 @@
     python build_training_table.py --no-labels          # tabel fitur saja (untuk inferensi)
 
 Masukan
-    data/processed/era5_daily/YYYY-MM.parquet       16 kolom cuaca (OTORITATIF)
-    data/processed/fire_daily/YYYY-MM.parquet        4 indeks api CEMS
-    data/processed/features_daily/YYYY-MM.parquet   22 kolom turunan
+    data/features_processed/era5_daily/YYYY-MM.parquet       16 kolom cuaca (OTORITATIF)
+    data/features_processed/fire_daily/YYYY-MM.parquet        4 indeks api CEMS
+    data/features_processed/features_daily/YYYY-MM.parquet   22 kolom turunan
         (12 kolom cuaca di berkas ini DIABAIKAN -- sudah diambil dari era5_daily,
          supaya tidak terhitung dua kali)
-    data/processed/static_features.parquet          26 kolom statis (per sel, bila sudah ada)
+    data/features_processed/static_features.parquet          26 kolom statis (per sel, bila sudah ada)
     config.HOTSPOT_LABELS                           label hotspot tingkat piksel
 Keluaran
-    data/processed/training/YYYY-MM.parquet
+    data/features_processed/training/YYYY-MM.parquet
 
 ATURAN ANTI-BOCOR (bagian 7.2 dokumen)
     Baris untuk tanggal T hanya memuat informasi sampai T-1:

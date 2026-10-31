@@ -1,3 +1,5 @@
+> Arsip handoff lama. Path dan status pada dokumen ini bersifat historis; gunakan `docs/pipeline/README.md` untuk struktur dan perintah terkini.
+
 # Pipeline Crawl Data Pendukung: Prediksi Risiko Hotspot Karhutla
 
 Dokumen serah-terima untuk developer atau agent lain yang melanjutkan pipeline ini. Baca bagian 1-3 dulu, lalu kerjakan daftar TODO di bagian 9.

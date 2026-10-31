@@ -5,10 +5,10 @@
     python build_derived_features.py --lag 1 --no-spi
 
 Masukan
-    data/processed/era5_daily/YYYY-MM.parquet   (dari postprocess_era5.py)
-    data/static/climate_index/{nino34,dmi}.csv  (dari crawl_static.py enso)
+    data/features_processed/era5_daily/YYYY-MM.parquet   (dari postprocess_era5.py)
+    data/features_processed/climate_index/{nino34,dmi}.parquet
 Keluaran
-    data/processed/features_daily/YYYY-MM.parquet
+    data/features_processed/features_daily/YYYY-MM.parquet
 
 ATURAN ANTI-BOCOR (bagian 7.2 dokumen): fitur untuk tanggal T hanya boleh memakai
 data sampai T-LAG. Baris untuk tanggal T memuat cuaca mentah hari T (dipakai untuk

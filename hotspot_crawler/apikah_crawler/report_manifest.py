@@ -4,7 +4,7 @@
     python report_manifest.py --missing 40 # tampilkan 40 bulan bermasalah (default 20)
     python report_manifest.py --quiet      # hanya baris ringkasan
 
-Membaca `data/logs/manifest_*.json` yang ditulis `common.manifest_update()`, lalu
+Membaca `data/metadata/manifests/manifest_*.json` yang ditulis `common.manifest_update()`, lalu
 membandingkannya dengan daftar yang SEHARUSNYA ada (dihitung dari config.START..END)
 dan dengan berkas yang benar-benar ada di disk.
 
