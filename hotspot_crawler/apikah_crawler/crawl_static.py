@@ -19,8 +19,8 @@ import time
 from pathlib import Path
 
 from . import config
-from .common import (done, download_file, log, manifest_update, ns_ew, setup_logging,
-                    target_lock, tile_origins, with_retry)
+from .common import (done, download_file, log, manifest_load, manifest_update, ns_ew,
+                     setup_logging, target_lock, tile_origins, with_retry)
 from .climate_tables import write_climate_parquet
 
 N, W, S, E = config.AREA
@@ -150,28 +150,42 @@ def do_worldpop(dry: bool) -> None:
 
 # ------------------------------------------------------------------ MCD64A1 (Earthdata)
 def do_burned(dry: bool) -> None:
-    if dry:
-        print("BURNED", config.MCD64A1, "bbox", (W, S, E, N), "->", config.MCD64A1_DIR)
-        return
-    try:
-        import earthaccess
-    except ImportError:
-        log.error("pip install earthaccess dulu (opsional, hanya untuk burned area)")
-        return
-    if not (os.getenv("EARTHDATA_USERNAME") and os.getenv("EARTHDATA_PASSWORD")):
-        log.error("Set EARTHDATA_USERNAME dan EARTHDATA_PASSWORD (akun gratis urs.earthdata.nasa.gov)")
-        return
-    earthaccess.login(strategy="environment")
-    results = earthaccess.search_data(
-        short_name=config.MCD64A1["short_name"], version=config.MCD64A1["version"],
-        bounding_box=(W, S, E, N),
-        temporal=(config.START.isoformat(), config.END.isoformat()),
-    )
-    log.info("MCD64A1: %d granule ditemukan", len(results))
     out = config.MCD64A1_DIR
-    out.mkdir(parents=True, exist_ok=True)
-    with_retry(earthaccess.download, results, str(out))
-    manifest_update("static", "mcd64a1", "ok", f"{len(results)} granule")
+    if dry:
+        print("BURNED", config.MCD64A1, "bbox", (W, S, E, N), "->", out)
+        return
+    with target_lock(out / "mcd64a1-dataset"):
+        previous = manifest_load("static").get("mcd64a1", {})
+        try:
+            expected = int(previous.get("note", "").split(maxsplit=1)[0])
+        except (ValueError, IndexError):
+            expected = -1
+        existing = [path for path in out.glob("*.hdf") if done(path)]
+        if previous.get("status") == "ok" and expected >= 0 and len(existing) == expected:
+            log.info("lewati MCD64A1: %d granule sudah lengkap", expected)
+            return
+        try:
+            import earthaccess
+        except ImportError:
+            log.error("pip install earthaccess dulu (opsional, hanya untuk burned area)")
+            return
+        if not (os.getenv("EARTHDATA_USERNAME") and os.getenv("EARTHDATA_PASSWORD")):
+            log.error("Set EARTHDATA_USERNAME dan EARTHDATA_PASSWORD (akun gratis urs.earthdata.nasa.gov)")
+            return
+        try:
+            earthaccess.login(strategy="environment")
+            results = earthaccess.search_data(
+                short_name=config.MCD64A1["short_name"], version=config.MCD64A1["version"],
+                bounding_box=(W, S, E, N),
+                temporal=(config.START.isoformat(), config.END.isoformat()),
+            )
+            log.info("MCD64A1: %d granule ditemukan", len(results))
+            out.mkdir(parents=True, exist_ok=True)
+            with_retry(earthaccess.download, results, str(out))
+            manifest_update("static", "mcd64a1", "ok", f"{len(results)} granule")
+        except Exception as exc:  # noqa: BLE001
+            log.error("GAGAL MCD64A1: %s", exc)
+            manifest_update("static", "mcd64a1", "failed", str(exc))
 
 
 # ------------------------------------------------------------------ gambut
