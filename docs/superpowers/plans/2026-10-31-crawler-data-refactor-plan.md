@@ -11,7 +11,8 @@
 - Selesai: package `apikah_crawler`, wrapper CLI bernama sama, tests di `hotspot_crawler/tests/`, dan `requirements.txt`/`status.ps1` di crawler root.
 - Selesai: NOAA climate table Parquet (177 baris NINO3.4, 173 DMI; sama dengan tabel CSV lama), notebook aktif memakai Parquet, MCD64A1 tidak diolah.
 - Selesai: manifest cross-process lock, root `AGENTS.md`, runbook/agent notes dipisahkan dan arsip lama diberi peringatan.
-- Verifikasi akhir masih perlu dijalankan sebelum klaim selesai. CSV gabungan legacy tetap disimpan sampai kesetaraan baris/nilai dengan Parquet diverifikasi; 7 Parquet hasil olahan lama (81.8 MB) tidak di-stage massal.
+- Audit data: CSV hotspot legacy 1.048.575 baris vs Parquet 3.941.038, jadi tetap disimpan sebagai file historis dan tidak dipakai pipeline. Tujuh Parquet hasil olahan lama (81.8 MB, hanya dua bulan) tidak di-stage karena parsial dan lisensi redistribusi belum diaudit.
+- Verifikasi akhir suite dan review diff akan dicatat setelah dijalankan.
 
 ## Prasyarat dan baseline (selesai)
 

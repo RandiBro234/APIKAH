@@ -8,7 +8,7 @@ Panduan aktif untuk crawler, fitur, dan data. Arsip operasional lama ada di [`..
 APIKAH/
 ├── data/
 │   ├── hotspot_indonesia/              # label area Indonesia (tracked)
-│   │   └── combined/                   # tabel gabungan Parquet; CSV lama
+│   │   └── combined/                   # Parquet kanonis; CSV legacy terpotong
 │   ├── hotspot_raw/                    # label sumber (tracked)
 │   ├── features_raw/
 │   │   ├── copernicus/era5land/{instant,accum}/
@@ -34,6 +34,7 @@ Semua path keluaran ditentukan dari lokasi package, bukan current working direct
 - Tabel tabular yang sudah diparse/diolah disimpan sebagai Parquet. Climate-index NOAA yang dipakai pipeline tersedia di `data/features_processed/climate_index/{nino34,dmi}.parquet`; sumber teks `.raw.txt` tetap di `features_raw` untuk provenance.
 - ERA5/CEMS sudah memiliki processor menuju Parquet (`postprocess_era5.py`, `postprocess_fire.py`); raster statis masuk ke `static_features.parquet`. Feature builder membuat `features_daily` dan tabel training.
 - MCD64A1 untuk saat ini **hanya data mentah**; belum ada processor burned-area.
+- CSV gabungan hotspot legacy hanya berisi 1.048.575 baris; Parquet gabungan berisi 3.941.038. Gunakan Parquet untuk analisis lengkap; CSV dipertahankan sebagai file historis/kompatibilitas.
 
 ## Setup dan kredensial
 

@@ -39,6 +39,8 @@ Refactor bertujuan membuat struktur mudah dipahami dan dirawat, mengurangi kode 
 - Data mentah crawler dikecualikan dari Git. Data processed boleh di-track jika ukurannya wajar setelah audit; file besar dikecualikan.
 - Format sumber mentah non-tabular dipertahankan; tabel tabular/hasil olahan memakai Parquet. Snapshot teks sumber tetap dijaga untuk provenance, dan salinan CSV lama tidak dihapus sebelum konsumen serta kesetaraan datanya diverifikasi.
 - MCD64A1 sementara hanya disimpan sebagai data mentah; pemrosesan burned-area bukan bagian refactor ini.
+- Audit CSV/Parquet gabungan: CSV legacy 1.048.575 baris vs Parquet 3.941.038; hasil tidak setara. CSV dipertahankan tracked sebagai legacy, Parquet kanonis untuk analisis.
+- Tujuh hasil processed lama (~81.8 MB, hanya dua bulan) tetap lokal dan tidak di-track karena parsial dan lisensi redistribusi belum diverifikasi.
 - Perintah CLI serta skema hasil dipertahankan.
 - Tidak ada pekerjaan refactor yang dimulai sebelum crawl selesai; kondisi crawl sudah diverifikasi lengkap pada 2026-10-31.
 
@@ -48,7 +50,7 @@ Refactor bertujuan membuat struktur mudah dipahami dan dirawat, mengurangi kode 
 APIKAH/
 ├── data/
 │   ├── hotspot_indonesia/       # label area studi; tetap tracked
-│   │   └── combined/            # CSV/Parquet gabungan hotspot Indonesia
+│   │   └── combined/            # Parquet kanonis + CSV legacy terpotong
 │   ├── hotspot_raw/             # label sumber; tetap tracked
 │   ├── features_raw/
 │   │   ├── copernicus/
@@ -153,5 +155,5 @@ Setiap tahap bermakna mendapat commit terpisah pada branch refactor. Tidak ada p
 - Sudah dilakukan: remote tim di-fetch, baseline crawler dikomit, branch dibuat; root data dipusatkan ke `APIKAH/data/`; data mentah disalin dan diverifikasi SHA-256 sebelum salinan lama dihapus; label gabungan dipindah tanpa mengubah tracking.
 - Sudah dilakukan: package `apikah_crawler`, wrapper CLI kompatibel, pemisahan tests/docs, Parquet untuk climate-index, manifest lock lintas proses, `.gitignore` spesifik, AGENTS/docs/agent-notes.
 - MCD64A1 tetap raw-only seperti keputusan pengguna.
-- Masih perlu pemeriksaan akhir ukuran/lisensi untuk 7 keluaran processed yang belum tracked dan kesetaraan CSV gabungan lama terhadap Parquet. CSV legacy masih disimpan; notebook aktif memakai Parquet.
+- Audit CSV/Parquet menemukan jumlah baris berbeda (lihat keputusan di atas); keluaran processed parsial ditahan lokal dan tidak distage. Notebook aktif memakai Parquet.
 - Push/merge belum dilakukan.
