@@ -2,13 +2,17 @@
 from __future__ import annotations
 
 import tempfile
+import threading
+import time
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from unittest.mock import patch
 
 import pandas as pd
 
 from apikah_crawler import config
+from apikah_crawler import crawl_static
 from apikah_crawler.crawl_static import do_enso
 from apikah_crawler.climate_tables import write_climate_parquet
 
@@ -63,6 +67,35 @@ class ClimateParquetTests(unittest.TestCase):
             self.assertTrue(dest.is_file())
             self.assertEqual(len(pd.read_parquet(dest)), 12)
             self.assertEqual((source_dir / f"{name}.raw.txt").read_text(encoding="utf-8"), text)
+
+    def test_concurrent_enso_jobs_write_each_table_once(self):
+        source_dir = config.STATIC / "climate_index"
+        source_dir.mkdir(parents=True)
+        text = "year values follow\n2012 " + " ".join(
+            str(month / 10) for month in range(1, 13)) + "\n"
+        for name in config.ENSO_URLS:
+            (source_dir / f"{name}.raw.txt").write_text(text, encoding="utf-8")
+
+        original_writer = crawl_static.write_climate_parquet
+        calls = []
+        calls_lock = threading.Lock()
+
+        def slow_writer(name, rows, dest):
+            with calls_lock:
+                calls.append(name)
+            time.sleep(0.15)
+            original_writer(name, rows, dest)
+
+        with patch.object(crawl_static, "write_climate_parquet", side_effect=slow_writer), \
+             patch("requests.get", side_effect=AssertionError("unexpected network request")):
+            with ThreadPoolExecutor(max_workers=2) as pool:
+                futures = [pool.submit(do_enso, False) for _ in range(2)]
+                for future in futures:
+                    future.result(timeout=30)
+
+        self.assertCountEqual(calls, list(config.ENSO_URLS))
+        for name in config.ENSO_URLS:
+            self.assertTrue((config.PROCESSED / "climate_index" / f"{name}.parquet").is_file())
 
 
 if __name__ == "__main__":

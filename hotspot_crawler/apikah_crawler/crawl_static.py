@@ -20,7 +20,7 @@ from pathlib import Path
 
 from . import config
 from .common import (done, download_file, log, manifest_update, ns_ew, setup_logging,
-                    tile_origins, with_retry)
+                    target_lock, tile_origins, with_retry)
 from .climate_tables import write_climate_parquet
 
 N, W, S, E = config.AREA
@@ -56,28 +56,29 @@ def do_enso(dry: bool) -> None:
         if dry:
             print("ENSO", name, url, "raw ->", raw, "Parquet ->", dest)
             continue
-        if done(dest):
-            log.info("lewati: %s", dest)
-            continue
-        try:
-            if done(raw):
-                text = raw.read_text(encoding="utf-8")
-            else:
-                response = with_retry(requests.get, url, timeout=config.HTTP_TIMEOUT)
-                response.raise_for_status()
-                text = response.text
-                raw.parent.mkdir(parents=True, exist_ok=True)
-                temporary = raw.with_name(f"{raw.name}.{os.getpid()}.tmp")
-                temporary.write_text(text, encoding="utf-8")
-                temporary.replace(raw)
-            rows = [x for x in parse_psl(text) if config.START.year <= x[0] <= config.END.year]
-            if not rows:
-                raise ValueError(f"tidak ada baris indeks iklim yang dapat diparse: {raw}")
-            write_climate_parquet(name, rows, dest)
-            manifest_update("static", f"enso/{name}", "ok", f"{len(rows)} baris")
-        except Exception as exc:  # noqa: BLE001
-            log.error("GAGAL ENSO %s: %s", name, exc)
-            manifest_update("static", f"enso/{name}", "failed", str(exc))
+        with target_lock(dest):
+            if done(dest):
+                log.info("lewati: %s", dest)
+                continue
+            try:
+                if done(raw):
+                    text = raw.read_text(encoding="utf-8")
+                else:
+                    response = with_retry(requests.get, url, timeout=config.HTTP_TIMEOUT)
+                    response.raise_for_status()
+                    text = response.text
+                    raw.parent.mkdir(parents=True, exist_ok=True)
+                    temporary = raw.with_name(f"{raw.name}.{os.getpid()}.tmp")
+                    temporary.write_text(text, encoding="utf-8")
+                    temporary.replace(raw)
+                rows = [x for x in parse_psl(text) if config.START.year <= x[0] <= config.END.year]
+                if not rows:
+                    raise ValueError(f"tidak ada baris indeks iklim yang dapat diparse: {raw}")
+                write_climate_parquet(name, rows, dest)
+                manifest_update("static", f"enso/{name}", "ok", f"{len(rows)} baris")
+            except Exception as exc:  # noqa: BLE001
+                log.error("GAGAL ENSO %s: %s", name, exc)
+                manifest_update("static", f"enso/{name}", "failed", str(exc))
 
 
 # ------------------------------------------------------------------ batas wilayah

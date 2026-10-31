@@ -14,8 +14,9 @@
 # ----------------------------------------------------------------------------
 # Sumber mentah crawler lokal (NetCDF, HDF, raster, PBF, snapshot indeks, dll.).
 /data/features_raw/
-# Log runtime dan lock manifest tidak dibutuhkan di riwayat.
+# Log runtime dan lock per-target/per-manifest tidak dibutuhkan di riwayat.
 /data/metadata/logs/
+/data/metadata/locks/
 /data/metadata/manifests/*.lock
 # Jangan abaikan seluruh features_processed: setiap keluaran harus ditinjau
 # ukuran/lisensinya sebelum ditambahkan. Manifest kecil tetap boleh dilacak.
@@ -61,6 +62,7 @@ desktop.ini
 *.tmp
 *.part
 *.partial
+*.lock
 
 # ============================================================================
 #  YANG SENGAJA TIDAK DIABAIKAN (jangan ubah tanpa dibahas tim)

@@ -22,8 +22,9 @@ from datetime import date
 from pathlib import Path
 
 from . import config
-from .common import (days_in_month, done, iter_months, log, manifest_update,
-                    months_from_end, setup_logging, with_retry)
+from .common import (days_in_month, done, finalize_download, iter_months, log,
+                    manifest_update, months_from_end, setup_logging, target_lock,
+                    with_retry)
 
 CDS_URL = "https://cds.climate.copernicus.eu/api"
 EWDS_URL = "https://ewds.climate.copernicus.eu/api"
@@ -97,16 +98,20 @@ def run_era5(months, dry_run: bool) -> None:
             if dry_run:
                 print(key, req)
                 continue
-            target.parent.mkdir(parents=True, exist_ok=True)
-            part = target.with_suffix(".nc.part")
-            try:
-                log.info("kirim request %s", key)
-                with_retry(client.retrieve, config.CDS_DATASET, req, str(part))
-                part.rename(target)
-                manifest_update("era5land", key, "ok")
-            except Exception as exc:  # noqa: BLE001
-                log.error("GAGAL %s: %s", key, exc)
-                manifest_update("era5land", key, "failed", str(exc))
+            with target_lock(target):
+                if done(target):
+                    log.info("lewati (sudah diunduh worker lain): %s", target)
+                    continue
+                target.parent.mkdir(parents=True, exist_ok=True)
+                part = target.with_suffix(".nc.part")
+                try:
+                    log.info("kirim request %s", key)
+                    with_retry(client.retrieve, config.CDS_DATASET, req, str(part))
+                    status = "ok" if finalize_download(part, target) else "skipped"
+                    manifest_update("era5land", key, status)
+                except Exception as exc:  # noqa: BLE001
+                    log.error("GAGAL %s: %s", key, exc)
+                    manifest_update("era5land", key, "failed", str(exc))
             time.sleep(config.SLEEP_BETWEEN_REQUESTS)
 
 
@@ -149,27 +154,32 @@ def run_fire(months, dry_run: bool) -> None:
         if dry_run:
             print(key, fire_request(year, month, types[0], area_opts[0]))
             continue
-        target.parent.mkdir(parents=True, exist_ok=True)
-        part = target.with_suffix(".nc.part")
-        ok, last_err = False, ""
-        for dtype in types:
-            for with_area in area_opts:
-                try:
-                    log.info("kirim request %s (%s, area=%s)", key, dtype, with_area)
-                    req = fire_request(year, month, dtype, with_area)
-                    with_retry(client.retrieve, config.EWDS_DATASET, req, str(part), retries=2)
-                    part.rename(target)
-                    manifest_update("cems_fire", key, "ok", f"{dtype} area={with_area}")
-                    ok = True
+        with target_lock(target):
+            if done(target):
+                log.info("lewati (sudah diunduh worker lain): %s", target)
+                continue
+            target.parent.mkdir(parents=True, exist_ok=True)
+            part = target.with_suffix(".nc.part")
+            ok, last_err = False, ""
+            for dtype in types:
+                for with_area in area_opts:
+                    try:
+                        log.info("kirim request %s (%s, area=%s)", key, dtype, with_area)
+                        req = fire_request(year, month, dtype, with_area)
+                        with_retry(client.retrieve, config.EWDS_DATASET, req, str(part), retries=2)
+                        status = "ok" if finalize_download(part, target) else "skipped"
+                        note = f"{dtype} area={with_area}" if status == "ok" else "sudah diunduh worker lain"
+                        manifest_update("cems_fire", key, status, note)
+                        ok = True
+                        break
+                    except Exception as exc:  # noqa: BLE001
+                        last_err = str(exc)
+                        log.warning("kombinasi %s area=%s gagal: %s", dtype, with_area, last_err[:200])
+                if ok:
                     break
-                except Exception as exc:  # noqa: BLE001
-                    last_err = str(exc)
-                    log.warning("kombinasi %s area=%s gagal: %s", dtype, with_area, last_err[:200])
-            if ok:
-                break
-        if not ok:
-            log.error("GAGAL %s: %s", key, last_err)
-            manifest_update("cems_fire", key, "failed", last_err)
+            if not ok:
+                log.error("GAGAL %s: %s", key, last_err)
+                manifest_update("cems_fire", key, "failed", last_err)
         time.sleep(config.SLEEP_BETWEEN_REQUESTS)
 
 

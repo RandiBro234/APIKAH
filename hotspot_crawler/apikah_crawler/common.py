@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import errno
+import hashlib
 import json
 import logging
 import math
@@ -17,7 +18,8 @@ from typing import Callable, Iterator
 from . import config
 
 log = logging.getLogger("crawler")
-_MANIFEST_THREAD_LOCK = threading.RLock()
+_THREAD_LOCKS: dict[str, threading.RLock] = {}
+_THREAD_LOCKS_GUARD = threading.Lock()
 
 
 def setup_logging(name: str) -> None:
@@ -64,42 +66,17 @@ def done(path: Path) -> bool:
     return path.exists() and path.stat().st_size > 0
 
 
-def download_file(url: str, dest: Path, timeout: int = config.HTTP_TIMEOUT) -> str:
-    """Unduh dengan resume (.part). Return 'ok' | 'skipped' | 'missing' (404)."""
-    import requests
-
-    if done(dest):
-        return "skipped"
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    part = dest.with_suffix(dest.suffix + ".part")
-    pos = part.stat().st_size if part.exists() else 0
-    headers = {"Range": f"bytes={pos}-"} if pos else {}
-    with requests.get(url, stream=True, headers=headers, timeout=timeout) as r:
-        if r.status_code == 404:
-            return "missing"
-        if r.status_code == 416:      # part sudah lengkap
-            part.rename(dest)
-            return "ok"
-        r.raise_for_status()
-        mode = "ab" if (pos and r.status_code == 206) else "wb"
-        with open(part, mode) as f:
-            for chunk in r.iter_content(1024 * 1024):
-                f.write(chunk)
-    part.rename(dest)
-    return "ok"
-
-
-# ---------------------------------------------------------------- manifest
-def manifest_path(name: str) -> Path:
-    return config.METADATA / "manifests" / f"manifest_{name}.json"
+def _thread_lock(path: Path) -> threading.RLock:
+    key = os.path.normcase(str(path.resolve()))
+    with _THREAD_LOCKS_GUARD:
+        return _THREAD_LOCKS.setdefault(key, threading.RLock())
 
 
 @contextmanager
-def _manifest_lock(path: Path):
-    """Serialize manifest read-modify-write across threads and processes."""
-    lock_path = path.with_suffix(".lock")
+def _file_lock(lock_path: Path):
+    """Lock one path across threads and processes on Windows/POSIX."""
     lock_path.parent.mkdir(parents=True, exist_ok=True)
-    with _MANIFEST_THREAD_LOCK, lock_path.open("a+b") as stream:
+    with _thread_lock(lock_path), lock_path.open("a+b") as stream:
         if os.name == "nt":
             import msvcrt
 
@@ -129,6 +106,65 @@ def _manifest_lock(path: Path):
                 yield
             finally:
                 fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
+
+
+def target_lock(path: Path):
+    """Prevent concurrent writes; keep persistent lock files out of data folders."""
+    key = os.path.normcase(str(Path(path).resolve())).encode("utf-8")
+    lock_name = hashlib.sha256(key).hexdigest() + ".lock"
+    return _file_lock(config.METADATA / "locks" / lock_name)
+
+
+def finalize_download(part: Path, dest: Path) -> bool:
+    """Publish a completed part without replacing an existing destination.
+
+    Returns False if another process has already completed the destination.
+    The part and destination must be on the same filesystem (they are siblings).
+    """
+    try:
+        os.link(part, dest)
+    except FileExistsError:
+        if done(dest):
+            part.unlink(missing_ok=True)
+            return False
+        raise
+    part.unlink()
+    return True
+
+
+def download_file(url: str, dest: Path, timeout: int = config.HTTP_TIMEOUT) -> str:
+    """Unduh dengan resume (.part). Return 'ok' | 'skipped' | 'missing' (404)."""
+    import requests
+
+    dest = Path(dest)
+    with target_lock(dest):
+        if done(dest):
+            return "skipped"
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        part = dest.with_suffix(dest.suffix + ".part")
+        pos = part.stat().st_size if part.exists() else 0
+        headers = {"Range": f"bytes={pos}-"} if pos else {}
+        with requests.get(url, stream=True, headers=headers, timeout=timeout) as r:
+            if r.status_code == 404:
+                return "missing"
+            if r.status_code == 416:      # part dianggap lengkap oleh server
+                return "ok" if finalize_download(part, dest) else "skipped"
+            r.raise_for_status()
+            mode = "ab" if (pos and r.status_code == 206) else "wb"
+            with open(part, mode) as f:
+                for chunk in r.iter_content(1024 * 1024):
+                    f.write(chunk)
+        return "ok" if finalize_download(part, dest) else "skipped"
+
+
+# ---------------------------------------------------------------- manifest
+def manifest_path(name: str) -> Path:
+    return config.METADATA / "manifests" / f"manifest_{name}.json"
+
+
+def _manifest_lock(path: Path):
+    """Serialize manifest read-modify-write across threads and processes."""
+    return _file_lock(path.with_suffix(".lock"))
 
 
 def manifest_load(name: str) -> dict:
