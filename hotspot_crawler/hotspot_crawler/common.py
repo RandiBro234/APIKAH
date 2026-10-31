@@ -87,7 +87,7 @@ def download_file(url: str, dest: Path, timeout: int = config.HTTP_TIMEOUT) -> s
 
 # ---------------------------------------------------------------- manifest
 def manifest_path(name: str) -> Path:
-    return config.LOGS / f"manifest_{name}.json"
+    return config.METADATA / "manifests" / f"manifest_{name}.json"
 
 
 def manifest_load(name: str) -> dict:
@@ -104,7 +104,7 @@ def manifest_load(name: str) -> dict:
 
 
 def manifest_update(name: str, key: str, status: str, note: str = "") -> None:
-    config.LOGS.mkdir(parents=True, exist_ok=True)
+    manifest_path(name).parent.mkdir(parents=True, exist_ok=True)
     m = manifest_load(name)
     m[key] = {"status": status, "note": note[:300], "ts": datetime.now().isoformat(timespec="seconds")}
     # Ditulis atomik (tulis ke berkas sementara lalu os.replace) dan nama sementara unik

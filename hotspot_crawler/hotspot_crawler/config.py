@@ -25,11 +25,19 @@ ACTIVE_AREA = "indonesia"
 AREA = AREAS[ACTIVE_AREA]
 
 # ---------------------------------------------------------------- folder
-DATA_DIR = Path("data")
-RAW = DATA_DIR / "raw"
-STATIC = DATA_DIR / "static"
-PROCESSED = DATA_DIR / "processed"
-LOGS = DATA_DIR / "logs"
+# Resolve from this file, not CWD, so CLI entrypoints always share one data tree.
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / "data"
+FEATURES_RAW = DATA_DIR / "features_raw"
+FEATURES_PROCESSED = DATA_DIR / "features_processed"
+METADATA = DATA_DIR / "metadata"
+
+# Compatibility aliases used by current pipeline modules.
+RAW = FEATURES_RAW / "copernicus"
+STATIC = FEATURES_RAW / "static"
+MCD64A1_DIR = FEATURES_RAW / "nasa" / "mcd64a1"
+PROCESSED = FEATURES_PROCESSED
+LOGS = METADATA / "logs"
 
 # ---------------------------------------------------------------- klien (setelan jaringan)
 # Bawaan cdsapi.Client: sleep_max=120 detik, retry_max=500. Diukur 25 Okt 2026: pada jaringan
@@ -185,7 +193,8 @@ PEAT_REQUIRED = ("extent",)   # `thickness`/`carbon` opsional: tanpa itu fiturny
 # Label titik api BUKAN bagian crawler ini; diambil anggota tim lain dan disimpan di
 # data/ repo (bukan data/ crawler). Dipakai hanya oleh build_training_table.py.
 # Path relatif terhadap folder crawler: ../../data -> APIKAH/data
-HOTSPOT_LABELS = Path("../../data/hotspot_indonesia_2012_2026-09.parquet")
+HOTSPOT_LABELS = (DATA_DIR / "hotspot_indonesia" / "combined" /
+                  "hotspot_indonesia_2012_2026-09.parquet")
 
 # ---------------------------------------------------------------- perilaku download
 RETRIES = 3

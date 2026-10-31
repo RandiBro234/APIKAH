@@ -7,8 +7,11 @@
 $ErrorActionPreference = "Continue"
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-# Selalu bekerja di folder skrip ini, supaya path relatif (data/...) benar.
+# CLI script tetap dijalankan dari folder crawler; data berada di root repo.
 Set-Location $PSScriptRoot
+$repoRoot = (& git -C $PSScriptRoot rev-parse --show-toplevel 2>$null).Trim()
+if (-not $repoRoot) { throw "Tidak dapat menemukan root Git dari $PSScriptRoot" }
+$dataRoot = Join-Path $repoRoot "data"
 
 Write-Output ("========== STATUS " + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss') + " ==========")
 
@@ -26,11 +29,12 @@ if ($proses) {
 }
 
 Write-Output ""
-Write-Output "--- 2. DATA DINAMIS (data/raw) ---"
-$raw = Get-ChildItem "data\raw" -Recurse -File -ErrorAction SilentlyContinue
+Write-Output "--- 2. DATA DINAMIS (data/features_raw/copernicus) ---"
+$rawRoot = Join-Path $dataRoot "features_raw\copernicus"
+$raw = Get-ChildItem $rawRoot -Recurse -File -ErrorAction SilentlyContinue
 "  total: {0} berkas | {1:N1} MB" -f $raw.Count, (($raw | Measure-Object -Sum Length).Sum/1MB)
 foreach ($g in @(@("era5land\instant", "ERA5 instant"), @("era5land\accum", "ERA5 accum"), @("cems_fire", "CEMS Fire"))) {
-    $d = Get-ChildItem ("data\raw\" + $g[0]) -File -ErrorAction SilentlyContinue
+    $d = Get-ChildItem (Join-Path $rawRoot $g[0]) -File -ErrorAction SilentlyContinue
     if ($d) {
         $b = @($d | ForEach-Object { $_.BaseName } | Sort-Object)
         "  {0,-13}: {1,3} berkas | {2} .. {3}" -f $g[1], $d.Count, $b[0], $b[-1]
@@ -38,8 +42,11 @@ foreach ($g in @(@("era5land\instant", "ERA5 instant"), @("era5land\accum", "ERA
 }
 
 Write-Output ""
-Write-Output "--- 3. DATA STATIS (data/static) ---"
-$st = Get-ChildItem "data\static" -Recurse -File -ErrorAction SilentlyContinue
+Write-Output "--- 3. SUMBER STATIS (data/features_raw/static + NASA) ---"
+$st = @(
+    Get-ChildItem (Join-Path $dataRoot "features_raw\static") -Recurse -File -ErrorAction SilentlyContinue
+    Get-ChildItem (Join-Path $dataRoot "features_raw\nasa") -Recurse -File -ErrorAction SilentlyContinue
+)
 if ($st) {
     $st | Group-Object { $_.Directory.Name } | Sort-Object Name | ForEach-Object {
         "  {0,-14}: {1,4} berkas {2,9:N1} MB" -f $_.Name, $_.Count, (($_.Group | Measure-Object -Sum Length).Sum/1MB)
@@ -63,8 +70,8 @@ $baru = @($raw | Where-Object { $_.LastWriteTime -gt $cut })
 
 Write-Output ""
 Write-Output "--- 6. LOG TERBARU ---"
-foreach ($lg in @("copernicus.log", "copernicus_b.log", "static.log")) {
-    $path = "data\logs\$lg"
+foreach ($lg in @("copernicus_a.log", "copernicus_b.log", "copernicus_c.log", "static.log")) {
+    $path = Join-Path (Join-Path $dataRoot "metadata\logs") $lg
     if (Test-Path $path) {
         "  [$lg]"
         Get-Content $path -Tail 2 | ForEach-Object { "    " + $_.Substring(0, [Math]::Min(120, $_.Length)) }

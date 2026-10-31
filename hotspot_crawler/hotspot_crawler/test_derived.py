@@ -208,27 +208,25 @@ def test_build_menempelkan_indeks_iklim_pada_bulan_yang_benar():
 @test
 def test_load_climate_membuat_lag_bulanan():
     """nino34_lag1 di bulan M harus sama dengan nino34 bulan M-1, dan seterusnya."""
-    # WAJIB pakai folder sementara. Versi lama menulis ke `data/static/climate_index` ASLI dan
-    # hanya membersihkannya kalau FOLDER-nya baru dibuat. Karena mkdir meninggalkan foldernya,
-    # jalan kedua membuat `ada=True` -> berkas PALSU tertinggal selamanya, lalu crawl_static.py
-    # melihat berkasnya ada dan MELEWATI unduhan NOAA yang asli. Terbukti 28 Okt 2026:
-    # isinya cuma 6 baris tahun 2012 dengan nilai 0,1..0,6 (placeholder).
+    # WAJIB pakai root sementara: jangan baca/tulis sumber atau fitur produksi saat tes.
     import tempfile
 
     bulan = [1, 2, 3, 4, 5, 6]
-    static_asli = config.STATIC
+    static_asli, processed_asli = config.STATIC, config.PROCESSED
     with tempfile.TemporaryDirectory() as td:
-        config.STATIC = Path(td)
+        root = Path(td)
+        config.STATIC = root / "raw"
+        config.PROCESSED = root / "processed"
         try:
-            tmp = config.STATIC / "climate_index"
+            tmp = config.PROCESSED / "climate_index"
             tmp.mkdir(parents=True, exist_ok=True)
             for name, vals in (("nino34", [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]),
                                ("dmi", [0.0, 0.1, 0.2, 0.3, 0.4, 0.5])):
                 pd.DataFrame({"year": [2012] * len(bulan), "month": bulan, name: vals}) \
-                    .to_csv(tmp / f"{name}.csv", index=False)
+                    .to_parquet(tmp / f"{name}.parquet", index=False)
             clim = load_climate()
         finally:
-            config.STATIC = static_asli
+            config.STATIC, config.PROCESSED = static_asli, processed_asli
     assert not clim.empty, "load_climate mengembalikan kosong"
     for col in ("nino34_lag1", "nino34_lag2", "nino34_lag3"):
         assert col in clim.columns, f"{col} tidak ada"
@@ -237,6 +235,34 @@ def test_load_climate_membuat_lag_bulanan():
     assert np.allclose(jun["nino34_lag1"], 0.5), f"lag1={jun['nino34_lag1'].to_numpy()}"
     assert np.allclose(jun["nino34_lag2"], 0.4), f"lag2={jun['nino34_lag2'].to_numpy()}"
     assert np.allclose(jun["nino34_lag3"], 0.3), f"lag3={jun['nino34_lag3'].to_numpy()}"
+
+
+@test
+def test_load_climate_memprioritaskan_parquet():
+    """Parquet terproses adalah tabel kanonis; CSV sumber tidak boleh menimpanya."""
+    import tempfile
+
+    processed_asli, static_asli = config.PROCESSED, config.STATIC
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        config.PROCESSED = root / "processed"
+        config.STATIC = root / "raw"
+        pq_dir = config.PROCESSED / "climate_index"
+        csv_dir = config.STATIC / "climate_index"
+        pq_dir.mkdir(parents=True)
+        csv_dir.mkdir(parents=True)
+        pd.DataFrame({"year": [2099], "month": [1], "nino34": [1234.5]}).to_parquet(
+            pq_dir / "nino34.parquet", index=False)
+        pd.DataFrame({"year": [2099], "month": [1], "nino34": [-999.0]}).to_csv(
+            csv_dir / "nino34.csv", index=False)
+        try:
+            climate = load_climate()
+        finally:
+            config.PROCESSED, config.STATIC = processed_asli, static_asli
+
+    jan = climate[(climate["y"] == 2099) & (climate["m"] == 1)]
+    assert len(jan) == 1, f"baris Januari hilang: {climate}"
+    assert np.isclose(jan["nino34"].iloc[0], 1234.5), f"nilai bukan dari Parquet: {jan}"
 
 
 def main() -> int:

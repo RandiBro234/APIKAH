@@ -123,14 +123,19 @@ def load_weather(start: date, end: date) -> pd.DataFrame:
 
 
 def load_climate() -> pd.DataFrame:
-    """Indeks iklim bulanan + lag 1..3 bulan. Kosong bila berkas belum ada."""
+    """Indeks iklim Parquet (CSV kompatibilitas) + lag 1..3 bulan."""
     frames = []
     for name in CLIMATE_NAMES:
-        p = config.STATIC / "climate_index" / f"{name}.csv"
-        if not p.exists():
-            log.warning("indeks iklim belum ada: %s", p)
+        parquet = config.PROCESSED / "climate_index" / f"{name}.parquet"
+        legacy_csv = config.STATIC / "climate_index" / f"{name}.csv"
+        if parquet.exists():
+            d = pd.read_parquet(parquet)
+        elif legacy_csv.exists():
+            log.warning("pakai indeks CSV lama; buat Parquet untuk jalur kanonis: %s", legacy_csv)
+            d = pd.read_csv(legacy_csv)
+        else:
+            log.warning("indeks iklim belum ada: %s", parquet)
             continue
-        d = pd.read_csv(p)
         if name not in d.columns or "year" not in d.columns or "month" not in d.columns:
             log.warning("format %s tidak sesuai (butuh year,month,%s): %s", name, name, list(d.columns))
             continue

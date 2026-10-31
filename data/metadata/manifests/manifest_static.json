@@ -1,0 +1,5072 @@
+{
+ "peatlands": {
+  "status": "ok",
+  "note": "peat_carbon_1km_2000_2020.tif, peat_extent_1km_2000_2020.tif, peat_thickness_1km_2000_2020.tif",
+  "ts": "2026-10-28T11:28:31"
+ },
+ "bounds/ADM1": {
+  "status": "ok",
+  "note": "license=Open Data Commons Open Database License 1.0",
+  "ts": "2026-10-28T10:09:16"
+ },
+ "bounds/ADM2": {
+  "status": "ok",
+  "note": "license=Creative Commons Attribution 3.0 Intergovernmental Organisations (CC BY 3.0 IGO)",
+  "ts": "2026-10-28T10:12:11"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10S_090E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:12:17"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10S_090E.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:12:19"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10S_100E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:12:32"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10S_100E.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:12:34"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10S_110E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:12:41"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10S_110E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:12:51"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10S_120E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:13:10"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10S_120E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:13:20"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10S_130E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:14:06"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10S_130E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:14:12"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10S_140E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:15:00"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10S_140E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:15:07"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_00N_090E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:15:14"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_00N_090E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:15:20"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_00N_100E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:16:56"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_00N_100E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:17:31"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_00N_110E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:19:34"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_00N_110E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:20:03"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_00N_120E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:20:57"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_00N_120E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:21:10"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_00N_130E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:22:12"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_00N_130E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:22:21"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_00N_140E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:24:13"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_00N_140E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:24:28"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10N_090E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:25:20"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10N_090E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:25:42"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10N_100E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:26:47"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10N_100E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:27:11"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10N_110E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:28:43"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10N_110E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:29:21"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10N_120E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:30:22"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10N_120E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:30:39"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10N_130E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:30:46"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10N_130E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:30:53"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_treecover2000_10N_140E.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:31:00"
+ },
+ "hansen/Hansen_GFC-2025-v1.13_lossyear_10N_140E.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:02"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E096_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:31:05"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:10"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E100_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:11"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E101_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:12"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E102_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E103_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:15"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E104_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:16"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E105_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:18"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E106_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:19"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E107_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E108_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:23"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E110_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E111_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:26"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E112_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:27"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E113_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:29"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E114_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E115_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E116_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E117_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E118_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E119_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E120_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:39"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E121_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:31:42"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E123_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E124_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E125_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:46"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E126_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:48"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E127_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E128_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E129_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:31:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:31:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:31:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:32:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E133_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:32:05"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:32:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E135_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:32:09"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E136_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:32:12"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:13"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:16"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S12_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:32:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:21"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:26"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E100_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:29"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E101_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E102_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:32"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E103_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E104_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:35"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:32:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E106_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:38"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E107_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E108_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:41"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E110_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:44"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E111_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:46"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E112_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:47"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E113_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E114_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E115_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E116_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E117_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:54"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E118_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:32:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:32:57"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:00"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:02"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:10"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E125_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:11"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E126_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:12"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E127_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E128_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:15"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E129_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E130_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:18"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E131_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:21"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E133_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:23"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E134_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:26"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E136_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:27"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:29"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:32"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S11_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:38"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:41"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E100_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:44"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E101_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E102_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:46"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E103_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:48"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E104_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E105_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E106_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:57"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E107_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:33:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E108_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:00"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E110_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:02"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E111_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E112_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:05"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E113_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E114_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E115_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:09"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:12"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:16"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:19"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E121_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E122_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:39"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E127_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E128_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:42"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E129_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E130_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E131_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:46"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E132_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:48"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E134_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:53"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:56"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:34:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E140_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:35:00"
+ },
+ "dem/Copernicus_DSM_COG_30_S10_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:35:03"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:06"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:10"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:11"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E100_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:13"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E101_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E102_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:16"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E103_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E104_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:18"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E105_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E106_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:21"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E107_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:23"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E108_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:35:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:35:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:35:32"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:35:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:35:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:35:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:35:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:35:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:02"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:06"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:09"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:38"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:48"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:54"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E128_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:57"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E129_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:59"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:02"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E132_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:05"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E134_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:09"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:11"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E137_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E138_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E139_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:23"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E140_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S09_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:39"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:42"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E100_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E101_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:46"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E102_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:48"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E103_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E104_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:37:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:37:59"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E109_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:10"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:29"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:38"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E116_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:38:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E119_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:38:46"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:48"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:54"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E124_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:38:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:38:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:02"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E128_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:06"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E129_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:09"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:11"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E132_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:15"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:19"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:21"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E137_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E138_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:29"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E139_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E140_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S08_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:47"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:53"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:54"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:56"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E100_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E101_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:39:59"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E102_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:40:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E103_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:40:02"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E104_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:40:03"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:15"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E109_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:27"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:39"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:47"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E117_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:40:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:54"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:56"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:40:59"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E123_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:41:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:02"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E125_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:41:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:06"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E127_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:41:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E128_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:41:12"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E129_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:16"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:18"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:41:21"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:42"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:41:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:41:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:41:46"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E138_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E139_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:00"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E140_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S07_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:15"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:21"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:23"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:26"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E100_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:27"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E101_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:29"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E104_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:39"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:47"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E111_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:42:56"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:59"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E113_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:43:00"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:02"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E115_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:43:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E116_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:43:05"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:09"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:13"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E125_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:43:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E126_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:43:32"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E128_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:43:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E129_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:43:38"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:41"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E133_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:47"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:43:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:43:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:43:56"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E137_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:44:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E138_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:44:09"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E139_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:44:19"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E140_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:44:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S06_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:44:35"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:44:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:44:39"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:44:41"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:44:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:44:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:44:47"
+ },
+ "enso/nino34": {
+  "status": "ok",
+  "note": "177 baris",
+  "ts": "2026-10-31T17:38:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E100_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:44:49"
+ },
+ "enso/dmi": {
+  "status": "ok",
+  "note": "173 baris",
+  "ts": "2026-10-31T17:38:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:44:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:44:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:45:03"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E104_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:45:11"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:45:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E106_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:45:19"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E107_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:45:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E108_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:45:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:45:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E110_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:45:26"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E111_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:45:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E112_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:45:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E113_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:45:32"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:45:35"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:45:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:45:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E117_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:45:41"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:45:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:45:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:45:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:00"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:06"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:11"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E124_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:46:13"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E125_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:46:15"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E126_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:46:16"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E127_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:46:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E128_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:46:19"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E129_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:21"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:27"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E133_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:29"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:32"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E135_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E136_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E137_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E138_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:46:59"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E139_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:47:10"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E140_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:47:18"
+ },
+ "dem/Copernicus_DSM_COG_30_S05_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:47:27"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:47:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:47:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:47:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:47:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:47:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:47:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:47:38"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:47:41"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:47:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:47:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E104_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:13"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:18"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:48:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:38"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:53"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:59"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:12"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:35"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:44"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:48"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E124_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:49:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:53"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:49:57"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:00"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E128_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:04"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E129_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:18"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:23"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E133_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:35"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E135_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E136_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:47"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E137_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:53"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E138_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:50:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E139_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:51:03"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E140_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:51:16"
+ },
+ "dem/Copernicus_DSM_COG_30_S04_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:51:21"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:51:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:51:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:51:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:51:27"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E098_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:51:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E099_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:51:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:51:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:51:38"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:51:54"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E104_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:16"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:20"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:23"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E109_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:42"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:12"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:23"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:39"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:41"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:44"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:46"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:48"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E128_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E129_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:57"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:54:00"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:54:13"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E133_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:54:19"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:54:26"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E135_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:54:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E136_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:54:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E137_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:54:47"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E138_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:54:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E139_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:03"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E140_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:07"
+ },
+ "dem/Copernicus_DSM_COG_30_S03_00_E141_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:10"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:55:12"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:55:14"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:55:16"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E097_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:55:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E098_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E099_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:25"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:36"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:47"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E104_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:55:59"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:03"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:06"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E107_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:56:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:11"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E109_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:15"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:42"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:56"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:03"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:09"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:13"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:15"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E118_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:57:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:26"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:44"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:53"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:55"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E128_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E129_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:03"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:06"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:11"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:17"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E133_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:23"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E135_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:34"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E136_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E137_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:40"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E138_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:44"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E139_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:45"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:58:47"
+ },
+ "dem/Copernicus_DSM_COG_30_S02_00_E141_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:58:48"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:58:50"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:58:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:58:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E097_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:54"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E098_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:58:57"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E099_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:06"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:12"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:18"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E104_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:27"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E106_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:59:30"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E107_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:59:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E108_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T10:59:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E109_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:37"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:59:54"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:00"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:15"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:28"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:32"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E118_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:00:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:38"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:41"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:43"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:46"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:49"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E124_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:00:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E125_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:00:52"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E126_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:00:53"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:58"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E128_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:01:01"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E129_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:01:03"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:01:08"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:01:13"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:01:18"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E133_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:01:22"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:01:24"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E135_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:01:27"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E136_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:01:29"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:01:31"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:01:33"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:01:34"
+ },
+ "peatlands/peat_extent_1km_2000_2020.tif": {
+  "status": "skipped",
+  "note": "",
+  "ts": "2026-10-28T11:01:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:01:51"
+ },
+ "dem/Copernicus_DSM_COG_30_S01_00_E141_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:01:54"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:01:55"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:01:57"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:01:58"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E097_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:02:02"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E098_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:02:04"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E099_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:02:25"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:02:34"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:02:42"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:02:48"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:02:57"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E104_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:03:01"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E105_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:03:02"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:03:04"
+ },
+ "peatlands/peat_thickness_1km_2000_2020.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:03:05"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:03:07"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:03:09"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E109_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:03:24"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:03:36"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:03:49"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:04:00"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:04:08"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:04:14"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:04:27"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:04:34"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:04:47"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:04:53"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:04:57"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:04"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:09"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:14"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E123_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:21"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:28"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E125_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:05:30"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:32"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:39"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E128_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:43"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E129_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:48"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E130_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:50"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:52"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E132_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:05:54"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:05:56"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E134_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:05:57"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:05:59"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:06:01"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:06:02"
+ },
+ "peatlands/peat_carbon_1km_2000_2020.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:06:04"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:06:04"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:06:05"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:06:07"
+ },
+ "dem/Copernicus_DSM_COG_30_N00_00_E141_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:06:08"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:06:10"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E095_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:06:12"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E096_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:06:13"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E097_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:06:19"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E098_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:06:25"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E099_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:06:38"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:06:52"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:03"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:08"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:13"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E104_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:20"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E105_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:07:22"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:24"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:26"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:28"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E109_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:43"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E110_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:50"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:07:56"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:08:02"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:08:09"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:08:15"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:08:25"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:08:35"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:08:49"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:08:53"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:08:55"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:08:58"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:09:01"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E122_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:09:03"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E123_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:09:05"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:09:11"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:09:14"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:09:16"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:09:21"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E128_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:10:05"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E129_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:07"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E130_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:09"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:10:11"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E132_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:13"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:14"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E134_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:16"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:17"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:19"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:20"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:22"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:23"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:25"
+ },
+ "dem/Copernicus_DSM_COG_30_N01_00_E141_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:27"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:10:29"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E095_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:10:32"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E096_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:10:35"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E097_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:10:39"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E098_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:10:49"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E099_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:10:56"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:02"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:06"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:12"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:16"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E104_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:18"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:20"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:22"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:24"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:26"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E109_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:28"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E110_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:11:30"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E111_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:37"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:03"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:09"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:15"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:21"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:28"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:32"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:34"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E119_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:12:36"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E120_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:12:37"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E121_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:12:39"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E122_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:12:40"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E123_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:12:42"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E124_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:12:44"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:47"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E126_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:12:49"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:51"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E128_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:12:55"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E129_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:12:56"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E130_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:12:58"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:00"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E132_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:02"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:04"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E134_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:06"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:07"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:09"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:11"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:13"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:15"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:17"
+ },
+ "dem/Copernicus_DSM_COG_30_N02_00_E141_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:18"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:13:20"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E095_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:22"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E096_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:28"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E097_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:33"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E098_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:38"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E099_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:42"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:44"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:52"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:58"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:02"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E104_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:14:04"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E105_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:06"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E106_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:09"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:11"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:14"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:14:16"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E110_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:14:18"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E111_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:14:19"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E112_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:22"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:29"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:34"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:40"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:47"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:51"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E118_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:14:53"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E119_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:14:54"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E120_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:14:56"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E121_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:14:58"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E122_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:00"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E123_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:02"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E124_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:03"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:15:06"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:15:09"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E127_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:11"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E128_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:12"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E129_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:14"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E130_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:15"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:15:17"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E132_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:19"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:20"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E134_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:22"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:23"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:24"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:26"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:27"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:29"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:31"
+ },
+ "dem/Copernicus_DSM_COG_30_N03_00_E141_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:33"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:15:35"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E095_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:15:42"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E096_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:15:51"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E097_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:15:56"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E098_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:01"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:16:03"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:07"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:12"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:17"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:25"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E104_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:16:27"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E105_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:16:28"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E106_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:16:30"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E107_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:31"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E108_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:33"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:16:35"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E110_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:16:36"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E111_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:16:38"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E112_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:16:39"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E113_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:41"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:46"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:53"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:16:58"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:04"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:09"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:12"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:13"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E121_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:15"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E122_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:16"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E123_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:17"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E124_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:19"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:21"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:23"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E127_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:25"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E128_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:27"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E129_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:28"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E130_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:29"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E131_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:31"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:33"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:34"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E134_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:36"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:37"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:39"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:40"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:42"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:43"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:44"
+ },
+ "dem/Copernicus_DSM_COG_30_N04_00_E141_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:46"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E094_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:47"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E095_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:50"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E096_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:53"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E097_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:56"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E098_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:57"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E099_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:17:59"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E100_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:03"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E101_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:07"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E102_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:15"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E103_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:18"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E104_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:19"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E105_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:21"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E106_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:22"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E107_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:23"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E108_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:25"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E109_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:26"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E110_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:28"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E111_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:29"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E112_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:31"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E113_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:18:33"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E114_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:35"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E115_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:40"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E116_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:47"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E117_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:52"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E118_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:57"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E119_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:59"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E120_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:19:02"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E121_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:19:05"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E122_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:07"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E123_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:08"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E124_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:19:11"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E125_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:19:15"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E126_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:19:17"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E127_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:18"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E128_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:20"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E129_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:22"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E130_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:23"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E131_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:25"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E132_00_DEM.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:19:27"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E133_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:29"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E134_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:31"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E135_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:32"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E136_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:34"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E137_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:36"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E138_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:38"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E139_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:39"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E140_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:41"
+ },
+ "dem/Copernicus_DSM_COG_30_N05_00_E141_00_DEM.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-28T11:19:42"
+ },
+ "osm/sumatra-latest.osm.pbf": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:26:05"
+ },
+ "osm/kalimantan-latest.osm.pbf": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:27:02"
+ },
+ "worldpop/idn_ppp_2020_1km_Aggregated.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:28:31"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E093_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:18:24"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E096_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:18:25"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E099_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:18:27"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E102_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:18:29"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E105_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:18:33"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E108_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:18:36"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E111_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:18:38"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E114_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:18:42"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E117_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:18:53"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E120_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:19:06"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E123_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:19:35"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E126_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:19:38"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E129_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:19:44"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E132_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:19:56"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E135_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:20:02"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E138_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:20:07"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S12E141_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:20:24"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E093_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:20:26"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E096_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:20:28"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E099_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:20:30"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E102_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:20:32"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E105_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:20:54"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E108_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:21:57"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E111_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:22:24"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E114_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:22:36"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E117_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:22:58"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E120_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:23:06"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E123_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:23:15"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E126_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:25:12"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E129_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:26:05"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E132_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:26:25"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E135_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:26:35"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E138_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:29:48"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S09E141_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:33:35"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E093_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:33:36"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E096_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:33:37"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E099_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:33:43"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E102_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:36:11"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E105_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:36:31"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E108_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:36:39"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E111_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:36:50"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E114_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:37:02"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E117_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:38:01"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E120_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:38:28"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E123_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:38:33"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E126_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:38:42"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E129_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:38:48"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E132_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:38:57"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E135_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:39:07"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E138_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:39:26"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S06E141_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:39:41"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E093_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:39:42"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E096_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:39:46"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E099_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:40:00"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E102_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:40:17"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E105_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:40:24"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E108_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:40:39"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E111_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:40:57"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E114_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:41:16"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E117_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:41:26"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E120_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:42:37"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E123_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:43:23"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E126_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:43:28"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E129_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:43:33"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E132_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:43:42"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E135_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:43:50"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E138_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:43:56"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_S03E141_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:44:00"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E093_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:44:04"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E096_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:44:18"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E099_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:44:49"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E102_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:45:09"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E105_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:45:13"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E108_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:45:21"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E111_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:45:33"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E114_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:45:40"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E117_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:45:50"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E120_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:45:58"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E123_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:46:07"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E126_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:46:13"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E129_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:46:17"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E132_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:46:21"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E135_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:46:23"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E138_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:46:25"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N00E141_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:46:27"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E093_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:46:32"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E096_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:46:45"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E099_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:47:05"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E102_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:47:16"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E105_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:47:21"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E108_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:47:25"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E111_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:47:29"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E114_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:47:42"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E117_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:48:01"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E120_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:48:08"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E123_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:48:13"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E126_Map.tif": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:48:17"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E129_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:48:18"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E132_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:48:20"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E135_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:48:22"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E138_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:48:23"
+ },
+ "worldcover/ESA_WorldCover_10m_2021_v200_N03E141_Map.tif": {
+  "status": "missing",
+  "note": "",
+  "ts": "2026-10-30T21:48:24"
+ },
+ "mcd64a1": {
+  "status": "ok",
+  "note": "2992 granule",
+  "ts": "2026-10-30T22:29:34"
+ }
+}

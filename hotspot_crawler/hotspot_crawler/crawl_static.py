@@ -12,7 +12,6 @@ Pakai:
 from __future__ import annotations
 
 import argparse
-import csv
 import json
 import os
 import sys
@@ -22,6 +21,7 @@ from pathlib import Path
 import config
 from common import (done, download_file, log, manifest_update, ns_ew, setup_logging,
                     tile_origins, with_retry)
+from climate_tables import write_climate_parquet
 
 N, W, S, E = config.AREA
 
@@ -51,23 +51,29 @@ def do_enso(dry: bool) -> None:
     import requests
 
     for name, url in config.ENSO_URLS.items():
-        dest = config.STATIC / "climate_index" / f"{name}.csv"
+        raw = config.STATIC / "climate_index" / f"{name}.raw.txt"
+        dest = config.PROCESSED / "climate_index" / f"{name}.parquet"
         if dry:
-            print("ENSO", name, url, "->", dest)
+            print("ENSO", name, url, "raw ->", raw, "Parquet ->", dest)
             continue
         if done(dest):
             log.info("lewati: %s", dest)
             continue
         try:
-            r = with_retry(requests.get, url, timeout=config.HTTP_TIMEOUT)
-            r.raise_for_status()
-            rows = [x for x in parse_psl(r.text) if config.START.year <= x[0] <= config.END.year]
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            with open(dest, "w", newline="") as f:
-                w = csv.writer(f)
-                w.writerow(["year", "month", name])
-                w.writerows(rows)
-            (dest.with_suffix(".raw.txt")).write_text(r.text)
+            if done(raw):
+                text = raw.read_text(encoding="utf-8")
+            else:
+                response = with_retry(requests.get, url, timeout=config.HTTP_TIMEOUT)
+                response.raise_for_status()
+                text = response.text
+                raw.parent.mkdir(parents=True, exist_ok=True)
+                temporary = raw.with_name(f"{raw.name}.{os.getpid()}.tmp")
+                temporary.write_text(text, encoding="utf-8")
+                temporary.replace(raw)
+            rows = [x for x in parse_psl(text) if config.START.year <= x[0] <= config.END.year]
+            if not rows:
+                raise ValueError(f"tidak ada baris indeks iklim yang dapat diparse: {raw}")
+            write_climate_parquet(name, rows, dest)
             manifest_update("static", f"enso/{name}", "ok", f"{len(rows)} baris")
         except Exception as exc:  # noqa: BLE001
             log.error("GAGAL ENSO %s: %s", name, exc)
@@ -144,7 +150,7 @@ def do_worldpop(dry: bool) -> None:
 # ------------------------------------------------------------------ MCD64A1 (Earthdata)
 def do_burned(dry: bool) -> None:
     if dry:
-        print("BURNED", config.MCD64A1, "bbox", (W, S, E, N), "->", config.STATIC / "mcd64a1")
+        print("BURNED", config.MCD64A1, "bbox", (W, S, E, N), "->", config.MCD64A1_DIR)
         return
     try:
         import earthaccess
@@ -161,7 +167,7 @@ def do_burned(dry: bool) -> None:
         temporal=(config.START.isoformat(), config.END.isoformat()),
     )
     log.info("MCD64A1: %d granule ditemukan", len(results))
-    out = config.STATIC / "mcd64a1"
+    out = config.MCD64A1_DIR
     out.mkdir(parents=True, exist_ok=True)
     with_retry(earthaccess.download, results, str(out))
     manifest_update("static", "mcd64a1", "ok", f"{len(results)} granule")
