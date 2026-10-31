@@ -24,7 +24,7 @@ Refactor bertujuan membuat struktur mudah dipahami dan dirawat, mengurangi kode 
 
 - Tidak mengubah definisi fitur, rentang waktu, area Indonesia, parameter request, ataupun hasil analisis.
 - Tidak mengunduh ulang data yang sudah ada.
-- Tidak mengubah format sumber mentah (`.nc`, `.hdf`, `.tif`, `.pbf`, dan sejenisnya) menjadi Parquet. Parquet digunakan untuk keluaran tabular hasil olahan jika sesuai.
+- Tidak meratakan grid/raster atau sumber spasial (`.nc`, `.hdf`, `.tif`, `.pbf`, GeoJSON, dan sejenisnya) menjadi CSV/Parquet. Format sumber tersebut dipertahankan; Parquet digunakan untuk data tabular.
 - Tidak menambah layanan penyimpanan eksternal atau mewajibkan Git LFS.
 - Tidak memasukkan kredensial, log runtime, cache, atau keseluruhan dataset mentah ke Git.
 - Tidak mengubah atau menghapus pekerjaan EDA lokal yang tidak terkait.
@@ -37,7 +37,8 @@ Refactor bertujuan membuat struktur mudah dipahami dan dirawat, mengurangi kode 
 - `features_raw/` berarti sumber fitur yang sama sekali belum diproses, termasuk seluruh unduhan crawler.
 - `features_processed/` berisi keluaran transformasi/fitur siap analisis atau model.
 - Data mentah crawler dikecualikan dari Git. Data processed boleh di-track jika ukurannya wajar setelah audit; file besar dikecualikan.
-- Format mentah dipertahankan; Parquet untuk data tabular hasil olahan.
+- Format sumber mentah non-tabular dipertahankan; tabel tabular/hasil olahan memakai Parquet. Snapshot teks sumber tetap dijaga untuk provenance, dan salinan CSV lama tidak dihapus sebelum konsumen serta kesetaraan datanya diverifikasi.
+- MCD64A1 sementara hanya disimpan sebagai data mentah; pemrosesan burned-area bukan bagian refactor ini.
 - Perintah CLI serta skema hasil dipertahankan.
 - Tidak ada pekerjaan refactor yang dimulai sebelum crawl selesai; kondisi crawl sudah diverifikasi lengkap pada 2026-10-31.
 
@@ -63,6 +64,7 @@ APIKAH/
 │   │   ├── era5_daily/
 │   │   ├── fire_daily/
 │   │   ├── static/
+│   │   ├── climate_index/
 │   │   ├── derived/
 │   │   └── training/
 │   └── metadata/
@@ -100,6 +102,8 @@ Struktur internal package/file dapat disederhanakan atau disesuaikan setelah aud
 - Batas paralelisme tetap terukur dan tidak dinaikkan sebagai bagian refactor tanpa hasil uji serta persetujuan; satu bulan/file tidak boleh diunduh oleh dua worker.
 - Pengolahan raster/NetCDF tetap berbatas area atau chunk bila memungkinkan; hindari memuat raster nasional penuh ke RAM.
 - Tidak menambah dependency wajib tanpa alasan. Standarisasi satu cara menjalankan test tanpa mengasumsikan pytest terpasang; baseline saat ini memakai skrip test standalone.
+- Produk tabular persisten (indeks iklim terparse, tabel harian/turunan/training) menggunakan Parquet. Untuk NOAA, pertahankan response mentah `.raw.txt` sebagai provenance dan tulis tabel terparse sebagai Parquet; CSV lama hanya dipertahankan sementara bila dibutuhkan kompatibilitas.
+- Parquet tidak digunakan untuk mengganti file grid/raster/vektor mentah. MCD64A1 tetap HDF mentah tanpa processor baru pada lingkup ini.
 
 ## Pemindahan data dan kebijakan Git
 
@@ -109,6 +113,7 @@ Pemetaan awal dari `hotspot_crawler/hotspot_crawler/data/`:
 - `static/mcd64a1` → `data/features_raw/nasa/mcd64a1/`.
 - lapisan lain di `static/` → `data/features_raw/static/`.
 - `processed/` → kategori yang sesuai di `data/features_processed/`.
+- tabel indeks iklim → Parquet; response sumber teks tetap dipertahankan.
 - manifest → `data/metadata/manifests/`; log runtime → `data/metadata/logs/`.
 - Berkas bulanan di `data/hotspot_indonesia/` dan `data/hotspot_raw/` tetap di kategorinya dan tracked. CSV/Parquet gabungan yang sekarang berada langsung di root `data/` dipindah ke `data/hotspot_indonesia/combined/`; tetap tracked, dan seluruh referensi path diperbarui.
 
@@ -128,8 +133,9 @@ Pemindahan data lokal dilakukan setelah kode menunjuk ke lokasi baru: salin/migr
 3. Implementasikan root/path mapping dan manifest/download behavior; pertahankan wrapper CLI dan uji jalankan dari root repo serta folder crawler.
 4. Pindahkan data mentah dan keluaran processed dengan verifikasi file count/size/checksum; pastikan `data/` tidak menambah dataset mentah ke Git.
 5. Refactor internal modul secara bertahap, satu concern per commit; jangan melakukan rewrite besar tanpa tes.
-6. Rapikan `.gitignore`, test organization, docs, plan, agent notes, dan notebook/test references yang memang mengarah ke path lama.
-7. Verifikasi akhir: semua standalone/regression tests, `verify_params.py`, dry-run dari dua working directory, manifest report, smoke test sintetis, status path, file count/size/checksum, dan `git status`/diff untuk memastikan tidak ada data mentah di staging.
+6. Standarkan tabel tabular ke Parquet dengan uji jumlah baris/schema/nilai; pertahankan sumber CSV/TXT mentah dan jangan hapus salinan lama sebelum verifikasi kesetaraan serta audit referensi.
+7. Rapikan `.gitignore`, test organization, docs, plan, agent notes, dan notebook/test references yang memang mengarah ke path lama.
+8. Verifikasi akhir: semua standalone/regression tests, `verify_params.py`, dry-run dari dua working directory, manifest report, smoke test sintetis, status path, file count/size/checksum, dan `git status`/diff untuk memastikan tidak ada data mentah di staging.
 
 Setiap tahap bermakna mendapat commit terpisah pada branch refactor. Tidak ada push/merge ke `main` tanpa instruksi pengguna.
 
