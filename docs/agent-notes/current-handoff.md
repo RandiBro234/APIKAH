@@ -18,7 +18,7 @@ Diperbarui 2026-10-31, setelah verifikasi akhir refactor.
 - Unduhan static, ERA5/CEMS, climate-index output, dan MCD64A1 memakai lock per-target/dataset di `metadata/locks/`; manifest read-modify-write juga dikunci lintas proses.
 - HTTP `.part` resume memakai sidecar URL-hash + ETag/Last-Modified/total length, `If-Range`, dan validasi `Content-Range`; jika tidak tervalidasi atau berukuran nol, unduhan dimulai ulang agar representasi berbeda tidak tercampur.
 - Tes custom dijalankan sebagai `python -m tests.test_*`; tes `unittest` dijalankan melalui `python -m unittest tests.<module>`.
-- Verifikasi akhir 2026-10-31: 83 tes custom + 29 tes unittest lulus; tes EDA notebook 2/2; `smoke_static.py` lulus; `verify_params.py` 60 OK/0 WARN/0 FAIL; `compileall` lulus; report manifest lengkap dan tidak ada `.part`.
+- Verifikasi akhir 2026-10-31: 83 tes custom + 31 tes unittest lulus; tes EDA notebook 2/2; `smoke_static.py` lulus; `verify_params.py` 60 OK/0 WARN/0 FAIL; `compileall` lulus; report manifest lengkap dan tidak ada `.part`.
 - Hindari klaim percepatan unduh jaringan; perubahan efisiensi yang diukur saat ini adalah path, penyimpanan, resume/manifest dan format tabular.
 
 ## Git dan branch
