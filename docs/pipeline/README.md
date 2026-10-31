@@ -33,7 +33,7 @@ Semua path keluaran ditentukan dari lokasi package, bukan current working direct
 - Pertahankan sumber grid/vektor dalam format aslinya: ERA5/CEMS `.nc`, MCD64A1 `.hdf`, raster `.tif`, OSM `.pbf`, dan GeoJSON.
 - Tabel tabular yang sudah diparse/diolah disimpan sebagai Parquet. Climate-index NOAA yang dipakai pipeline tersedia di `data/features_processed/climate_index/{nino34,dmi}.parquet`; sumber teks `.raw.txt` tetap di `features_raw` untuk provenance.
 - ERA5/CEMS sudah memiliki processor menuju Parquet (`postprocess_era5.py`, `postprocess_fire.py`); raster statis masuk ke `static_features.parquet`. Feature builder membuat `features_daily` dan tabel training.
-- MCD64A1 untuk saat ini **hanya data mentah**; belum ada processor burned-area.
+- MCD64A1 untuk saat ini **hanya data mentah**; belum ada processor burned-area. Job `burned` memakai lock direktori dan melewati dataset lengkap berdasarkan manifest + jumlah granula lokal.
 - CSV gabungan hotspot legacy hanya berisi 1.048.575 baris; Parquet gabungan berisi 3.941.038. Gunakan Parquet untuk analisis lengkap; CSV dipertahankan sebagai file historis/kompatibilitas.
 
 ## Setup dan kredensial
@@ -75,6 +75,8 @@ powershell -ExecutionPolicy Bypass -File "C:\path\ke\APIKAH\hotspot_crawler\stat
 
 Gunakan rentang `--from YYYY-MM --to YYYY-MM` untuk uji/lanjutan terbatas. Lock per target mencegah dua worker mengunduh/menulis berkas yang sama; manifest juga dikunci lintas proses. Tetap bagi rentang worker agar tidak membuang request pada bulan yang sama.
 
+Unduhan HTTP hanya melanjutkan `.part` jika metadata sidecar, validator (ETag/Last-Modified), dan `Content-Range` cocok. Jika sumber berubah atau range tidak valid, file parsial dibuang dan unduhan dimulai ulang agar byte dari versi berbeda tidak tercampur.
+
 ## Tes dan verifikasi
 
 Jalankan dari `hotspot_crawler/`:
@@ -85,7 +87,7 @@ python -m tests.test_postprocess
 python -m tests.test_static
 python -m tests.test_training
 python -m tests.test_paths
-python -m unittest tests.test_cli_wrappers tests.test_climate_parquet tests.test_migrate_data_layout tests.test_manifest_concurrency tests.test_download_file tests.test_copernicus_concurrency
+python -m unittest tests.test_cli_wrappers tests.test_climate_parquet tests.test_migrate_data_layout tests.test_manifest_concurrency tests.test_download_file tests.test_copernicus_concurrency tests.test_burned_download_lock
 python smoke_static.py
 python verify_params.py
 ```

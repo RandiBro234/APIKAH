@@ -9,11 +9,11 @@
 - Selesai: remote `origin/main` diperbarui dengan commit tim `cd1b892`; baseline crawler lokal dikomit; branch refactor dibuat.
 - Selesai: project-root path resolver, data migrator salin+SHA-256, migrasi lokal seluruh crawler data (~16.99 GiB), relokasi combined labels, raw/source `.raw.txt` dipertahankan, salinan nested lama dihapus setelah verifikasi.
 - Selesai: package `apikah_crawler`, wrapper CLI bernama sama, tests di `hotspot_crawler/tests/`, dan `requirements.txt`/`status.ps1` di crawler root.
-- Selesai: NOAA climate table Parquet (177 baris NINO3.4, 173 DMI; sama dengan tabel CSV lama), notebook aktif memakai Parquet, MCD64A1 tidak diolah.
+- Selesai: NOAA climate table Parquet (177 baris NINO3.4, 173 DMI; sama dengan tabel CSV lama), notebook aktif memakai Parquet. MCD64A1 tetap raw-only; download dikunci dan dataset lengkap dilewati.
 - Selesai: lock per-target unduhan dan lock manifest lintas proses; root `AGENTS.md`, runbook/agent notes dipisahkan dan arsip lama diberi peringatan.
-- Selesai setelah review: migrator memakai no-clobber finalisasi lintas platform; lock per-target mencegah worker mengunduh file yang sama; tes mencakup skip valid, resume Range, HTTP failure, 404, failed manifest status, dan concurrent download.
+- Selesai setelah review: migrator memakai no-clobber finalisasi lintas platform; lock per-target/dataset mencegah worker mengunduh file yang sama; HTTP resume divalidasi terhadap ETag/Last-Modified, Content-Range dan panjang file. Tes mencakup skip, resume, range invalid/416, HTTP failure, 404, failed manifest status, dan concurrent download/ENSO/Copernicus/MCD64A1.
 - Audit data: CSV hotspot legacy 1.048.575 baris vs Parquet 3.941.038, jadi tetap disimpan sebagai file historis dan tidak dipakai pipeline. Tujuh Parquet hasil olahan lama (81.8 MB, hanya dua bulan) tidak di-stage karena parsial dan lisensi redistribusi belum diaudit; dua Parquet climate-index kecil sudah tracked.
-- Verifikasi akhir selesai: 83 tes custom, 21 tes unittest, 2 tes EDA notebook, smoke test, compileall, manifest report, dan `verify_params.py` (60 OK/0 WARN/0 FAIL) lulus. Review read-only menemukan race migrator no-clobber dan unduhan target ganda; keduanya diperbaiki dengan regression tests. Follow-up review masih diperlukan.
+- Verifikasi akhir selesai: 83 tes custom, 29 tes unittest, 2 tes EDA notebook, smoke test, compileall, manifest report, dan `verify_params.py` (60 OK/0 WARN/0 FAIL) lulus. Review read-only menemukan race migrator no-clobber, unduhan target ganda, serta resume HTTP tanpa validasi; semuanya diperbaiki dengan regression tests. Follow-up review akhir masih diperlukan.
 
 ## Prasyarat dan baseline (selesai)
 
