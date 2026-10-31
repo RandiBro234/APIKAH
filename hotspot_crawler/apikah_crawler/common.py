@@ -122,10 +122,20 @@ def finalize_download(part: Path, dest: Path) -> bool:
     Returns False if another process has already completed the destination.
     The part and destination must be on the same filesystem (they are siblings).
     """
+    if dest.is_file() and dest.stat().st_size > 0:
+        part.unlink(missing_ok=True)
+        return False
+    if dest.exists():
+        if dest.is_file() and dest.stat().st_size == 0:
+            dest.unlink()
+        else:
+            raise FileExistsError(f"download destination is not a regular file: {dest}")
+    if not part.is_file() or part.stat().st_size == 0:
+        raise ValueError(f"refusing to finalize empty or missing partial file: {part}")
     try:
         os.link(part, dest)
     except FileExistsError:
-        if done(dest):
+        if dest.is_file() and dest.stat().st_size > 0:
             part.unlink(missing_ok=True)
             return False
         raise

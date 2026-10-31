@@ -16,7 +16,7 @@ import sys
 import requests
 
 from apikah_crawler import config, crawl_static
-from apikah_crawler.common import done, download_file, manifest_load
+from apikah_crawler.common import done, download_file, finalize_download, manifest_load
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -247,6 +247,7 @@ class DownloadFileTests(unittest.TestCase):
 
     def test_zero_length_partial_is_never_published_as_complete(self):
         destination = Path(self.temp.name) / "sample.bin"
+        destination.touch()  # sisa file final nol byte dari percobaan lama
         part = destination.with_suffix(destination.suffix + ".part")
         part.touch()
         self.write_resume_metadata(part, payload=b"")
@@ -256,6 +257,16 @@ class DownloadFileTests(unittest.TestCase):
         self.assertEqual(result, "ok")
         self.assertEqual(destination.read_bytes(), Handler.payload)
         self.assertGreater(destination.stat().st_size, 0)
+
+    def test_empty_part_cannot_be_finalized(self):
+        destination = Path(self.temp.name) / "empty.bin"
+        part = destination.with_suffix(destination.suffix + ".part")
+        part.touch()
+
+        with self.assertRaisesRegex(ValueError, "empty"):
+            finalize_download(part, destination)
+
+        self.assertFalse(destination.exists())
 
     def test_http_failure_never_creates_a_successful_final_file(self):
         Handler.status = 503
