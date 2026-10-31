@@ -58,6 +58,36 @@ class CopernicusConcurrencyTests(unittest.TestCase):
                 (config.RAW, config.METADATA, config.LOGS,
                  config.SLEEP_BETWEEN_REQUESTS) = original
 
+    def test_two_workers_do_not_download_same_fire_target_twice(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            original = (config.RAW, config.METADATA, config.LOGS, config.SLEEP_BETWEEN_REQUESTS)
+            config.RAW = root / "raw" / "copernicus"
+            config.METADATA = root / "metadata"
+            config.LOGS = root / "logs"
+            config.SLEEP_BETWEEN_REQUESTS = 0
+            client = SlowFakeClient()
+            ready = threading.Barrier(2)
+
+            def make_client(_source):
+                ready.wait(timeout=10)
+                return client
+
+            try:
+                with patch.object(crawl_copernicus, "make_client", side_effect=make_client):
+                    with ThreadPoolExecutor(max_workers=2) as pool:
+                        futures = [pool.submit(crawl_copernicus.run_fire, [(2012, 1)], False)
+                                   for _ in range(2)]
+                        for future in futures:
+                            future.result(timeout=30)
+                output = config.RAW / "cems_fire" / "2012-01.nc"
+                self.assertEqual(len(client.calls), 1)
+                self.assertEqual(output.read_bytes(), b"valid test data")
+                self.assertEqual(len(manifest_load("cems_fire")), 1)
+            finally:
+                (config.RAW, config.METADATA, config.LOGS,
+                 config.SLEEP_BETWEEN_REQUESTS) = original
+
 
 if __name__ == "__main__":
     unittest.main()
