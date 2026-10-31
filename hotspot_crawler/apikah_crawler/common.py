@@ -179,12 +179,14 @@ def download_file(url: str, dest: Path, timeout: int = config.HTTP_TIMEOUT) -> s
         part = dest.with_suffix(dest.suffix + ".part")
         metadata_path = _resume_metadata_path(part)
         metadata = _read_resume_metadata(metadata_path) if part.exists() else None
+        source_fingerprint = hashlib.sha256(url.encode("utf-8")).hexdigest()
         validator = (metadata or {}).get("etag") or (metadata or {}).get("last_modified")
         total = (metadata or {}).get("total_length")
         pos = part.stat().st_size if part.exists() else 0
 
         # Legacy or unvalidated partials cannot be safely appended to.
-        if part.exists() and (not validator or not isinstance(total, int) or pos > total):
+        if part.exists() and ((metadata or {}).get("url_sha256") != source_fingerprint or not validator
+                              or not isinstance(total, int) or total <= 0 or pos > total):
             _clear_partial(part, metadata_path)
             metadata, validator, total, pos = None, None, None, 0
         if part.exists() and pos == total:
@@ -246,6 +248,7 @@ def download_file(url: str, dest: Path, timeout: int = config.HTTP_TIMEOUT) -> s
                     raise IOError(f"unexpected HTTP status {response.status_code}")
 
                 new_metadata = {
+                    "url_sha256": source_fingerprint,
                     "etag": etag or (metadata or {}).get("etag"),
                     "last_modified": last_modified or (metadata or {}).get("last_modified"),
                     "total_length": new_total,
