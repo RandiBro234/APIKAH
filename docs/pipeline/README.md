@@ -114,10 +114,7 @@ Pembagiannya:
 | `nasa.zip` | 4,07 GB | `mcd64a1` (2.992 `.hdf`) |
 | `static.zip` | 5,68 GB | hansen, worldcover, dem, osm, boundaries, peatlands (612 berkas) |
 
-Tempat arsip dan cara memasangnya dijelaskan di file penunjuk yang ikut Git:
-
-- `data/features_raw/_LINK_DRIVE.txt` (ringkasan + link)
-- `data/features_raw/{copernicus,nasa,static}/_LINK_DRIVE.txt` (per kategori)
+Tempat arsip dan cara memasangnya dijelaskan di `data/features_raw/README_data_mentah.txt` (satu file, ikut Git).
 
 Ekstrak ke `data/features_raw/` tanpa mengubah nama folder, lalu verifikasi.
 

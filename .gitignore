@@ -13,10 +13,10 @@
 # 1. Keluaran crawler — satu root data project
 # ----------------------------------------------------------------------------
 # Sumber mentah crawler lokal (NetCDF, HDF, raster, PBF, snapshot indeks, dll.).
-# Semua isi diabaikan KECUALI penunjuk lokasi arsip (_LINK_DRIVE.txt).
+# Semua isi diabaikan KECUALI penunjuk lokasi arsip (README_data_mentah.txt).
 /data/features_raw/**
 !/data/features_raw/**/
-!/data/features_raw/**/_LINK_DRIVE.txt
+!/data/features_raw/README_data_mentah.txt
 # Safety nets for pre-refactor worktrees/migration sources. These are crawler
 # output paths only; they do not match tracked label folders (`hotspot_raw`).
 /hotspot_crawler/hotspot_crawler/data/
