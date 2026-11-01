@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-10-29T23:00:00.000Z",
+  "data_hotspot_latest_at": "2026-10-29T23:00:00.000Z",
+  "model_version": "contoh",
+  "data_version": "contoh-statis-v2",
+  "stale_after_hours": 24,
+  "is_sample": true
+}

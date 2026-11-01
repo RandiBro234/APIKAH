@@ -1,0 +1,229 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "time_local": "2026-10-29T23:00:00.000Z",
+        "confidence": "h",
+        "frp": 8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.39,
+          0.46
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2,
+      "properties": {
+        "time_local": "2026-10-29T21:00:00.000Z",
+        "confidence": "n",
+        "frp": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.2,
+          0.81
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3,
+      "properties": {
+        "time_local": "2026-10-29T19:00:00.000Z",
+        "confidence": "l",
+        "frp": 46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.76,
+          1.21
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "properties": {
+        "time_local": "2026-10-29T17:00:00.000Z",
+        "confidence": "h",
+        "frp": 74
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.39,
+          0.31
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "properties": {
+        "time_local": "2026-10-29T15:00:00.000Z",
+        "confidence": "n",
+        "frp": 115
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.95,
+          0.96
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 6,
+      "properties": {
+        "time_local": "2026-10-29T13:00:00.000Z",
+        "confidence": "l",
+        "frp": 185
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.82000000000001,
+          -2.9400000000000004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "properties": {
+        "time_local": "2026-10-29T11:00:00.000Z",
+        "confidence": "h",
+        "frp": 8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.19,
+          -2.54
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "properties": {
+        "time_local": "2026-10-29T09:00:00.000Z",
+        "confidence": "n",
+        "frp": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.95,
+          -3.1900000000000004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "properties": {
+        "time_local": "2026-10-29T07:00:00.000Z",
+        "confidence": "l",
+        "frp": 46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.67,
+          -1.6400000000000001
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "properties": {
+        "time_local": "2026-10-29T05:00:00.000Z",
+        "confidence": "h",
+        "frp": 74
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.05,
+          -1.29
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "properties": {
+        "time_local": "2026-10-29T03:00:00.000Z",
+        "confidence": "n",
+        "frp": 115
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.34,
+          -0.07
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "properties": {
+        "time_local": "2026-10-29T01:00:00.000Z",
+        "confidence": "l",
+        "frp": 185
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.15,
+          -0.47000000000000003
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 13,
+      "properties": {
+        "time_local": "2026-10-28T23:00:00.000Z",
+        "confidence": "h",
+        "frp": 8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          109.78,
+          0.43
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14,
+      "properties": {
+        "time_local": "2026-10-28T21:00:00.000Z",
+        "confidence": "n",
+        "frp": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.92,
+          -2.16
+        ]
+      }
+    }
+  ]
+}

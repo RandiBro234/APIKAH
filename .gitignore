@@ -92,3 +92,28 @@ desktop.ini
 # docs/agent-notes/archive/PIPELINE_DEV_history.md mencatat batas redistribusi GADM. Jangan
 # tambahkan berkas GADM baru.
 # ============================================================================
+
+# ----------------------------------------------------------------------------
+# 6. Frontend (Node, Vite) — pelengkap frontend/.gitignore
+# ----------------------------------------------------------------------------
+# frontend/.gitignore sudah mengabaikan node_modules dan dist. Baris di bawah
+# ini jaring pengaman bila perintah npm dijalankan dari root repo.
+node_modules/
+.vite/
+.npm-cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Keluaran analisis graf kode: dibuat ulang, bukan sumber.
+frontend/graphify-out/
+
+# ----------------------------------------------------------------------------
+# 7. Variabel lingkungan
+# ----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+.npm-cache/

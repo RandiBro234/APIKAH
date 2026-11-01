@@ -1,0 +1,20 @@
+/* Legenda level risiko bersama: kotak warna + ikon batang + teks. */
+.risk-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;margin:0;padding:0;list-style:none}
+.risk-legend-item{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;color:var(--text);font-family:var(--font-sans);font-size:13px;line-height:1.2}
+.risk-legend-swatch{display:grid;place-items:center;flex:0 0 auto;width:20px;height:20px;border-radius:var(--r-sm)}
+.risk-legend-swatch .level-bars{display:flex;align-items:flex-end;gap:1px;height:11px}
+.risk-legend-swatch .level-bars i{display:block;width:2px;height:4px;border:1px solid color-mix(in srgb,var(--text) 25%,transparent);background:transparent}
+.risk-legend-swatch .level-bars i:nth-child(2){height:6px}
+.risk-legend-swatch .level-bars i:nth-child(3){height:8px}
+.risk-legend-swatch .level-bars i:nth-child(4){height:11px}
+.risk-legend-swatch .level-bars i.filled{background:var(--text);border-color:var(--text)}
+.risk-legend-hotspot{background:transparent}
+.risk-legend-hotspot::after{content:"";width:11px;height:11px;border-radius:var(--r-pill);background:var(--map-hotspot-fill);border:2px solid var(--map-hotspot-stroke)}
+
+@media(max-width:639px){
+  .risk-legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;justify-items:start}
+}
+
+/* Popover legenda di dashboard sempit: dua kolom tetap. */
+.legend-popover{max-width:min(264px,calc(100vw - 32px))}
+.legend-popover .risk-legend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;justify-items:start}

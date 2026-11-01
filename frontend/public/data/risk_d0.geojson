@@ -1,0 +1,263 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": 50029,
+        "level": 1,
+        "score": 0.06,
+        "province": "Riau",
+        "island": "Sumatra",
+        "drivers": [
+          "Kelembapan tanah di sekitar sel tergolong rendah.",
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Kondisi cuaca lokal mendukung pengeringan lahan."
+        ],
+        "peat_pct": 12
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.325,
+              0.385
+            ],
+            [
+              101.575,
+              0.385
+            ],
+            [
+              101.575,
+              0.635
+            ],
+            [
+              101.325,
+              0.635
+            ],
+            [
+              101.325,
+              0.385
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": 36043,
+        "level": 2,
+        "score": 0.18,
+        "province": "Sumatera Selatan",
+        "island": "Sumatra",
+        "drivers": [
+          "Kelembapan tanah di sekitar sel tergolong rendah.",
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Kondisi cuaca lokal mendukung pengeringan lahan."
+        ],
+        "peat_pct": 34
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              104.635,
+              -3.115
+            ],
+            [
+              104.885,
+              -3.115
+            ],
+            [
+              104.885,
+              -2.865
+            ],
+            [
+              104.635,
+              -2.865
+            ],
+            [
+              104.635,
+              -3.115
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": 47061,
+        "level": 3,
+        "score": 0.37,
+        "province": "Kalimantan Barat",
+        "island": "Kalimantan",
+        "drivers": [
+          "Kelembapan tanah di sekitar sel tergolong rendah.",
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Kondisi cuaca lokal mendukung pengeringan lahan."
+        ],
+        "peat_pct": 58
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              109.215,
+              -0.145
+            ],
+            [
+              109.465,
+              -0.145
+            ],
+            [
+              109.465,
+              0.105
+            ],
+            [
+              109.215,
+              0.105
+            ],
+            [
+              109.215,
+              -0.145
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": 39079,
+        "level": 4,
+        "score": 0.62,
+        "province": "Kalimantan Tengah",
+        "island": "Kalimantan",
+        "drivers": [
+          "Kelembapan tanah di sekitar sel tergolong rendah.",
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Kondisi cuaca lokal mendukung pengeringan lahan."
+        ],
+        "peat_pct": 76
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              113.795,
+              -2.335
+            ],
+            [
+              114.045,
+              -2.335
+            ],
+            [
+              114.045,
+              -2.085
+            ],
+            [
+              113.795,
+              -2.085
+            ],
+            [
+              113.795,
+              -2.335
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": 50092,
+        "level": 1,
+        "score": 0.06,
+        "province": "Kalimantan Timur",
+        "island": "Kalimantan",
+        "drivers": [
+          "Kelembapan tanah di sekitar sel tergolong rendah.",
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Kondisi cuaca lokal mendukung pengeringan lahan."
+        ],
+        "peat_pct": 21
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              117.025,
+              0.395
+            ],
+            [
+              117.275,
+              0.395
+            ],
+            [
+              117.275,
+              0.645
+            ],
+            [
+              117.025,
+              0.645
+            ],
+            [
+              117.025,
+              0.395
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": 14185,
+        "level": 2,
+        "score": 0.18,
+        "province": "Papua Selatan",
+        "island": "Papua",
+        "drivers": [
+          "Kelembapan tanah di sekitar sel tergolong rendah.",
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Kondisi cuaca lokal mendukung pengeringan lahan."
+        ],
+        "peat_pct": 43
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              140.275,
+              -8.615
+            ],
+            [
+              140.525,
+              -8.615
+            ],
+            [
+              140.525,
+              -8.365
+            ],
+            [
+              140.275,
+              -8.365
+            ],
+            [
+              140.275,
+              -8.615
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

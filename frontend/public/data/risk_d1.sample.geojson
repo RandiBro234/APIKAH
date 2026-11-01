@@ -1,0 +1,1682 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 50029,
+      "properties": {
+        "cell_id": 50029,
+        "level": 4,
+        "score": 0.62,
+        "province": "Riau",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 88
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.325,
+              0.385
+            ],
+            [
+              101.575,
+              0.385
+            ],
+            [
+              101.575,
+              0.635
+            ],
+            [
+              101.325,
+              0.635
+            ],
+            [
+              101.325,
+              0.385
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 51032,
+      "properties": {
+        "cell_id": 51032,
+        "level": 3,
+        "score": 0.37,
+        "province": "Riau",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 74
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              102.075,
+              0.635
+            ],
+            [
+              102.325,
+              0.635
+            ],
+            [
+              102.325,
+              0.885
+            ],
+            [
+              102.075,
+              0.885
+            ],
+            [
+              102.075,
+              0.635
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 53030,
+      "properties": {
+        "cell_id": 53030,
+        "level": 3,
+        "score": 0.37,
+        "province": "Riau",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 92
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              101.575,
+              1.135
+            ],
+            [
+              101.825,
+              1.135
+            ],
+            [
+              101.825,
+              1.385
+            ],
+            [
+              101.575,
+              1.385
+            ],
+            [
+              101.575,
+              1.135
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 49033,
+      "properties": {
+        "cell_id": 49033,
+        "level": 2,
+        "score": 0.18,
+        "province": "Riau",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 63
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              102.325,
+              0.135
+            ],
+            [
+              102.575,
+              0.135
+            ],
+            [
+              102.575,
+              0.385
+            ],
+            [
+              102.325,
+              0.385
+            ],
+            [
+              102.325,
+              0.135
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 52027,
+      "properties": {
+        "cell_id": 52027,
+        "level": 3,
+        "score": 0.37,
+        "province": "Riau",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 81
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              100.825,
+              0.885
+            ],
+            [
+              101.075,
+              0.885
+            ],
+            [
+              101.075,
+              1.135
+            ],
+            [
+              100.825,
+              1.135
+            ],
+            [
+              100.825,
+              0.885
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 36043,
+      "properties": {
+        "cell_id": 36043,
+        "level": 3,
+        "score": 0.37,
+        "province": "Sumatera Selatan",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 86
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              104.635,
+              -3.115
+            ],
+            [
+              104.885,
+              -3.115
+            ],
+            [
+              104.885,
+              -2.865
+            ],
+            [
+              104.635,
+              -2.865
+            ],
+            [
+              104.635,
+              -3.115
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 38045,
+      "properties": {
+        "cell_id": 38045,
+        "level": 3,
+        "score": 0.37,
+        "province": "Sumatera Selatan",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 72
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              105.125,
+              -2.615
+            ],
+            [
+              105.375,
+              -2.615
+            ],
+            [
+              105.375,
+              -2.365
+            ],
+            [
+              105.125,
+              -2.365
+            ],
+            [
+              105.125,
+              -2.615
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 35039,
+      "properties": {
+        "cell_id": 35039,
+        "level": 2,
+        "score": 0.18,
+        "province": "Sumatera Selatan",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 57
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              103.825,
+              -3.365
+            ],
+            [
+              104.075,
+              -3.365
+            ],
+            [
+              104.075,
+              -3.115
+            ],
+            [
+              103.825,
+              -3.115
+            ],
+            [
+              103.825,
+              -3.365
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 41038,
+      "properties": {
+        "cell_id": 41038,
+        "level": 2,
+        "score": 0.18,
+        "province": "Jambi",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 79
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              103.485,
+              -1.715
+            ],
+            [
+              103.735,
+              -1.715
+            ],
+            [
+              103.735,
+              -1.465
+            ],
+            [
+              103.485,
+              -1.465
+            ],
+            [
+              103.485,
+              -1.715
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 42040,
+      "properties": {
+        "cell_id": 42040,
+        "level": 2,
+        "score": 0.18,
+        "province": "Jambi",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 65
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              103.985,
+              -1.465
+            ],
+            [
+              104.235,
+              -1.465
+            ],
+            [
+              104.235,
+              -1.215
+            ],
+            [
+              103.985,
+              -1.215
+            ],
+            [
+              103.985,
+              -1.465
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 47061,
+      "properties": {
+        "cell_id": 47061,
+        "level": 3,
+        "score": 0.37,
+        "province": "Kalimantan Barat",
+        "island": "Kalimantan",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 77
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              109.215,
+              -0.145
+            ],
+            [
+              109.465,
+              -0.145
+            ],
+            [
+              109.465,
+              0.105
+            ],
+            [
+              109.215,
+              0.105
+            ],
+            [
+              109.215,
+              -0.145
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 45064,
+      "properties": {
+        "cell_id": 45064,
+        "level": 3,
+        "score": 0.37,
+        "province": "Kalimantan Barat",
+        "island": "Kalimantan",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 91
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              109.965,
+              -0.645
+            ],
+            [
+              110.215,
+              -0.645
+            ],
+            [
+              110.215,
+              -0.395
+            ],
+            [
+              109.965,
+              -0.395
+            ],
+            [
+              109.965,
+              -0.645
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 49063,
+      "properties": {
+        "cell_id": 49063,
+        "level": 2,
+        "score": 0.18,
+        "province": "Kalimantan Barat",
+        "island": "Kalimantan",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 61
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              109.715,
+              0.355
+            ],
+            [
+              109.965,
+              0.355
+            ],
+            [
+              109.965,
+              0.605
+            ],
+            [
+              109.715,
+              0.605
+            ],
+            [
+              109.715,
+              0.355
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 39079,
+      "properties": {
+        "cell_id": 39079,
+        "level": 4,
+        "score": 0.62,
+        "province": "Kalimantan Tengah",
+        "island": "Kalimantan",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 89
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              113.795,
+              -2.335
+            ],
+            [
+              114.045,
+              -2.335
+            ],
+            [
+              114.045,
+              -2.085
+            ],
+            [
+              113.795,
+              -2.085
+            ],
+            [
+              113.795,
+              -2.335
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 37081,
+      "properties": {
+        "cell_id": 37081,
+        "level": 2,
+        "score": 0.18,
+        "province": "Kalimantan Tengah",
+        "island": "Kalimantan",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 82
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              114.295,
+              -2.835
+            ],
+            [
+              114.545,
+              -2.835
+            ],
+            [
+              114.545,
+              -2.585
+            ],
+            [
+              114.295,
+              -2.585
+            ],
+            [
+              114.295,
+              -2.835
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 38076,
+      "properties": {
+        "cell_id": 38076,
+        "level": 2,
+        "score": 0.18,
+        "province": "Kalimantan Tengah",
+        "island": "Kalimantan",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 59
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              113.045,
+              -2.585
+            ],
+            [
+              113.295,
+              -2.585
+            ],
+            [
+              113.295,
+              -2.335
+            ],
+            [
+              113.045,
+              -2.335
+            ],
+            [
+              113.045,
+              -2.585
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 50092,
+      "properties": {
+        "cell_id": 50092,
+        "level": 2,
+        "score": 0.18,
+        "province": "Kalimantan Timur",
+        "island": "Kalimantan",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 44
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              117.025,
+              0.395
+            ],
+            [
+              117.275,
+              0.395
+            ],
+            [
+              117.275,
+              0.645
+            ],
+            [
+              117.025,
+              0.645
+            ],
+            [
+              117.025,
+              0.395
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14185,
+      "properties": {
+        "cell_id": 14185,
+        "level": 1,
+        "score": 0.06,
+        "province": "Papua Selatan",
+        "island": "Papua",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 28
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              140.275,
+              -8.615
+            ],
+            [
+              140.525,
+              -8.615
+            ],
+            [
+              140.525,
+              -8.365
+            ],
+            [
+              140.275,
+              -8.365
+            ],
+            [
+              140.275,
+              -8.615
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 64012,
+      "properties": {
+        "cell_id": 64012,
+        "level": 1,
+        "score": 0.06,
+        "province": "Aceh",
+        "island": "Sumatra",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 19
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              97.025,
+              4.025
+            ],
+            [
+              97.275,
+              4.025
+            ],
+            [
+              97.275,
+              4.275
+            ],
+            [
+              97.025,
+              4.275
+            ],
+            [
+              97.025,
+              4.025
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 61088,
+      "properties": {
+        "cell_id": 61088,
+        "level": 1,
+        "score": 0.06,
+        "province": "Kalimantan Utara",
+        "island": "Kalimantan",
+        "drivers": [
+          "Beberapa hari terakhir tercatat sedikit hujan.",
+          "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+          "Riwayat deteksi hotspot setempat turut diperhitungkan."
+        ],
+        "peat_pct": 22
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              115.975,
+              3.225
+            ],
+            [
+              116.225,
+              3.225
+            ],
+            [
+              116.225,
+              3.475
+            ],
+            [
+              115.975,
+              3.475
+            ],
+            [
+              115.975,
+              3.225
+            ]
+          ]
+        ]
+      }
+    }
+  ],
+  "aggregate": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": 50029,
+        "properties": {
+          "cell_id": 21,
+          "level": 4,
+          "score": 0.62,
+          "province": "Riau",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 88
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                101.325,
+                0.385
+              ],
+              [
+                101.575,
+                0.385
+              ],
+              [
+                101.575,
+                0.635
+              ],
+              [
+                101.325,
+                0.635
+              ],
+              [
+                101.325,
+                0.385
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 51032,
+        "properties": {
+          "cell_id": 22,
+          "level": 3,
+          "score": 0.37,
+          "province": "Riau",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 74
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                102.075,
+                0.635
+              ],
+              [
+                102.325,
+                0.635
+              ],
+              [
+                102.325,
+                0.885
+              ],
+              [
+                102.075,
+                0.885
+              ],
+              [
+                102.075,
+                0.635
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 53030,
+        "properties": {
+          "cell_id": 23,
+          "level": 3,
+          "score": 0.37,
+          "province": "Riau",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 92
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                101.575,
+                1.135
+              ],
+              [
+                101.825,
+                1.135
+              ],
+              [
+                101.825,
+                1.385
+              ],
+              [
+                101.575,
+                1.385
+              ],
+              [
+                101.575,
+                1.135
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 52027,
+        "properties": {
+          "cell_id": 24,
+          "level": 3,
+          "score": 0.37,
+          "province": "Riau",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 81
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                100.825,
+                0.885
+              ],
+              [
+                101.075,
+                0.885
+              ],
+              [
+                101.075,
+                1.135
+              ],
+              [
+                100.825,
+                1.135
+              ],
+              [
+                100.825,
+                0.885
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 36043,
+        "properties": {
+          "cell_id": 25,
+          "level": 3,
+          "score": 0.37,
+          "province": "Sumatera Selatan",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 86
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                104.635,
+                -3.115
+              ],
+              [
+                104.885,
+                -3.115
+              ],
+              [
+                104.885,
+                -2.865
+              ],
+              [
+                104.635,
+                -2.865
+              ],
+              [
+                104.635,
+                -3.115
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 38045,
+        "properties": {
+          "cell_id": 26,
+          "level": 3,
+          "score": 0.37,
+          "province": "Sumatera Selatan",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 72
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                105.125,
+                -2.615
+              ],
+              [
+                105.375,
+                -2.615
+              ],
+              [
+                105.375,
+                -2.365
+              ],
+              [
+                105.125,
+                -2.365
+              ],
+              [
+                105.125,
+                -2.615
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 35039,
+        "properties": {
+          "cell_id": 27,
+          "level": 2,
+          "score": 0.18,
+          "province": "Sumatera Selatan",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 57
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                103.825,
+                -3.365
+              ],
+              [
+                104.075,
+                -3.365
+              ],
+              [
+                104.075,
+                -3.115
+              ],
+              [
+                103.825,
+                -3.115
+              ],
+              [
+                103.825,
+                -3.365
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 41038,
+        "properties": {
+          "cell_id": 28,
+          "level": 2,
+          "score": 0.18,
+          "province": "Jambi",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 79
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                103.485,
+                -1.715
+              ],
+              [
+                103.735,
+                -1.715
+              ],
+              [
+                103.735,
+                -1.465
+              ],
+              [
+                103.485,
+                -1.465
+              ],
+              [
+                103.485,
+                -1.715
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 42040,
+        "properties": {
+          "cell_id": 29,
+          "level": 2,
+          "score": 0.18,
+          "province": "Jambi",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 65
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                103.985,
+                -1.465
+              ],
+              [
+                104.235,
+                -1.465
+              ],
+              [
+                104.235,
+                -1.215
+              ],
+              [
+                103.985,
+                -1.215
+              ],
+              [
+                103.985,
+                -1.465
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 47061,
+        "properties": {
+          "cell_id": 210,
+          "level": 3,
+          "score": 0.37,
+          "province": "Kalimantan Barat",
+          "island": "Kalimantan",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 77
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                109.215,
+                -0.145
+              ],
+              [
+                109.465,
+                -0.145
+              ],
+              [
+                109.465,
+                0.105
+              ],
+              [
+                109.215,
+                0.105
+              ],
+              [
+                109.215,
+                -0.145
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 45064,
+        "properties": {
+          "cell_id": 211,
+          "level": 3,
+          "score": 0.37,
+          "province": "Kalimantan Barat",
+          "island": "Kalimantan",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 91
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                109.965,
+                -0.645
+              ],
+              [
+                110.215,
+                -0.645
+              ],
+              [
+                110.215,
+                -0.395
+              ],
+              [
+                109.965,
+                -0.395
+              ],
+              [
+                109.965,
+                -0.645
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 49063,
+        "properties": {
+          "cell_id": 212,
+          "level": 2,
+          "score": 0.18,
+          "province": "Kalimantan Barat",
+          "island": "Kalimantan",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 61
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                109.715,
+                0.355
+              ],
+              [
+                109.965,
+                0.355
+              ],
+              [
+                109.965,
+                0.605
+              ],
+              [
+                109.715,
+                0.605
+              ],
+              [
+                109.715,
+                0.355
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 39079,
+        "properties": {
+          "cell_id": 213,
+          "level": 4,
+          "score": 0.62,
+          "province": "Kalimantan Tengah",
+          "island": "Kalimantan",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 89
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                113.795,
+                -2.335
+              ],
+              [
+                114.045,
+                -2.335
+              ],
+              [
+                114.045,
+                -2.085
+              ],
+              [
+                113.795,
+                -2.085
+              ],
+              [
+                113.795,
+                -2.335
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 37081,
+        "properties": {
+          "cell_id": 214,
+          "level": 2,
+          "score": 0.18,
+          "province": "Kalimantan Tengah",
+          "island": "Kalimantan",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 82
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                114.295,
+                -2.835
+              ],
+              [
+                114.545,
+                -2.835
+              ],
+              [
+                114.545,
+                -2.585
+              ],
+              [
+                114.295,
+                -2.585
+              ],
+              [
+                114.295,
+                -2.835
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 50092,
+        "properties": {
+          "cell_id": 215,
+          "level": 2,
+          "score": 0.18,
+          "province": "Kalimantan Timur",
+          "island": "Kalimantan",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 44
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                117.025,
+                0.395
+              ],
+              [
+                117.275,
+                0.395
+              ],
+              [
+                117.275,
+                0.645
+              ],
+              [
+                117.025,
+                0.645
+              ],
+              [
+                117.025,
+                0.395
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 14185,
+        "properties": {
+          "cell_id": 216,
+          "level": 1,
+          "score": 0.06,
+          "province": "Papua Selatan",
+          "island": "Papua",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 28
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                140.275,
+                -8.615
+              ],
+              [
+                140.525,
+                -8.615
+              ],
+              [
+                140.525,
+                -8.365
+              ],
+              [
+                140.275,
+                -8.365
+              ],
+              [
+                140.275,
+                -8.615
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 64012,
+        "properties": {
+          "cell_id": 217,
+          "level": 1,
+          "score": 0.06,
+          "province": "Aceh",
+          "island": "Sumatra",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 19
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                97.025,
+                4.025
+              ],
+              [
+                97.275,
+                4.025
+              ],
+              [
+                97.275,
+                4.275
+              ],
+              [
+                97.025,
+                4.275
+              ],
+              [
+                97.025,
+                4.025
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 61088,
+        "properties": {
+          "cell_id": 218,
+          "level": 1,
+          "score": 0.06,
+          "province": "Kalimantan Utara",
+          "island": "Kalimantan",
+          "drivers": [
+            "Beberapa hari terakhir tercatat sedikit hujan.",
+            "Lahan gambut di sekitar sel dapat mengering saat kemarau.",
+            "Riwayat deteksi hotspot setempat turut diperhitungkan."
+          ],
+          "peat_pct": 22
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                115.975,
+                3.225
+              ],
+              [
+                116.225,
+                3.225
+              ],
+              [
+                116.225,
+                3.475
+              ],
+              [
+                115.975,
+                3.475
+              ],
+              [
+                115.975,
+                3.225
+              ]
+            ]
+          ]
+        }
+      }
+    ]
+  }
+}
