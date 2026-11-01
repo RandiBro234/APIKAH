@@ -3,9 +3,9 @@ DATA MENTAH CRAWLER — TIDAK DISIMPAN DI GIT
 
 4.135 berkas | 16,91 GB | 14 berkas >100 MB (batas GitHub)
 
-AmbIL DARI DRIVE
+AMBIL DARI DRIVE
 ----------------
-  >>> ISI LINK FOLDER DRIVE DI SINI <<<
+  >>> https://drive.google.com/drive/folders/1VOA8m8wmlD-AZ-eL6wJz3ML5UeMn1btm?usp=sharing <<<
 
   copernicus.zip  7,16 GB  531 berkas  era5land/{instant,accum}, cems_fire
   nasa.zip        4,07 GB  2.992 berkas  mcd64a1
