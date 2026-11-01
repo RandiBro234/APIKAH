@@ -25,6 +25,8 @@
 /data/metadata/logs/
 /data/metadata/locks/
 /data/metadata/manifests/*.lock
+# Cache inventaris granula MCD64A1 (turunan CMR; dibuat ulang oleh crawl_static.py burned).
+/data/metadata/manifests/mcd64a1_files.json
 # Jangan abaikan seluruh features_processed: setiap keluaran harus ditinjau
 # ukuran/lisensinya sebelum ditambahkan. Manifest kecil tetap boleh dilacak.
 
