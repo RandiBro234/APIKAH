@@ -8,7 +8,9 @@ Diperbarui 2026-10-31, setelah verifikasi akhir refactor.
 - Seluruh data kini ada di `data/`; crawler sources di `features_raw/` (lokal, ignored), keluaran tabular di `features_processed/`, manifest di `metadata/manifests/`, log runtime di `metadata/logs/` (ignored). Salinan nested lama sudah dihapus setelah 4.179 file disalin dan SHA-256 diverifikasi; NOAA raw text dipertahankan.
 - Climate index NOAA sekarang dibaca sebagai Parquet; sumber `.raw.txt` disimpan untuk provenance.
 - Audit jumlah baris menunjukkan CSV hotspot legacy hanya 1.048.575 baris, sedangkan Parquet memuat 3.941.038. Keduanya **tidak setara**; CSV lama tetap tracked untuk kompatibilitas/historis, tetapi jangan digunakan sebagai tabel lengkap. Parquet adalah tabel kanonis.
-- `features_processed/` memiliki sembilan file total: dua climate-index Parquet kecil tracked; tujuh keluaran lama untuk dua bulan (~81.8 MB, file terbesar 16.2 MB) tetap lokal/untracked karena hanya sampel parsial dan lisensi redistribusi belum diaudit. Hasil pipeline lengkap 2012–2026 belum dibangun.
+- `features_processed/` memiliki sembilan file: dua climate-index Parquet kecil dan tujuh keluaran dua bulan (2023-07/08, ~81,8 MB) — semuanya **tracked** dengan atribusi Copernicus di `data/NOTICE.md`.
+- Data mentah tidak masuk Git (16,91 GB, 4.135 berkas, 14 file >100 MB). Untuk dibagikan, tersedia `data/MANIFEST_raw.csv` + `python verify_data.py`; semua 4.135 berkas sudah diverifikasi cocok pada 2026-11-01.
+- Hasil pipeline lengkap 2012-2026 belum dibangun; yang ada baru contoh dua bulan.
 - MCD64A1 sudah diunduh tetapi sementara hanya raw HDF; tidak ada processor/fitur. Job crawl-nya mengunci direktori dan hanya skip bila fingerprint query serta semua nama granula HDF cocok.
 - Label bulanan tetap di `hotspot_indonesia/` dan `hotspot_raw/`; tabel gabungan ada di `hotspot_indonesia/combined/`.
 

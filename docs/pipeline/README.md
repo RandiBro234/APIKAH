@@ -97,6 +97,36 @@ Tes tidak memakai network/dataset produksi kecuali `verify_params.py` yang memer
 ## Kebijakan Git dan migrasi
 
 - `data/features_raw/` dan `data/metadata/logs/` di-ignore Git. Label hotspot yang telah dilacak tetap tracked.
-- `features_processed/` tidak di-ignore menyeluruh; sebelum staging, audit ukuran dan lisensi. Hindari file tunggal lebih dari 100 MB dan jangan stage semua folder sekaligus.
+- `features_processed/` tidak di-ignore menyeluruh. Contoh keluaran dua bulan (ERA5/CEMS/turunan/training, total ~81,8 MB, terbesar 16,2 MB) sudah di-track beserta atribusi di [`data/NOTICE.md`](../../data/NOTICE.md). Sebelum menambah keluaran lain: audit ukuran (<100 MB per file) dan pastikan atribusi tetap benar.
+- Data turunan Copernicus memakai CC-BY 4.0, jadi redistribusi boleh **asalkan atribusi disertakan**. Jangan hapus `data/NOTICE.md` selama tabel turunan masih ada di repo.
 - `data/metadata/manifests/` berisi catatan status kecil yang boleh dilacak; lock files lintas proses berada di `data/metadata/locks/` dan di-ignore.
 - `migrate_data_layout.py` default hanya menampilkan dry-run. `--apply` menyalin data lama dan memverifikasi SHA-256, **tanpa menghapus sumber**. Hapus sumber lama hanya setelah count/hash/status semua tervalidasi.
+
+## Berbagi data mentah ke rekan
+
+Data mentah crawler **tidak** disimpan di Git: 4.135 berkas, 16,91 GB, dan 14 berkas di antaranya >100 MB (batas keras GitHub per file). Menaruhnya di Git akan membuat clone sangat lambat dan push ditolak.
+
+Yang dibagikan lewat Git hanyalah **daftar checksum** berkas:
+
+- `data/MANIFEST_raw.csv` — 4.135 baris: `path,bytes,sha256` (path relatif terhadap `data/`).
+
+Alur untuk rekan yang menerima salinan data (dari drive/Zenodo/transfer langsung):
+
+```powershell
+cd "C:\path\ke\APIKAH\hotspot_crawler"
+python verify_data.py
+```
+
+Hasil yang diharapkan:
+
+```text
+ok       : 4135
+mismatch : 0
+missing  : 0
+invalid  : 0
+SEMUA COCOK dengan manifest.
+```
+
+Jika ada `mismatch`/`missing`, jangan pakai datanya: minta ulang berkas yang disebut, atau bangun ulang dari sumber dengan crawler. Verifier membaca ulang seluruh berkas (SHA-256), jadi butuh beberapa menit untuk 17 GB.
+
+Untuk mengambil data langsung dari sumbernya, jalankan `crawl_copernicus.py`/`crawl_static.py`; hasilnya akan cocok dengan manifest selama rentang dan parameter tidak diubah.
