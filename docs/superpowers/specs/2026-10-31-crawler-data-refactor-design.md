@@ -41,7 +41,8 @@ Refactor bertujuan membuat struktur mudah dipahami dan dirawat, mengurangi kode 
 - MCD64A1 sementara hanya disimpan sebagai data mentah; pemrosesan burned-area bukan bagian refactor ini.
 - MCD64A1 skip hanya dilakukan jika fingerprint parameter query cocok dan setiap nama granula yang disediakan CMR ada sebagai HDF non-kosong lokal; jumlah file saja tidak dianggap bukti lengkap.
 - Audit CSV/Parquet gabungan: CSV legacy 1.048.575 baris vs Parquet 3.941.038; hasil tidak setara. CSV dipertahankan tracked sebagai legacy, Parquet kanonis untuk analisis.
-- Tujuh hasil processed lama (~81.8 MB, hanya dua bulan) tetap lokal dan tidak di-track karena parsial dan lisensi redistribusi belum diverifikasi.
+- Tujuh hasil processed (~81,8 MB, dua bulan) di-track setelah audit lisensi: ERA5-Land dan CEMS Fire memakai CC-BY 4.0 sejak 2 Juli 2025, redistribusi boleh dengan atribusi. Atribusi, sitasi, dan disclaimer dicatat di `data/NOTICE.md`.
+- Data mentah (16,91 GB, 4.135 berkas, 14 berkas >100 MB) tetap di luar Git karena batas keras GitHub; keterlacakan dijaga lewat `data/MANIFEST_raw.csv` (path, bytes, sha256) dan `verify_data.py`.
 - Perintah CLI serta skema hasil dipertahankan.
 - Tidak ada pekerjaan refactor yang dimulai sebelum crawl selesai; kondisi crawl sudah diverifikasi lengkap pada 2026-10-31.
 
@@ -160,5 +161,5 @@ Setiap tahap bermakna mendapat commit terpisah pada branch refactor. Tidak ada p
 - HTTP resume mencatat hash URL, ETag/Last-Modified dan panjang representasi; `206 Content-Range` divalidasi, `If-Range` dipakai, serta partial tanpa validator/berukuran nol diulang penuh sebelum dipublikasikan.
 - Migrasi no-clobber memakai hard link atomik pada filesystem target; bila hard link tidak didukung, operasi berhenti tanpa mengganti file tujuan.
 - MCD64A1 tetap raw-only seperti keputusan pengguna.
-- Audit CSV/Parquet menemukan jumlah baris berbeda (lihat keputusan di atas); keluaran processed parsial ditahan lokal dan tidak distage. Notebook aktif memakai Parquet.
+- Audit CSV/Parquet menemukan jumlah baris berbeda (lihat keputusan di atas); notebook aktif memakai Parquet. Tujuh keluaran processed dua bulan sudah tracked bersama `data/NOTICE.md`; data mentah dijaga keterlacakannya lewat manifest checksum, bukan disimpan di Git.
 - Push/merge belum dilakukan.
