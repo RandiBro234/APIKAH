@@ -1,0 +1,18 @@
+copernicus/ — DATA MENTAH, TIDAK DISIMPAN DI GIT
+===============================================
+
+Isi: 531 berkas .nc, 7,16 GB
+  era5land/instant/  177 berkas, 5,97 GB   (6 variabel per jam)
+  era5land/accum/    177 berkas, 1,05 GB   (presipitasi, radiasi)
+  cems_fire/         177 berkas, 0,31 GB   (indeks bahaya api)
+
+Arsip Drive: copernicus.zip (7,16 GB)
+LINK DRIVE : lihat ../_LINK_DRIVE.txt
+
+Ekstrak ke: data/features_raw/  -> menghasilkan data/features_raw/copernicus/...
+
+Butuh data ini untuk: postprocess_era5.py, postprocess_fire.py,
+build_derived_features.py, build_training_table.py.
+
+Verifikasi setelah ekstrak:
+  cd hotspot_crawler && python verify_data.py

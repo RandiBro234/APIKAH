@@ -1,0 +1,15 @@
+nasa/ — DATA MENTAH, TIDAK DISIMPAN DI GIT
+=========================================
+
+Isi: mcd64a1/  2.992 berkas .hdf, 4,07 GB (burned area, 2012-2026)
+
+Arsip Drive: nasa.zip (4,07 GB)
+LINK DRIVE : lihat ../_LINK_DRIVE.txt
+
+Ekstrak ke: data/features_raw/  -> menghasilkan data/features_raw/nasa/mcd64a1/...
+
+Status: HANYA DATA MENTAH. Belum ada processor/fitur burned area.
+Kode pengunduh: python crawl_static.py burned (butuh akun Earthdata).
+
+Verifikasi setelah ekstrak:
+  cd hotspot_crawler && python verify_data.py

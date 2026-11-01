@@ -106,6 +106,21 @@ Tes tidak memakai network/dataset produksi kecuali `verify_params.py` yang memer
 
 Data mentah crawler **tidak** disimpan di Git: 4.135 berkas, 16,91 GB, dan 14 berkas di antaranya >100 MB (batas keras GitHub per file). Menaruhnya di Git akan membuat clone sangat lambat dan push ditolak.
 
+Pembagiannya:
+
+| Arsip Drive | Ukuran | Isi |
+|---|---|---|
+| `copernicus.zip` | 7,16 GB | `era5land/{instant,accum}`, `cems_fire` (531 `.nc`) |
+| `nasa.zip` | 4,07 GB | `mcd64a1` (2.992 `.hdf`) |
+| `static.zip` | 5,68 GB | hansen, worldcover, dem, osm, boundaries, peatlands (612 berkas) |
+
+Tempat arsip dan cara memasangnya dijelaskan di file penunjuk yang ikut Git:
+
+- `data/features_raw/_LINK_DRIVE.txt` (ringkasan + link)
+- `data/features_raw/{copernicus,nasa,static}/_LINK_DRIVE.txt` (per kategori)
+
+Ekstrak ke `data/features_raw/` tanpa mengubah nama folder, lalu verifikasi.
+
 Yang dibagikan lewat Git hanyalah **daftar checksum** berkas:
 
 - `data/MANIFEST_raw.csv` — 4.135 baris: `path,bytes,sha256` (path relatif terhadap `data/`).
