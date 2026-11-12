@@ -1,0 +1,887 @@
+{
+ "cems_fire/2023-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-25T14:43:10"
+ },
+ "cems_fire/2023-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-25T14:58:51"
+ },
+ "cems_fire/2012-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:05:10"
+ },
+ "cems_fire/2012-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:07:45"
+ },
+ "cems_fire/2012-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:09:17"
+ },
+ "cems_fire/2012-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:11:38"
+ },
+ "cems_fire/2012-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:15:00"
+ },
+ "cems_fire/2012-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:17:30"
+ },
+ "cems_fire/2012-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:20:01"
+ },
+ "cems_fire/2012-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:22:08"
+ },
+ "cems_fire/2012-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:25:38"
+ },
+ "cems_fire/2012-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:27:48"
+ },
+ "cems_fire/2012-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:29:43"
+ },
+ "cems_fire/2012-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:32:18"
+ },
+ "cems_fire/2013-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:34:19"
+ },
+ "cems_fire/2013-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:36:26"
+ },
+ "cems_fire/2013-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:39:29"
+ },
+ "cems_fire/2013-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:41:54"
+ },
+ "cems_fire/2013-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:43:54"
+ },
+ "cems_fire/2013-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:48:27"
+ },
+ "cems_fire/2013-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:50:32"
+ },
+ "cems_fire/2013-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:53:26"
+ },
+ "cems_fire/2013-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T21:56:46"
+ },
+ "cems_fire/2013-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:00:49"
+ },
+ "cems_fire/2013-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:05:05"
+ },
+ "cems_fire/2013-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:08:27"
+ },
+ "cems_fire/2014-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:15:14"
+ },
+ "cems_fire/2014-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:18:24"
+ },
+ "cems_fire/2014-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:22:02"
+ },
+ "cems_fire/2014-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:26:19"
+ },
+ "cems_fire/2014-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:30:02"
+ },
+ "cems_fire/2014-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:32:36"
+ },
+ "cems_fire/2014-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:34:55"
+ },
+ "cems_fire/2014-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:37:28"
+ },
+ "cems_fire/2014-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:40:14"
+ },
+ "cems_fire/2014-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:45:09"
+ },
+ "cems_fire/2014-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:47:25"
+ },
+ "cems_fire/2014-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:49:58"
+ },
+ "cems_fire/2015-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:52:48"
+ },
+ "cems_fire/2015-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:55:35"
+ },
+ "cems_fire/2015-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T22:59:02"
+ },
+ "cems_fire/2015-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:01:29"
+ },
+ "cems_fire/2015-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:05:00"
+ },
+ "cems_fire/2015-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:08:15"
+ },
+ "cems_fire/2015-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:11:15"
+ },
+ "cems_fire/2015-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:16:12"
+ },
+ "cems_fire/2015-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:19:02"
+ },
+ "cems_fire/2015-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:21:52"
+ },
+ "cems_fire/2015-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:24:15"
+ },
+ "cems_fire/2015-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:26:56"
+ },
+ "cems_fire/2016-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:30:10"
+ },
+ "cems_fire/2016-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:32:45"
+ },
+ "cems_fire/2016-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:36:32"
+ },
+ "cems_fire/2016-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:38:42"
+ },
+ "cems_fire/2016-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:41:13"
+ },
+ "cems_fire/2016-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:43:30"
+ },
+ "cems_fire/2016-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:45:54"
+ },
+ "cems_fire/2016-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:49:03"
+ },
+ "cems_fire/2016-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:51:38"
+ },
+ "cems_fire/2016-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:53:53"
+ },
+ "cems_fire/2016-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:56:00"
+ },
+ "cems_fire/2016-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-30T23:58:31"
+ },
+ "cems_fire/2017-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:00:46"
+ },
+ "cems_fire/2017-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:03:21"
+ },
+ "cems_fire/2017-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:05:39"
+ },
+ "cems_fire/2017-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:07:21"
+ },
+ "cems_fire/2017-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:08:53"
+ },
+ "cems_fire/2017-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:10:41"
+ },
+ "cems_fire/2017-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:12:57"
+ },
+ "cems_fire/2017-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:15:16"
+ },
+ "cems_fire/2017-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:16:31"
+ },
+ "cems_fire/2017-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:18:23"
+ },
+ "cems_fire/2017-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:20:12"
+ },
+ "cems_fire/2017-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:22:14"
+ },
+ "cems_fire/2018-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:24:24"
+ },
+ "cems_fire/2018-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:26:03"
+ },
+ "cems_fire/2018-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:27:35"
+ },
+ "cems_fire/2018-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:29:25"
+ },
+ "cems_fire/2018-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:31:21"
+ },
+ "cems_fire/2018-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:33:25"
+ },
+ "cems_fire/2018-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:34:52"
+ },
+ "cems_fire/2018-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:37:25"
+ },
+ "cems_fire/2018-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:39:49"
+ },
+ "cems_fire/2018-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:42:01"
+ },
+ "cems_fire/2018-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:43:48"
+ },
+ "cems_fire/2018-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:45:15"
+ },
+ "cems_fire/2019-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:47:52"
+ },
+ "cems_fire/2019-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:49:42"
+ },
+ "cems_fire/2019-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:51:58"
+ },
+ "cems_fire/2019-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:53:59"
+ },
+ "cems_fire/2019-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:55:26"
+ },
+ "cems_fire/2019-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:57:27"
+ },
+ "cems_fire/2019-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T00:59:52"
+ },
+ "cems_fire/2019-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:02:39"
+ },
+ "cems_fire/2019-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:06:19"
+ },
+ "cems_fire/2019-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:08:52"
+ },
+ "cems_fire/2019-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:11:35"
+ },
+ "cems_fire/2019-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:13:21"
+ },
+ "cems_fire/2020-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:15:19"
+ },
+ "cems_fire/2020-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:17:45"
+ },
+ "cems_fire/2020-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:19:23"
+ },
+ "cems_fire/2020-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:21:40"
+ },
+ "cems_fire/2020-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:23:55"
+ },
+ "cems_fire/2020-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:25:36"
+ },
+ "cems_fire/2020-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:27:54"
+ },
+ "cems_fire/2020-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:29:42"
+ },
+ "cems_fire/2020-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:32:04"
+ },
+ "cems_fire/2020-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:34:23"
+ },
+ "cems_fire/2020-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:35:58"
+ },
+ "cems_fire/2020-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:37:03"
+ },
+ "cems_fire/2021-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:39:11"
+ },
+ "cems_fire/2021-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:40:44"
+ },
+ "cems_fire/2021-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:42:24"
+ },
+ "cems_fire/2021-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:44:17"
+ },
+ "cems_fire/2021-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:45:10"
+ },
+ "cems_fire/2021-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:47:00"
+ },
+ "cems_fire/2021-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:48:16"
+ },
+ "cems_fire/2021-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:50:08"
+ },
+ "cems_fire/2021-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:50:58"
+ },
+ "cems_fire/2021-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:52:40"
+ },
+ "cems_fire/2021-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:56:48"
+ },
+ "cems_fire/2021-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:58:13"
+ },
+ "cems_fire/2022-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T01:59:32"
+ },
+ "cems_fire/2022-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:00:31"
+ },
+ "cems_fire/2022-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:01:46"
+ },
+ "cems_fire/2022-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:04:01"
+ },
+ "cems_fire/2022-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:05:14"
+ },
+ "cems_fire/2022-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:06:32"
+ },
+ "cems_fire/2022-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:08:00"
+ },
+ "cems_fire/2022-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:09:07"
+ },
+ "cems_fire/2022-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:10:36"
+ },
+ "cems_fire/2022-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:12:48"
+ },
+ "cems_fire/2022-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:14:14"
+ },
+ "cems_fire/2022-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:14:56"
+ },
+ "cems_fire/2023-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:16:34"
+ },
+ "cems_fire/2023-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:18:00"
+ },
+ "cems_fire/2023-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:18:51"
+ },
+ "cems_fire/2023-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:20:23"
+ },
+ "cems_fire/2023-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:21:22"
+ },
+ "cems_fire/2023-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:22:42"
+ },
+ "cems_fire/2023-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:23:52"
+ },
+ "cems_fire/2023-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:24:50"
+ },
+ "cems_fire/2023-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:25:36"
+ },
+ "cems_fire/2023-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:26:44"
+ },
+ "cems_fire/2024-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:27:45"
+ },
+ "cems_fire/2024-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:28:47"
+ },
+ "cems_fire/2024-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:30:43"
+ },
+ "cems_fire/2024-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:31:29"
+ },
+ "cems_fire/2024-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:32:40"
+ },
+ "cems_fire/2024-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:33:39"
+ },
+ "cems_fire/2024-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:34:32"
+ },
+ "cems_fire/2024-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:35:55"
+ },
+ "cems_fire/2024-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:37:33"
+ },
+ "cems_fire/2024-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:39:16"
+ },
+ "cems_fire/2024-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:40:17"
+ },
+ "cems_fire/2024-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:40:53"
+ },
+ "cems_fire/2025-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:41:57"
+ },
+ "cems_fire/2025-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:42:44"
+ },
+ "cems_fire/2025-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:43:42"
+ },
+ "cems_fire/2025-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:45:00"
+ },
+ "cems_fire/2025-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:46:18"
+ },
+ "cems_fire/2025-06": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:47:17"
+ },
+ "cems_fire/2025-07": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:49:34"
+ },
+ "cems_fire/2025-08": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:50:18"
+ },
+ "cems_fire/2025-09": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:51:22"
+ },
+ "cems_fire/2025-10": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:52:05"
+ },
+ "cems_fire/2025-11": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:53:08"
+ },
+ "cems_fire/2025-12": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:54:05"
+ },
+ "cems_fire/2026-01": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:56:39"
+ },
+ "cems_fire/2026-02": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:57:14"
+ },
+ "cems_fire/2026-03": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:57:52"
+ },
+ "cems_fire/2026-04": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:58:46"
+ },
+ "cems_fire/2026-05": {
+  "status": "ok",
+  "note": "consolidated_dataset area=True",
+  "ts": "2026-10-31T02:59:42"
+ },
+ "cems_fire/2026-06": {
+  "status": "ok",
+  "note": "intermediate_dataset area=True",
+  "ts": "2026-10-31T03:01:19"
+ },
+ "cems_fire/2026-07": {
+  "status": "ok",
+  "note": "intermediate_dataset area=True",
+  "ts": "2026-10-31T03:02:06"
+ },
+ "cems_fire/2026-08": {
+  "status": "ok",
+  "note": "intermediate_dataset area=True",
+  "ts": "2026-10-31T03:03:32"
+ },
+ "cems_fire/2026-09": {
+  "status": "ok",
+  "note": "intermediate_dataset area=True",
+  "ts": "2026-10-31T03:04:20"
+ }
+}

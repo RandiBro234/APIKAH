@@ -5,42 +5,65 @@
 - Two main parts:
   1. `hotspot_crawler/` - Downloads and processes weather/static data
   2. `modeling/` - Jupyter notebooks for EDA and model training
+  3. `frontend/` - React + Vite dashboard (see frontend section below)
 - Data range: Jan 2012 - Sep 2026 (0.25 degree grid, daily)
 - Primary data sources: Copernicus (ERA5-Land via CDS, Fire Risk via EWDS)
 
+## Dokumen acuan (baca dulu)
+- `docs/pipeline/README.md` — perintah dan lokasi data yang aktif
+- `docs/agent-notes/README.md` — konteks, handoff terkini, arsip catatan lama
+- `docs/superpowers/` — desain dan rencana refactor
+- `data/NOTICE.md` — atribusi dan lisensi data turunan
+
 ## Setup
 ```powershell
-# Install crawler dependencies
-pip install -r .\hotspot_crawler\hotspot_crawler\requirements.txt
+cd .\hotspot_crawler
+pip install -r requirements.txt
 ```
-- Python 3.10+ required
+- Python 3.12 recommended
 - Some scripts require internet for API connectivity checks
+
+## Struktur kode dan data
+- Implementasi crawler: `hotspot_crawler/apikah_crawler/`
+- CLI wrapper dengan nama lama: `hotspot_crawler/*.py` (tetap dipakai, jangan ganti nama)
+- Tes: `hotspot_crawler/tests/`
+- Semua data di `data/`:
+  - `hotspot_indonesia/` + `hotspot_raw/` — label (tracked)
+  - `features_raw/` — input crawler mentah (diabaikan Git; lihat `README_data_mentah.txt`)
+  - `features_processed/` — tabel Parquet turunan (sebagian tracked)
+  - `metadata/{manifests,logs,locks}/`
 
 ## Key Commands
 ### Pre-flight Checks (Run before any crawling)
 ```powershell
-# Verify parameters without downloading data
-python .\hotspot_crawler\hotspot_crawler\verify_params.py
-# Check API endpoints and credentials
-python .\hotspot_crawler\hotspot_crawler\preflight.py
+cd .\hotspot_crawler
+python verify_params.py    # parameter vs enum resmi CDS/EWDS, tanpa unduh
+python preflight.py        # cek endpoint dan kredensial
 ```
 Both scripts must pass (green) before crawling.
 
 ### Testing
+Jalankan dari `hotspot_crawler/`:
 ```powershell
-# Run individual test scripts (most support direct execution)
-python .\hotspot_crawler\hotspot_crawler\test_derived.py
-python .\hotspot_crawler\hotspot_crawler\test_static.py
-python .\hotspot_crawler\hotspot_crawler\test_postprocess.py
-python .\hotspot_crawler\hotspot_crawler\test_training.py
-# Or use pytest
-pytest .\hotspot_crawler\hotspot_crawler\test_*.py
+python -m tests.test_derived
+python -m tests.test_postprocess
+python -m tests.test_static
+python -m tests.test_training
+python -m tests.test_paths
+python -m unittest tests.test_cli_wrappers tests.test_climate_parquet `
+    tests.test_migrate_data_layout tests.test_manifest_concurrency `
+    tests.test_download_file tests.test_copernicus_concurrency `
+    tests.test_burned_download_lock tests.test_verify_data
+python smoke_static.py
 ```
+`unittest discover` bukan runner proyek ini karena tes custom memakai skrip standalone.
 
 ### Crawling Scripts
 - `crawl_copernicus.py` - Download ERA5-Land and CEMS Fire data
-- `crawl_static.py` - Process static features (DEM, land cover, etc.)
-- Other specialized scripts: `postprocess_era5.py`, `postprocess_fire.py`, etc.
+- `crawl_static.py` - Download static sources (DEM, land cover, OSM, MCD64A1, ...)
+- Post-processing: `postprocess_era5.py`, `postprocess_fire.py`
+- Feature building: `build_static_features.py`, `build_derived_features.py`, `build_training_table.py`
+- Utilitas: `report_manifest.py`, `verify_data.py`, `status.ps1`
 
 ## Pipeline Order
 1. Run `verify_params.py` and `preflight.py` (internet required)
@@ -48,6 +71,11 @@ pytest .\hotspot_crawler\hotspot_crawler\test_*.py
 3. Run post-processing scripts
 4. Generate features with `build_derived_features.py` and `build_static_features.py`
 5. Create training table with `build_training_table.py`
+
+## Raw data dan berbagi
+- Data mentah crawler (~16,9 GB, 4.135 berkas) **tidak** disimpan di Git.
+- Arsip ada di Drive; link, isi zip, dan cara memasang: `data/features_raw/README_data_mentah.txt`.
+- Setelah mengekstrak, verifikasi dengan `python verify_data.py` (cek SHA-256 terhadap `data/MANIFEST_raw.csv`).
 
 ## Modeling
 - Jupyter notebooks in `modeling/`:
@@ -58,9 +86,11 @@ pytest .\hotspot_crawler\hotspot_crawler\test_*.py
 ## Important Notes
 - All logs and messages are in Indonesian
 - Code comments and variable names are in English
-- Crawler expects a `data/` directory (created automatically)
-- Some datasets require manual license acceptance (Copernicus)
-- For full pipeline execution, see TODO list in `PIPELINE_DEV.md`
+- Jangan commit isi `data/features_raw/`, `data/metadata/logs/`, atau `data/metadata/locks/`
+- Periksa ukuran dan lisensi satu per satu sebelum menambahkan hasil ke `features_processed/`; jangan `git add -A`
+- Pertahankan data hotspot yang sudah tracked; jangan menambah berkas GADM baru ke repo publik
+- Setiap perubahan bermakna mendapat commit tersendiri dan tidak di-push tanpa instruksi
+- For full pipeline execution, see `docs/pipeline/README.md`
 
 <!-- antislop:start -->
 ## antislop

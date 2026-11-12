@@ -1,0 +1,1772 @@
+{
+ "era5land/instant/2023-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T14:33:25"
+ },
+ "era5land/accum/2023-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T14:36:33"
+ },
+ "era5land/instant/2023-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T14:56:05"
+ },
+ "era5land/accum/2023-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T14:57:55"
+ },
+ "era5land/instant/2012-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T15:46:59"
+ },
+ "era5land/accum/2012-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T15:48:53"
+ },
+ "era5land/instant/2012-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T15:58:53"
+ },
+ "era5land/accum/2012-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:00:32"
+ },
+ "era5land/instant/2012-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:05:23"
+ },
+ "era5land/accum/2012-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:06:39"
+ },
+ "era5land/instant/2012-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:15:02"
+ },
+ "era5land/accum/2012-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:16:35"
+ },
+ "era5land/instant/2012-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:21:16"
+ },
+ "era5land/accum/2012-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:22:47"
+ },
+ "era5land/instant/2012-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:27:31"
+ },
+ "era5land/accum/2012-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:32:59"
+ },
+ "era5land/instant/2012-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:52:09"
+ },
+ "era5land/accum/2012-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T16:54:38"
+ },
+ "era5land/instant/2012-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:05:34"
+ },
+ "era5land/accum/2012-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:15:42"
+ },
+ "era5land/instant/2012-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:22:52"
+ },
+ "era5land/accum/2012-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:27:33"
+ },
+ "era5land/instant/2012-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:39:52"
+ },
+ "era5land/accum/2012-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:41:41"
+ },
+ "era5land/instant/2012-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:48:15"
+ },
+ "era5land/accum/2012-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:50:12"
+ },
+ "era5land/instant/2012-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:55:59"
+ },
+ "era5land/accum/2012-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T17:59:15"
+ },
+ "era5land/instant/2013-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:07:41"
+ },
+ "era5land/accum/2013-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:09:30"
+ },
+ "era5land/instant/2013-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:13:22"
+ },
+ "era5land/accum/2013-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:15:44"
+ },
+ "era5land/instant/2013-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:25:01"
+ },
+ "era5land/accum/2013-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:31:20"
+ },
+ "era5land/instant/2013-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:43:10"
+ },
+ "era5land/accum/2013-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:45:48"
+ },
+ "era5land/instant/2013-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:51:33"
+ },
+ "era5land/accum/2013-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T18:53:32"
+ },
+ "era5land/instant/2013-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T19:18:15"
+ },
+ "era5land/accum/2013-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T19:22:11"
+ },
+ "era5land/instant/2013-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T19:41:55"
+ },
+ "era5land/accum/2013-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T19:55:31"
+ },
+ "era5land/instant/2013-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T20:18:34"
+ },
+ "era5land/accum/2013-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-25T20:20:28"
+ },
+ "era5land/instant/2013-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:29:38"
+ },
+ "era5land/accum/2013-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:30:37"
+ },
+ "era5land/instant/2013-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:33:47"
+ },
+ "era5land/accum/2013-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:35:17"
+ },
+ "era5land/instant/2013-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:39:01"
+ },
+ "era5land/accum/2013-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:40:58"
+ },
+ "era5land/instant/2013-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:48:04"
+ },
+ "era5land/accum/2013-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:49:25"
+ },
+ "era5land/instant/2014-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:55:20"
+ },
+ "era5land/accum/2014-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T09:56:51"
+ },
+ "era5land/instant/2014-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:01:52"
+ },
+ "era5land/accum/2014-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:03:24"
+ },
+ "era5land/instant/2014-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:06:30"
+ },
+ "era5land/accum/2014-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:07:50"
+ },
+ "era5land/instant/2014-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:13:07"
+ },
+ "era5land/accum/2014-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:14:30"
+ },
+ "era5land/instant/2014-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:17:45"
+ },
+ "era5land/accum/2014-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:18:54"
+ },
+ "era5land/instant/2014-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:21:32"
+ },
+ "era5land/accum/2014-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:24:12"
+ },
+ "era5land/instant/2014-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:28:34"
+ },
+ "era5land/accum/2014-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:30:01"
+ },
+ "era5land/instant/2014-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:33:26"
+ },
+ "era5land/accum/2014-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:35:06"
+ },
+ "era5land/instant/2014-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:38:32"
+ },
+ "era5land/accum/2014-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:40:43"
+ },
+ "era5land/instant/2014-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:44:49"
+ },
+ "era5land/accum/2014-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:45:52"
+ },
+ "era5land/instant/2014-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:48:59"
+ },
+ "era5land/accum/2014-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:50:06"
+ },
+ "era5land/instant/2014-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:53:36"
+ },
+ "era5land/accum/2014-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:56:25"
+ },
+ "era5land/instant/2015-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T10:59:06"
+ },
+ "era5land/accum/2015-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:00:26"
+ },
+ "era5land/instant/2015-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:02:54"
+ },
+ "era5land/accum/2015-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:04:19"
+ },
+ "era5land/instant/2015-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:09:07"
+ },
+ "era5land/accum/2015-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:11:18"
+ },
+ "era5land/instant/2015-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:14:41"
+ },
+ "era5land/accum/2015-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:15:44"
+ },
+ "era5land/instant/2015-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:22:05"
+ },
+ "era5land/accum/2015-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:24:42"
+ },
+ "era5land/instant/2015-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:28:12"
+ },
+ "era5land/accum/2015-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:29:46"
+ },
+ "era5land/instant/2015-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:32:33"
+ },
+ "era5land/accum/2015-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:34:00"
+ },
+ "era5land/instant/2015-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:37:00"
+ },
+ "era5land/accum/2015-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:38:25"
+ },
+ "era5land/instant/2015-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:42:02"
+ },
+ "era5land/accum/2015-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-26T11:42:56"
+ },
+ "era5land/instant/2015-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:01:59"
+ },
+ "era5land/accum/2015-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:03:53"
+ },
+ "era5land/instant/2015-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:07:28"
+ },
+ "era5land/accum/2015-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:08:41"
+ },
+ "era5land/instant/2015-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:13:33"
+ },
+ "era5land/accum/2015-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:14:58"
+ },
+ "era5land/instant/2016-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:17:57"
+ },
+ "era5land/accum/2016-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:18:59"
+ },
+ "era5land/instant/2016-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:24:12"
+ },
+ "era5land/accum/2016-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:25:21"
+ },
+ "era5land/instant/2016-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:27:55"
+ },
+ "era5land/accum/2016-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:29:21"
+ },
+ "era5land/instant/2016-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:32:33"
+ },
+ "era5land/accum/2016-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:33:51"
+ },
+ "era5land/instant/2016-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:37:19"
+ },
+ "era5land/accum/2016-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:38:47"
+ },
+ "era5land/instant/2016-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:41:40"
+ },
+ "era5land/accum/2016-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:44:32"
+ },
+ "era5land/instant/2016-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:47:47"
+ },
+ "era5land/accum/2016-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:49:18"
+ },
+ "era5land/instant/2016-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:53:37"
+ },
+ "era5land/accum/2016-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T12:55:06"
+ },
+ "era5land/instant/2016-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:00:00"
+ },
+ "era5land/accum/2016-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:01:18"
+ },
+ "era5land/instant/2016-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:05:02"
+ },
+ "era5land/accum/2016-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:06:26"
+ },
+ "era5land/instant/2016-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:10:36"
+ },
+ "era5land/accum/2016-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:11:33"
+ },
+ "era5land/instant/2016-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:14:32"
+ },
+ "era5land/accum/2016-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:19:03"
+ },
+ "era5land/instant/2017-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:24:00"
+ },
+ "era5land/accum/2017-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:25:53"
+ },
+ "era5land/instant/2017-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:28:28"
+ },
+ "era5land/accum/2017-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:29:41"
+ },
+ "era5land/instant/2017-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:32:44"
+ },
+ "era5land/accum/2017-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:33:44"
+ },
+ "era5land/instant/2017-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:38:53"
+ },
+ "era5land/accum/2017-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:40:22"
+ },
+ "era5land/instant/2017-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:44:22"
+ },
+ "era5land/accum/2017-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:46:01"
+ },
+ "era5land/instant/2017-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:48:57"
+ },
+ "era5land/accum/2017-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:51:45"
+ },
+ "era5land/instant/2017-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:55:09"
+ },
+ "era5land/accum/2017-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:56:26"
+ },
+ "era5land/instant/2017-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T13:59:43"
+ },
+ "era5land/accum/2017-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T14:01:47"
+ },
+ "era5land/instant/2017-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T14:05:36"
+ },
+ "era5land/accum/2017-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T14:06:50"
+ },
+ "era5land/instant/2017-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T14:11:44"
+ },
+ "era5land/accum/2017-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T14:12:59"
+ },
+ "era5land/instant/2017-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T14:15:47"
+ },
+ "era5land/accum/2017-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T14:58:12"
+ },
+ "era5land/instant/2017-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:04:30"
+ },
+ "era5land/accum/2017-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:08:13"
+ },
+ "era5land/instant/2018-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:13:35"
+ },
+ "era5land/accum/2018-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:17:32"
+ },
+ "era5land/instant/2018-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:25:35"
+ },
+ "era5land/accum/2018-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:27:13"
+ },
+ "era5land/instant/2018-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:37:26"
+ },
+ "era5land/accum/2018-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:39:34"
+ },
+ "era5land/instant/2018-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:48:10"
+ },
+ "era5land/accum/2018-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:52:12"
+ },
+ "era5land/instant/2018-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T15:58:52"
+ },
+ "era5land/accum/2018-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T16:00:51"
+ },
+ "era5land/instant/2018-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T16:08:22"
+ },
+ "era5land/accum/2018-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T16:10:24"
+ },
+ "era5land/instant/2018-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-27T16:14:19"
+ },
+ "era5land/accum/2018-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:02:40"
+ },
+ "era5land/instant/2018-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:05:32"
+ },
+ "era5land/accum/2018-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:06:25"
+ },
+ "era5land/instant/2018-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:09:30"
+ },
+ "era5land/accum/2018-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:10:27"
+ },
+ "era5land/instant/2018-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:12:57"
+ },
+ "era5land/accum/2018-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:14:06"
+ },
+ "era5land/instant/2018-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:16:11"
+ },
+ "era5land/accum/2018-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:17:29"
+ },
+ "era5land/instant/2018-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:20:18"
+ },
+ "era5land/accum/2018-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:21:11"
+ },
+ "era5land/instant/2025-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:24:10"
+ },
+ "era5land/accum/2025-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:25:39"
+ },
+ "era5land/instant/2019-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:25:57"
+ },
+ "era5land/instant/2025-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:29:07"
+ },
+ "era5land/accum/2019-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:29:17"
+ },
+ "era5land/accum/2025-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:30:36"
+ },
+ "era5land/instant/2019-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:31:48"
+ },
+ "era5land/accum/2019-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:33:54"
+ },
+ "era5land/instant/2025-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:34:12"
+ },
+ "era5land/instant/2019-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:14"
+ },
+ "era5land/accum/2025-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:36:55"
+ },
+ "era5land/accum/2019-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:05"
+ },
+ "era5land/instant/2025-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:39:24"
+ },
+ "era5land/instant/2019-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:12"
+ },
+ "era5land/accum/2025-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:41:15"
+ },
+ "era5land/accum/2019-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:42:21"
+ },
+ "era5land/instant/2025-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:44:57"
+ },
+ "era5land/instant/2019-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:47:38"
+ },
+ "era5land/accum/2025-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:11"
+ },
+ "era5land/accum/2019-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:48:56"
+ },
+ "era5land/instant/2025-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:51:01"
+ },
+ "era5land/accum/2025-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:51:45"
+ },
+ "era5land/instant/2019-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:52:10"
+ },
+ "era5land/accum/2019-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:53:55"
+ },
+ "era5land/instant/2025-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:54:03"
+ },
+ "era5land/accum/2025-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:17"
+ },
+ "era5land/instant/2019-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:56:50"
+ },
+ "era5land/accum/2019-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T10:57:45"
+ },
+ "era5land/instant/2025-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:00:13"
+ },
+ "era5land/instant/2019-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:02:33"
+ },
+ "era5land/accum/2025-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:03:55"
+ },
+ "era5land/accum/2019-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:04:25"
+ },
+ "era5land/instant/2025-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:10:30"
+ },
+ "era5land/accum/2025-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:11:27"
+ },
+ "era5land/instant/2025-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:13:27"
+ },
+ "era5land/accum/2025-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:14:14"
+ },
+ "era5land/instant/2019-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:15:22"
+ },
+ "era5land/instant/2025-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:15"
+ },
+ "era5land/accum/2019-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:17:27"
+ },
+ "era5land/accum/2025-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:18:38"
+ },
+ "era5land/instant/2019-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:20:28"
+ },
+ "era5land/instant/2025-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:21:51"
+ },
+ "era5land/accum/2019-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:21:54"
+ },
+ "era5land/accum/2025-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:22:33"
+ },
+ "era5land/instant/2019-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:24:25"
+ },
+ "era5land/accum/2019-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:25:29"
+ },
+ "era5land/instant/2026-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:25:55"
+ },
+ "era5land/instant/2019-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:29:59"
+ },
+ "era5land/accum/2026-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:30:17"
+ },
+ "era5land/accum/2019-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:31:03"
+ },
+ "era5land/instant/2026-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:32:21"
+ },
+ "era5land/instant/2020-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:33:59"
+ },
+ "era5land/accum/2026-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:34:49"
+ },
+ "era5land/accum/2020-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:35:27"
+ },
+ "era5land/instant/2026-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:37:49"
+ },
+ "era5land/instant/2020-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:38:46"
+ },
+ "era5land/accum/2026-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:38:46"
+ },
+ "era5land/accum/2020-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:42:14"
+ },
+ "era5land/instant/2026-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:42:29"
+ },
+ "era5land/instant/2020-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:45:30"
+ },
+ "era5land/accum/2026-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:45:40"
+ },
+ "era5land/accum/2020-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:46:26"
+ },
+ "era5land/instant/2026-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:50:26"
+ },
+ "era5land/instant/2020-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:54:43"
+ },
+ "era5land/accum/2026-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:54:55"
+ },
+ "era5land/accum/2020-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:55:27"
+ },
+ "era5land/instant/2026-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:57:06"
+ },
+ "era5land/instant/2020-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T11:58:27"
+ },
+ "era5land/accum/2020-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-28T12:00:00"
+ },
+ "era5land/instant/2020-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:38:17"
+ },
+ "era5land/instant/2023-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:42:52"
+ },
+ "era5land/accum/2020-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:44:27"
+ },
+ "era5land/accum/2023-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T21:50:07"
+ },
+ "era5land/instant/2023-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T22:46:47"
+ },
+ "era5land/instant/2020-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T22:50:12"
+ },
+ "era5land/accum/2023-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T22:51:28"
+ },
+ "era5land/accum/2020-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T22:58:08"
+ },
+ "era5land/instant/2023-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T23:34:44"
+ },
+ "era5land/accum/2023-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T23:42:53"
+ },
+ "era5land/instant/2020-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-30T23:56:07"
+ },
+ "era5land/accum/2020-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T00:04:14"
+ },
+ "era5land/instant/2023-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T00:20:21"
+ },
+ "era5land/accum/2023-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T00:26:17"
+ },
+ "era5land/instant/2020-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T00:33:04"
+ },
+ "era5land/accum/2020-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T00:39:57"
+ },
+ "era5land/instant/2023-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T00:54:10"
+ },
+ "era5land/accum/2023-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T00:59:16"
+ },
+ "era5land/instant/2020-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:08:23"
+ },
+ "era5land/accum/2020-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:13:09"
+ },
+ "era5land/instant/2023-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:24:40"
+ },
+ "era5land/accum/2023-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:27:24"
+ },
+ "era5land/instant/2020-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:34:37"
+ },
+ "era5land/accum/2020-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:38:24"
+ },
+ "era5land/instant/2023-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:42:37"
+ },
+ "era5land/accum/2023-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:46:08"
+ },
+ "era5land/instant/2020-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:52:21"
+ },
+ "era5land/instant/2023-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:55:00"
+ },
+ "era5land/accum/2020-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:55:29"
+ },
+ "era5land/accum/2023-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T01:58:34"
+ },
+ "era5land/instant/2021-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:10:35"
+ },
+ "era5land/instant/2023-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:13:10"
+ },
+ "era5land/accum/2021-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:13:43"
+ },
+ "era5land/accum/2023-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:15:27"
+ },
+ "era5land/instant/2021-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:23:22"
+ },
+ "era5land/instant/2023-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:23:49"
+ },
+ "era5land/accum/2021-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:24:51"
+ },
+ "era5land/accum/2023-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:27:50"
+ },
+ "era5land/instant/2021-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:36:22"
+ },
+ "era5land/accum/2021-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:38:42"
+ },
+ "era5land/instant/2024-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:40:15"
+ },
+ "era5land/accum/2024-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:42:33"
+ },
+ "era5land/instant/2021-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:46:45"
+ },
+ "era5land/instant/2024-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:48:21"
+ },
+ "era5land/accum/2021-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:49:10"
+ },
+ "era5land/accum/2024-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:49:36"
+ },
+ "era5land/instant/2021-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:55:09"
+ },
+ "era5land/instant/2024-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:55:43"
+ },
+ "era5land/accum/2021-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:56:42"
+ },
+ "era5land/accum/2024-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T02:57:50"
+ },
+ "era5land/instant/2021-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:03:40"
+ },
+ "era5land/instant/2024-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:04:26"
+ },
+ "era5land/accum/2021-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:04:57"
+ },
+ "era5land/accum/2024-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:06:07"
+ },
+ "era5land/instant/2021-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:09:06"
+ },
+ "era5land/accum/2021-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:11:05"
+ },
+ "era5land/instant/2024-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:12:45"
+ },
+ "era5land/accum/2024-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:15:48"
+ },
+ "era5land/instant/2021-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:21:02"
+ },
+ "era5land/accum/2021-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:22:55"
+ },
+ "era5land/instant/2024-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:22:57"
+ },
+ "era5land/accum/2024-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:27:26"
+ },
+ "era5land/instant/2021-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:32:09"
+ },
+ "era5land/accum/2021-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:33:28"
+ },
+ "era5land/instant/2024-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:34:16"
+ },
+ "era5land/accum/2024-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:39:15"
+ },
+ "era5land/instant/2021-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:45:51"
+ },
+ "era5land/accum/2021-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:47:24"
+ },
+ "era5land/instant/2024-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:48:49"
+ },
+ "era5land/accum/2024-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:53:05"
+ },
+ "era5land/instant/2021-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:53:47"
+ },
+ "era5land/accum/2021-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:56:00"
+ },
+ "era5land/instant/2024-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:57:53"
+ },
+ "era5land/accum/2024-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T03:59:14"
+ },
+ "era5land/instant/2021-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:01:12"
+ },
+ "era5land/accum/2021-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:04:13"
+ },
+ "era5land/instant/2024-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:08:43"
+ },
+ "era5land/instant/2022-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:10:09"
+ },
+ "era5land/accum/2024-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:10:12"
+ },
+ "era5land/accum/2022-01": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:11:23"
+ },
+ "era5land/instant/2024-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:14:16"
+ },
+ "era5land/instant/2022-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:15:26"
+ },
+ "era5land/accum/2024-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:16:27"
+ },
+ "era5land/accum/2022-02": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:16:40"
+ },
+ "era5land/instant/2024-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:21:35"
+ },
+ "era5land/instant/2022-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:22:00"
+ },
+ "era5land/accum/2024-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:22:41"
+ },
+ "era5land/accum/2022-03": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:22:59"
+ },
+ "era5land/accum/2026-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:23:10"
+ },
+ "era5land/instant/2022-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:27:07"
+ },
+ "era5land/accum/2022-04": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:28:26"
+ },
+ "era5land/instant/2026-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:28:44"
+ },
+ "era5land/accum/2026-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:30:55"
+ },
+ "era5land/instant/2022-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:31:16"
+ },
+ "era5land/accum/2022-05": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:33:50"
+ },
+ "era5land/instant/2026-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:33:59"
+ },
+ "era5land/instant/2022-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:36:08"
+ },
+ "era5land/accum/2026-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:37:00"
+ },
+ "era5land/accum/2022-06": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:37:27"
+ },
+ "era5land/instant/2026-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:39:54"
+ },
+ "era5land/accum/2026-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:41:12"
+ },
+ "era5land/instant/2022-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:41:25"
+ },
+ "era5land/accum/2022-07": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:42:26"
+ },
+ "era5land/instant/2022-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:45:15"
+ },
+ "era5land/accum/2022-08": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:46:56"
+ },
+ "era5land/instant/2022-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:49:52"
+ },
+ "era5land/accum/2022-09": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:51:15"
+ },
+ "era5land/instant/2022-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:53:33"
+ },
+ "era5land/accum/2022-10": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T04:56:03"
+ },
+ "era5land/instant/2022-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T05:01:34"
+ },
+ "era5land/accum/2022-11": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T05:03:26"
+ },
+ "era5land/instant/2022-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T16:19:56"
+ },
+ "era5land/accum/2022-12": {
+  "status": "ok",
+  "note": "",
+  "ts": "2026-10-31T16:22:32"
+ }
+}
