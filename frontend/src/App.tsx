@@ -3,6 +3,7 @@ import * as maplibregl from 'maplibre-gl'
 import type { GeoJSONSource, Map as MapLibreMap, MapMouseEvent, MapGeoJSONFeature } from 'maplibre-gl'
 import { HORIZONS, type HorizonKey } from './lib/horizons'
 import { aggregateRisks, loadMapData, type ProvinceFeatureCollection, type RiskMapCollection } from './lib/map-data'
+import type { KabupatenFeatureCollection, KabupatenProperties } from './types/geojson'
 import { RISK_LEVELS, riskColor } from './lib/risk'
 import { RiskLegend } from './Legend'
 import type { DataMeta, HotspotFeatureCollection, RiskProperties } from './types/geojson'
@@ -22,6 +23,10 @@ const PROVINCE_LINE = 'province-boundary-line'
 const INDONESIA_LAND = 'indonesia-land'
 const HOTSPOT_CIRCLE = 'hotspot-observation-circles'
 const SELECTED_CELL_LAYER = 'selected-risk-cell-outline'
+const KABUPATEN_SOURCE = 'kabupaten-boundaries'
+const KABUPATEN_FILL = 'kabupaten-risk-fill'
+const KABUPATEN_LINE = 'kabupaten-boundary-line'
+const KABUPATEN_SELECTED = 'kabupaten-selected-outline'
 maplibregl.setWorkerUrl(new URL('maplibre-gl/dist/maplibre-gl-worker.mjs', import.meta.url).toString())
 const levelNames = ['RENDAH', 'SEDANG', 'TINGGI', 'SANGAT TINGGI'] as const
 const weeklyBars = [0.22, 0.48, 0.34, 0.68, 0.52, 0.82, 0.61]
@@ -32,11 +37,15 @@ type HoverCell = { properties: RiskProperties; point: [number, number] }
 type ProvinceHoverProperties = { province: string; level?: number; score?: number; has_data?: boolean; high_count?: number; very_high_count?: number; cell_count?: number; risk_area_ha?: number }
 type ProvinceHover = { properties: ProvinceHoverProperties; point: [number, number] }
 type SelectedProvince = ProvinceHoverProperties & { coordinates: [number, number] }
+type KabupatenHoverProperties = KabupatenProperties & { kabupaten: string; provinsi: string }
+type KabupatenHover = { properties: KabupatenHoverProperties; point: [number, number] }
+type SelectedKabupaten = KabupatenHoverProperties & { coordinates: [number, number] }
 
 type MapLayers = {
   risk: RiskMapCollection
   hotspots: HotspotFeatureCollection
   provinces: ProvinceFeatureCollection
+  kabupaten: KabupatenFeatureCollection
 }
 
 
@@ -88,7 +97,7 @@ function riskLevelName(level: number) {
   return levelNames[Math.max(0, Math.min(levelNames.length - 1, level - 1))]
 }
 
-function MapView({ layers, showRisk, showHotspots, selectedCell, onMapReady, onSelectCell, onSelectProvince, onHoverCell, onHoverProvince, onSummary }: {
+function MapView({ layers, showRisk, showHotspots, selectedCell, onMapReady, onSelectCell, onSelectProvince, onSelectKabupaten, onHoverCell, onHoverProvince, onHoverKabupaten, onSummary }: {
   layers: MapLayers | null
   showRisk: boolean
   showHotspots: boolean
@@ -96,8 +105,10 @@ function MapView({ layers, showRisk, showHotspots, selectedCell, onMapReady, onS
   onMapReady: (map: MapLibreMap | null) => void
   onSelectCell: (cell: SelectedCell) => void
   onSelectProvince: (province: SelectedProvince) => void
+  onSelectKabupaten: (kabupaten: SelectedKabupaten) => void
   onHoverCell: (cell: HoverCell | null) => void
   onHoverProvince: (hover: ProvinceHover | null) => void
+  onHoverKabupaten: (hover: KabupatenHover | null) => void
   onSummary: (summary: { high: number; veryHigh: number }) => void
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -166,6 +177,8 @@ function MapView({ layers, showRisk, showHotspots, selectedCell, onMapReady, onS
       if (!map.getSource(RISK_SOURCE)) map.addSource(RISK_SOURCE, { type: 'geojson', data: data.risk, promoteId: 'cell_id' })
       if (!map.getSource(PROVINCE_SOURCE)) map.addSource(PROVINCE_SOURCE, { type: 'geojson', data: data.provinces })
       else (map.getSource(PROVINCE_SOURCE) as GeoJSONSource).setData(data.provinces)
+      if (!map.getSource(KABUPATEN_SOURCE)) map.addSource(KABUPATEN_SOURCE, { type: 'geojson', data: data.kabupaten })
+      else (map.getSource(KABUPATEN_SOURCE) as GeoJSONSource).setData(data.kabupaten)
       // Solid Indonesian islands, placed above the background and under all overlays.
       if (!map.getLayer(INDONESIA_LAND)) map.addLayer(indonesiaLandStyle(), PROVINCE_FILL)
       if (!map.getSource('hotspot-aggregate-source')) map.addSource('hotspot-aggregate-source', { type: 'geojson', data: aggregateRisks(data.risk.features) })
@@ -173,8 +186,14 @@ function MapView({ layers, showRisk, showHotspots, selectedCell, onMapReady, onS
       if (!map.getLayer(PROVINCE_FILL)) map.addLayer({ id: PROVINCE_FILL, type: 'fill', source: PROVINCE_SOURCE, maxzoom: 5.5, paint: { 'fill-color': '#00000000', 'fill-opacity': ['case', ['==', ['get', 'has_data'], true], ['match', ['get', 'level'], 1, 0.45, 2, 0.6, 3, 0.8, 4, 0.95, 0.45], 1] } })
 
       if (!map.getLayer(PROVINCE_LINE)) map.addLayer({ id: PROVINCE_LINE, type: 'line', source: PROVINCE_SOURCE, maxzoom: 5.5, paint: { 'line-color': '#00000000', 'line-width': 1 } })
+      // Kabupaten/kota (ADM2): pita zoom antara provinsi dan sel grid. Angka
+      // risiko kabupaten adalah agregasi sel (lihat docs/KONTRAK-DATA-KABUPATEN.md),
+      // bukan prediksi resolusi lebih halus.
+      if (!map.getLayer(KABUPATEN_FILL)) map.addLayer({ id: KABUPATEN_FILL, type: 'fill', source: KABUPATEN_SOURCE, minzoom: 4, maxzoom: 6.5, paint: { 'fill-color': '#00000000', 'fill-opacity': ['case', ['==', ['get', 'has_data'], true], ['match', ['get', 'level'], 1, 0.35, 2, 0.5, 3, 0.7, 4, 0.85, 0.3], 0.15] } })
+      if (!map.getLayer(KABUPATEN_LINE)) map.addLayer({ id: KABUPATEN_LINE, type: 'line', source: KABUPATEN_SOURCE, minzoom: 3, paint: { 'line-color': '#00000000', 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.3, 6, 0.9, 9, 1.2] } })
+      if (!map.getLayer(KABUPATEN_SELECTED)) map.addLayer({ id: KABUPATEN_SELECTED, type: 'line', source: KABUPATEN_SOURCE, filter: ['==', ['get', 'kode'], ''], paint: { 'line-color': tokenValue('--line-strong'), 'line-width': 2.5 } })
       if (!map.getLayer(RISK_FILL)) map.addLayer({ id: RISK_FILL, type: 'fill', source: RISK_SOURCE, minzoom: 5.5, paint: { 'fill-color': ['match', ['get', 'level'], 1, riskColor(1), 2, riskColor(2), 3, riskColor(3), 4, riskColor(4), 'transparent'], 'fill-opacity': ['match', ['get', 'level'], 1, RISK_LEVELS[1].opacity, 2, RISK_LEVELS[2].opacity, 3, RISK_LEVELS[3].opacity, 4, RISK_LEVELS[4].opacity, 0] } })
-      if (!map.getLayer(RISK_LINE)) map.addLayer({ id: RISK_LINE, type: 'line', source: RISK_SOURCE, minzoom: 5.5, paint: { 'line-color': ['match', ['get', 'level'], 1, riskColor(1, true), 2, riskColor(2, true), 3, riskColor(3, true), 4, riskColor(4, true), tokenValue('--line-strong')], 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.3, 6, 0.7, 8, 1] } })
+      if (!map.getLayer(RISK_LINE)) map.addLayer({ id: RISK_LINE, type: 'line', source: RISK_SOURCE, minzoom: 5.5, paint: { 'line-color': ['match', ['get', 'level'], 1, riskColor(1, true), 2, riskColor(2, true), 3, riskColor(3, true), 4, riskColor(4, true), tokenValue('--line-strong')], 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.6, 6, 0.9, 8, 1.2] } })
 
       if (!map.getLayer(SELECTED_CELL_LAYER)) map.addLayer({ id: SELECTED_CELL_LAYER, type: 'line', source: RISK_SOURCE, minzoom: 5.5, filter: ['==', ['get', 'cell_id'], -1], paint: { 'line-color': tokenValue('--line-strong'), 'line-width': 2.5 } })
       if (!map.getLayer('hotspot-cluster-circles')) map.addLayer({ id: 'hotspot-cluster-circles', type: 'circle', source: HOTSPOT_SOURCE, filter: ['has', 'point_count'], paint: { 'circle-color': tokenValue('--accent'), 'circle-radius': ['step', ['get', 'point_count'], 8, 10, 10, 50, 12], 'circle-stroke-color': tokenValue('--surface'), 'circle-stroke-width': 2 } })
@@ -194,10 +213,19 @@ function MapView({ layers, showRisk, showHotspots, selectedCell, onMapReady, onS
     if (!map || mapState !== 'ready') return
     if (layers) installLayersRef.current(map, layers)
     const provinceFill = ['case', ['==', ['get', 'has_data'], true], ['match', ['get', 'level'], 1, riskColor(1), 2, riskColor(2), 3, riskColor(3), 4, riskColor(4), tokenValue('--map-no-data')], tokenValue('--map-land')] as never
+    // Kabupaten: hanya diwarnai bila punya data; tanpa data memakai warna daratan
+    // agar tidak terbaca sebagai "risiko rendah".
+    const kabupatenFill = ['case', ['==', ['get', 'has_data'], true], ['match', ['get', 'level'], 1, riskColor(1), 2, riskColor(2), 3, riskColor(3), 4, riskColor(4), tokenValue('--map-no-data')], tokenValue('--map-land')] as never
     map.setPaintProperty('theme-sea', 'background-color', tokenValue('--map-bg'))
     if (map.getLayer(INDONESIA_LAND)) map.setPaintProperty(INDONESIA_LAND, 'fill-color', tokenValue('--map-land'))
     if (map.getLayer(PROVINCE_FILL)) map.setPaintProperty(PROVINCE_FILL, 'fill-color', provinceFill)
     if (map.getLayer(PROVINCE_LINE)) map.setPaintProperty(PROVINCE_LINE, 'line-color', tokenValue('--map-line'))
+    if (map.getLayer(KABUPATEN_FILL)) {
+      map.setPaintProperty(KABUPATEN_FILL, 'fill-color', kabupatenFill)
+      map.setPaintProperty(KABUPATEN_FILL, 'fill-opacity', ['case', ['==', ['get', 'has_data'], true], ['match', ['get', 'level'], 1, 0.35, 2, 0.5, 3, 0.7, 4, 0.85, 0.3], 0.12])
+    }
+    if (map.getLayer(KABUPATEN_LINE)) map.setPaintProperty(KABUPATEN_LINE, 'line-color', tokenValue('--map-line'))
+    if (map.getLayer(KABUPATEN_SELECTED)) map.setPaintProperty(KABUPATEN_SELECTED, 'line-color', tokenValue('--line-strong'))
   }, [mapState, layers])
 
   useEffect(() => {
@@ -229,7 +257,15 @@ function MapView({ layers, showRisk, showHotspots, selectedCell, onMapReady, onS
     if (!map || mapState !== 'ready' || !dataState) return
 
     const getRiskFeature = (event: MapMouseEvent) => {
-      if (map.getZoom() < 5.5) {
+      const zoom = map.getZoom()
+      if (zoom < 4) {
+        const provinces = map.queryRenderedFeatures(event.point, { layers: [PROVINCE_FILL] })
+        return provinces.find((feature) => feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon')
+      }
+      if (zoom < 5.5) {
+        const kabupaten = map.queryRenderedFeatures(event.point, { layers: [KABUPATEN_FILL] })
+        const hit = kabupaten.find((feature) => feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon')
+        if (hit) return hit
         const provinces = map.queryRenderedFeatures(event.point, { layers: [PROVINCE_FILL] })
         return provinces.find((feature) => feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon')
       }
@@ -243,27 +279,47 @@ function MapView({ layers, showRisk, showHotspots, selectedCell, onMapReady, onS
         map.getCanvas().style.cursor = ''
         onHoverProvince(null)
         onHoverCell(null)
+        onHoverKabupaten(null)
         return
       }
-      if (map.getZoom() < 5.5) {
+      const zoom = map.getZoom()
+      if (zoom < 4 || (zoom < 5.5 && typeof feature.properties?.kode === 'string')) {
+        const properties = feature.properties
+        if (!properties || typeof properties.kabupaten !== 'string') return
+        map.getCanvas().style.cursor = 'pointer'
+        onHoverKabupaten({ properties: properties as KabupatenHoverProperties, point: [event.point.x, event.point.y] })
+        onHoverProvince(null)
+        onHoverCell(null)
+        return
+      }
+      if (zoom < 5.5) {
         const properties = feature.properties
         if (!properties || typeof properties.province !== 'string') return
         map.getCanvas().style.cursor = 'pointer'
         onHoverProvince({ properties: properties as ProvinceHoverProperties, point: [event.point.x, event.point.y] })
         onHoverCell(null)
+        onHoverKabupaten(null)
         return
       }
       const properties = featureProperties(feature)
       if (!properties) return
       map.getCanvas().style.cursor = 'pointer'
       onHoverProvince(null)
+      onHoverKabupaten(null)
       onHoverCell({ properties, point: [event.point.x, event.point.y] })
     }
 
     const handleClick = (event: MapMouseEvent) => {
       const feature = getRiskFeature(event)
       if (!feature) return
-      if (map.getZoom() < 5.5) {
+      const zoom = map.getZoom()
+      if (zoom < 4 || (zoom < 5.5 && typeof feature.properties?.kode === 'string')) {
+        const kabupatenProperties = feature.properties
+        if (!kabupatenProperties || typeof kabupatenProperties.kabupaten !== 'string') return
+        onSelectKabupaten({ ...(kabupatenProperties as KabupatenHoverProperties), coordinates: centerOfFeature(feature) })
+        return
+      }
+      if (zoom < 5.5) {
         const provinceProperties = feature.properties
         if (!provinceProperties || typeof provinceProperties.province !== 'string') return
         onSelectProvince({ ...(provinceProperties as ProvinceHoverProperties), coordinates: centerOfFeature(feature) })
@@ -277,6 +333,7 @@ function MapView({ layers, showRisk, showHotspots, selectedCell, onMapReady, onS
       map.getCanvas().style.cursor = ''
       onHoverProvince(null)
       onHoverCell(null)
+      onHoverKabupaten(null)
     }
 
     const canvas = map.getCanvas()
@@ -423,6 +480,54 @@ function ProvinceOverviewCard({ province, isSample, onClose }: { province: Selec
   )
 }
 
+function KabupatenOverviewCard({ kabupaten, isSample, onClose }: { kabupaten: SelectedKabupaten; isSample: boolean; onClose: () => void }) {
+  const level = (kabupaten.level ?? 0) as 0 | 1 | 2 | 3 | 4
+  const hasData = kabupaten.has_data !== false && level >= 1
+  const levelClass = hasData ? `level-${level}` : ''
+  const cakupan = kabupaten.cakupan_pct ?? 0
+  const luasMin = kabupaten.luas_terdampak_ha_min ?? 0
+  const luasMax = kabupaten.luas_terdampak_ha_max ?? 0
+  const luasKab = kabupaten.luas_kabupaten_ha ?? 0
+  const nSel = kabupaten.n_sel ?? 0
+  const nSelPenuh = kabupaten.n_sel_penuh ?? 0
+
+  return (
+    <aside className="cell-detail bracket-panel" aria-label={`Ikhtisar kabupaten ${kabupaten.kabupaten}`}>
+      <header className="detail-header">
+        <div>
+          <span className="eyebrow">IKHTISAR KABUPATEN/KOTA{isSample ? ' · DATA CONTOH' : ''}</span>
+          <h2>{kabupaten.kabupaten}</h2>
+        </div>
+        <button type="button" className="icon-button close-detail" aria-label="Tutup ikhtisar kabupaten" onClick={onClose}>×</button>
+      </header>
+      <p className="province-summary kabupaten-parent">{kabupaten.provinsi}</p>
+      {!hasData ? (
+        <p className="province-empty">Belum ada data risiko untuk wilayah ini pada periode yang dipilih.</p>
+      ) : (
+        <>
+          <div className={`level-chip ${levelClass}`}><span className="level-bars" aria-hidden="true">{[1, 2, 3, 4].map((bar) => <i key={bar} className={bar <= level ? 'filled' : ''} />)}</span>{riskLevelName(level)}</div>
+          <div className="detail-metric"><span className="eyebrow">HOTSPOT 72 JAM TERAKHIR</span><strong>{kabupaten.hotspot_72h ?? 0} <small>deteksi</small></strong></div>
+          <div className="detail-metric"><span className="eyebrow">CAKUPAN WILAYAH BERISIKO</span><strong>{cakupan.toFixed(1)}% <small>dari luas kabupaten</small></strong></div>
+          <section className="impact-card">
+            <div className="section-heading"><span className="eyebrow">PERKIRAAN LUAS TERDAMPAK</span></div>
+            {isSample && <span className="sample-inline">DATA CONTOH · BUKAN ANGKA NYATA</span>}
+            <strong className="impact-range">{luasMin.toLocaleString('id-ID')}–{luasMax.toLocaleString('id-ID')} <small>ha</small></strong>
+            <div className="impact-range-track" aria-hidden="true"><i /><b /></div>
+            <p>
+              Rentang agregasi dari {nSel} sel pemantauan ({nSelPenuh} sel penuh) di dalam wilayah ini.
+              Luas kabupaten {luasKab.toLocaleString('id-ID')} ha.
+            </p>
+          </section>
+          <p className="province-summary">
+            Risiko tingkat kabupaten adalah agregasi sel 0,25° (± 25 km), bukan prediksi pada resolusi
+            lebih halus. Angka ini menunjukkan wilayah yang perlu diperiksa lebih dulu, bukan titik pasti.
+          </p>
+        </>
+      )}
+    </aside>
+  )
+}
+
 function App() {
   const currentPath = window.location.pathname
   const isMethodPage = currentPath === '/metode'
@@ -438,7 +543,10 @@ function App() {
   const [selectedCell, setSelectedCell] = useState<SelectedCell | null>(null)
   const [selectedProvince, setSelectedProvince] = useState<SelectedProvince | null>(null)
   const [hoverCell, setHoverCell] = useState<HoverCell | null>(null)
+  const [hoverKabupaten, setHoverKabupaten] = useState<KabupatenHover | null>(null)
+  const [selectedKabupaten, setSelectedKabupaten] = useState<SelectedKabupaten | null>(null)
   const [layers, setLayers] = useState<MapLayers | null>(null)
+  const [kabupatenMeta, setKabupatenMeta] = useState<{ isMock: boolean; periode: string; horizon: string } | null>(null)
   const [meta, setMeta] = useState<DataMeta | null>(null)
   const [, setDataState] = useState<DataState>('loading')
   const [staleHours, setStaleHours] = useState<number | null>(null)
@@ -451,16 +559,26 @@ function App() {
   const handleSelectCell = useCallback((cell: SelectedCell) => {
     setSelectedCell(cell)
     setSelectedProvince(null)
+    setSelectedKabupaten(null)
     setHoverCell(null)
   }, [])
   const handleSelectProvince = useCallback((province: SelectedProvince) => {
     setSelectedProvince(province)
     setSelectedCell(null)
+    setSelectedKabupaten(null)
     setHoverCell(null)
     setHoverProvince(null)
   }, [])
+  const handleSelectKabupaten = useCallback((kabupaten: SelectedKabupaten) => {
+    setSelectedKabupaten(kabupaten)
+    setSelectedProvince(null)
+    setSelectedCell(null)
+    setHoverCell(null)
+    setHoverKabupaten(null)
+  }, [])
   const handleHoverCell = useCallback((cell: HoverCell | null) => setHoverCell(cell), [])
   const handleHoverProvince = useCallback((hover: ProvinceHover | null) => setHoverProvince(hover), [])
+  const handleHoverKabupaten = useCallback((hover: KabupatenHover | null) => setHoverKabupaten(hover), [])
   const handleMapReady = useCallback((map: MapLibreMap | null) => { mapInstanceRef.current = map }, [])
 
   useEffect(() => {
@@ -472,7 +590,8 @@ function App() {
     window.setTimeout(() => setDataState('loading'), 0)
     void loadMapData(horizon).then((data) => {
       if (cancelled) return
-      setLayers({ risk: data.risk, hotspots: data.hotspots, provinces: data.provinces })
+      setLayers({ risk: data.risk, hotspots: data.hotspots, provinces: data.provinces, kabupaten: data.kabupaten })
+      setKabupatenMeta(data.kabupatenMeta)
       setMeta(data.meta)
       setDataState('ready')
     }).catch(() => {
@@ -484,16 +603,15 @@ function App() {
     return () => { cancelled = true }
   }, [horizon])
 
-  // Deep-link from WilayahPage: /peta?provinsi=Nama — zoom ke wilayah itu dan buka overview.
+  // Deep-link from WilayahPage: /peta?provinsi=Nama atau /peta?kabupaten=Nama —
+  // zoom ke wilayah itu dan buka overview-nya.
   useEffect(() => {
     if (!isMapPage || !layers || !mapInstanceRef.current) return
     const params = new URLSearchParams(window.location.search)
-    const target = params.get('provinsi')
-    if (!target) return
-    const province = layers.provinces.features.find(
-      (feature) => feature.properties.province.toLocaleLowerCase('id') === target.toLocaleLowerCase('id')
-    )
-    if (!province) return
+    const targetKabupaten = params.get('kabupaten')
+    const targetProvinsi = params.get('provinsi')
+    if (!targetKabupaten && !targetProvinsi) return
+
     const bounds = new maplibregl.LngLatBounds()
     const extend = (coords: unknown) => {
       if (!Array.isArray(coords)) return
@@ -503,6 +621,34 @@ function App() {
       }
       for (const child of coords) extend(child)
     }
+
+    if (targetKabupaten) {
+      const kabupaten = layers.kabupaten.features.find(
+        (feature) => feature.properties.kabupaten.toLocaleLowerCase('id') === targetKabupaten.toLocaleLowerCase('id'),
+      )
+      if (!kabupaten) return
+      extend(kabupaten.geometry.coordinates)
+      if (bounds.isEmpty()) return
+      mapInstanceRef.current.fitBounds(bounds, { padding: 80, maxZoom: 8.5, duration: 800 })
+      const sw = bounds.getSouthWest()
+      const ne = bounds.getNorthEast()
+      const selected: SelectedKabupaten = {
+        ...kabupaten.properties,
+        coordinates: [(sw.lng + ne.lng) / 2, (sw.lat + ne.lat) / 2],
+      }
+      queueMicrotask(() => {
+        setSelectedKabupaten(selected)
+        setSelectedProvince(null)
+        setSelectedCell(null)
+      })
+      window.history.replaceState({}, '', '/peta')
+      return
+    }
+
+    const province = layers.provinces.features.find(
+      (feature) => feature.properties.province.toLocaleLowerCase('id') === targetProvinsi!.toLocaleLowerCase('id')
+    )
+    if (!province) return
     extend(province.geometry.coordinates)
     if (bounds.isEmpty()) return
     mapInstanceRef.current.fitBounds(bounds, { padding: 80, maxZoom: 7.5, duration: 800 })
@@ -512,6 +658,7 @@ function App() {
     queueMicrotask(() => {
       setSelectedProvince(selected)
       setSelectedCell(null)
+      setSelectedKabupaten(null)
     })
     window.history.replaceState({}, '', '/peta')
   }, [isMapPage, layers])
@@ -572,8 +719,10 @@ function App() {
             onMapReady={handleMapReady}
             onSelectCell={handleSelectCell}
             onSelectProvince={handleSelectProvince}
+            onSelectKabupaten={handleSelectKabupaten}
             onHoverCell={handleHoverCell}
             onHoverProvince={handleHoverProvince}
+            onHoverKabupaten={handleHoverKabupaten}
             onSummary={setMapSummary}
           />
           {/* nonaktifkan sementara: strip ringkasan map */}
@@ -587,9 +736,11 @@ function App() {
             </div>
           </div>
           {hoverProvince && <div className="map-tooltip province-tooltip" style={{ left: hoverProvince.point[0], top: hoverProvince.point[1] }} role="status"><strong>{hoverProvince.properties.province}</strong>{!hoverProvince.properties.has_data ? <span>TANPA DATA</span> : <><span className={`tooltip-level risk-text-${hoverProvince.properties.level}`}>{riskLevelName(hoverProvince.properties.level ?? 1)} <span className="level-bars" aria-hidden="true">{[1, 2, 3, 4].map((bar) => <i key={bar} className={bar <= (hoverProvince.properties.level ?? 1) ? 'filled' : ''} />)}</span></span><span>SEL TINGGI {hoverProvince.properties.high_count ?? 0}</span><span>SEL SANGAT TINGGI {hoverProvince.properties.very_high_count ?? 0}</span></>}</div>}
-          {hoverCell && !hoverProvince && !selectedCell && <div className="map-tooltip" style={{ left: hoverCell.point[0], top: hoverCell.point[1] }} role="status"><span className={`tooltip-level risk-text-${hoverCell.properties.level}`}>{riskLevelName(hoverCell.properties.level)}</span><strong>{hoverCell.properties.province}</strong><span>SKOR CONTOH {Math.round(hoverCell.properties.score * 100)}%</span></div>}
+          {hoverKabupaten && <div className="map-tooltip province-tooltip" style={{ left: hoverKabupaten.point[0], top: hoverKabupaten.point[1] }} role="status"><strong>{hoverKabupaten.properties.kabupaten}</strong><span>{hoverKabupaten.properties.provinsi}</span>{!hoverKabupaten.properties.has_data ? <span>TANPA DATA</span> : <><span className={`tooltip-level risk-text-${hoverKabupaten.properties.level}`}>{riskLevelName(hoverKabupaten.properties.level ?? 1)} <span className="level-bars" aria-hidden="true">{[1, 2, 3, 4].map((bar) => <i key={bar} className={bar <= (hoverKabupaten.properties.level ?? 1) ? 'filled' : ''} />)}</span></span><span>CAKUPAN {(hoverKabupaten.properties.cakupan_pct ?? 0).toFixed(1)}%</span><span>HOTSPOT 72 JAM {hoverKabupaten.properties.hotspot_72h ?? 0}</span></>}</div>}
+          {hoverCell && !hoverProvince && !hoverKabupaten && !selectedCell && <div className="map-tooltip" style={{ left: hoverCell.point[0], top: hoverCell.point[1] }} role="status"><span className={`tooltip-level risk-text-${hoverCell.properties.level}`}>{riskLevelName(hoverCell.properties.level)}</span><strong>{hoverCell.properties.province}</strong><span>SKOR CONTOH {Math.round(hoverCell.properties.score * 100)}%</span></div>}
           {selectedCell && <DetailCard cell={selectedCell} onClose={() => setSelectedCell(null)} />}
-          {!selectedCell && selectedProvince && <ProvinceOverviewCard province={selectedProvince} isSample={meta?.is_sample ?? false} onClose={() => setSelectedProvince(null)} />}
+          {!selectedCell && !selectedKabupaten && selectedProvince && <ProvinceOverviewCard province={selectedProvince} isSample={meta?.is_sample ?? false} onClose={() => setSelectedProvince(null)} />}
+          {!selectedCell && selectedKabupaten && <KabupatenOverviewCard kabupaten={selectedKabupaten} isSample={(kabupatenMeta?.isMock ?? false) || (meta?.is_sample ?? false)} onClose={() => setSelectedKabupaten(null)} />}
           {/* nonaktifkan sementara: menu lapisan */}
           <div className="map-control-stack">
             <fieldset className="horizon-control"><legend className="sr-only">PERIODE</legend><div className="horizon-options">{HORIZONS.filter((item) => item.key !== 'd3').map((item) => <button className={`horizon-button${horizon === item.key ? ' is-selected' : ''}`} key={item.key} type="button" aria-pressed={horizon === item.key} onClick={() => { setHorizon(item.key); setSelectedCell(null); setSelectedProvince(null) }}>{item.label}<small>{new Date(Date.parse(meta?.generated_at ?? '2026-10-30T00:00:00Z') + HORIZONS.findIndex((entry) => entry.key === item.key) * 86400000).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', timeZone: 'Asia/Jakarta' }).toUpperCase()}</small></button>)}</div></fieldset>

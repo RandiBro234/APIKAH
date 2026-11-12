@@ -1,5 +1,14 @@
 import type { FeatureCollection, MultiPolygon, Polygon } from 'geojson'
-import type { DataMeta, HotspotFeatureCollection, ProvinceProperties, RiskFeatureCollection, RiskProperties } from '../types/geojson'
+import type {
+  DataMeta,
+  HotspotFeatureCollection,
+  KabupatenFeatureCollection,
+  KabupatenRiskFile,
+  KabupatenRiskRecord,
+  ProvinceProperties,
+  RiskFeatureCollection,
+  RiskProperties,
+} from '../types/geojson'
 
 export type RiskMapFeature = FeatureCollection<Polygon | MultiPolygon, RiskProperties>['features'][number]
 export type RiskMapCollection = FeatureCollection<Polygon | MultiPolygon, RiskProperties>
@@ -42,13 +51,17 @@ export async function loadMapData(horizon: string): Promise<{
   risk: RiskMapCollection
   hotspots: HotspotFeatureCollection
   provinces: ProvinceFeatureCollection
+  kabupaten: KabupatenFeatureCollection
+  kabupatenMeta: { isMock: boolean; periode: string; horizon: string }
   meta: DataMeta
 }> {
-  const [sampleRisk, hotspots, provinces, meta] = await Promise.all([
+  const [sampleRisk, hotspots, provinces, meta, kabupatenGeom, kabupatenRisk] = await Promise.all([
     readJson<SampleRiskFile>(`/data/risk_${horizon}.sample.geojson`),
     readJson<HotspotFeatureCollection>('/data/hotspots_72h.sample.geojson'),
     readJson<ProvinceFeatureCollection>('/data/provinsi.geojson'),
     readJson<DataMeta>('/data/meta.sample.json'),
+    readJson<KabupatenFeatureCollection>('/data/kabupaten.geojson'),
+    readJson<KabupatenRiskFile>('/data/kabupaten_risk.json'),
   ])
 
   const enrichedProvinces: ProvinceFeatureCollection = {
@@ -73,7 +86,49 @@ export async function loadMapData(horizon: string): Promise<{
     }),
   }
 
-  return { risk: sampleRisk as RiskMapCollection, hotspots, provinces: enrichedProvinces, meta }
+  // Gabungkan geometri ADM2 dengan angka risiko kabupaten. Angka risiko boleh
+  // berupa data contoh (is_mock=true); UI wajib menandainya.
+  const riskByKode = new Map<string, KabupatenRiskRecord>()
+  for (const row of kabupatenRisk.kabupaten) riskByKode.set(row.kode, row)
+
+  const enrichedKabupaten: KabupatenFeatureCollection = {
+    ...kabupatenGeom,
+    features: kabupatenGeom.features.map((feature) => {
+      const record = riskByKode.get(feature.properties.kode)
+      if (!record) {
+        return {
+          ...feature,
+          properties: { ...feature.properties, has_data: false, unmatched: true },
+        }
+      }
+      return {
+        ...feature,
+        properties: {
+          ...feature.properties,
+          has_data: record.has_data,
+          level: record.level,
+          score: record.score,
+          n_sel: record.n_sel,
+          n_sel_penuh: record.n_sel_penuh,
+          cakupan_pct: record.cakupan_pct,
+          luas_kabupaten_ha: record.luas_kabupaten_ha,
+          luas_terdampak_ha_min: record.luas_terdampak_ha_min,
+          luas_terdampak_ha_max: record.luas_terdampak_ha_max,
+          hotspot_72h: record.hotspot_72h,
+          unmatched: record.unmatched,
+        },
+      }
+    }),
+  }
+
+  return {
+    risk: sampleRisk as RiskMapCollection,
+    hotspots,
+    provinces: enrichedProvinces,
+    kabupaten: enrichedKabupaten,
+    kabupatenMeta: { isMock: kabupatenRisk.is_mock, periode: kabupatenRisk.periode, horizon: kabupatenRisk.horizon },
+    meta,
+  }
 }
 
 export function aggregateRisks(features: RiskMapFeature[]): RiskMapCollection {
