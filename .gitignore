@@ -1,119 +1,20 @@
-# ============================================================================
-#  APIKAH — .gitignore
-#  Dibuat: 2026-10-25
-#
-#  Tujuan: mencegah keluaran crawler (puluhan GB) masuk ke riwayat git.
-#  Repo ini PUBLIK, dan sebagian sumber melarang redistribusi.
-#
-#  CATATAN PENTING: .gitignore hanya mencegah file BARU masuk.
-#  File yang sudah terlacak TETAP terlacak. Lihat bagian 5 di bawah.
-# ============================================================================
-
-# ----------------------------------------------------------------------------
-# 1. Keluaran crawler — satu root data project
-# ----------------------------------------------------------------------------
-# Sumber mentah crawler lokal (NetCDF, HDF, raster, PBF, snapshot indeks, dll.).
-# Semua isi diabaikan KECUALI penunjuk lokasi arsip (README_data_mentah.txt).
-/data/features_raw/**
-!/data/features_raw/**/
-!/data/features_raw/README_data_mentah.txt
-# Safety nets for pre-refactor worktrees/migration sources. These are crawler
-# output paths only; they do not match tracked label folders (`hotspot_raw`).
-/hotspot_crawler/hotspot_crawler/data/
-/data/raw/
-/data/static/
-/data/processed/
-/data/logs/
-# Log runtime dan lock per-target/per-manifest tidak dibutuhkan di riwayat.
-/data/metadata/logs/
-/data/metadata/locks/
-/data/metadata/manifests/*.lock
-# Cache inventaris granula MCD64A1 (turunan CMR; dibuat ulang oleh crawl_static.py burned).
-/data/metadata/manifests/mcd64a1_files.json
-# Jangan abaikan seluruh features_processed: setiap keluaran harus ditinjau
-# ukuran/lisensinya sebelum ditambahkan. Manifest kecil tetap boleh dilacak.
-
-# ----------------------------------------------------------------------------
-# 2. Python
-# ----------------------------------------------------------------------------
+# Python & Jupyter Caches
 __pycache__/
 *.py[cod]
 *$py.class
-*.egg-info/
-build/
-dist/
-.venv/
-venv/
-env/
-ENV/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
 .ipynb_checkpoints/
-
-# ----------------------------------------------------------------------------
-# 3. OS dan editor
-# ----------------------------------------------------------------------------
-.DS_Store
-._*
-.Spotlight-V100
-.Trashes
-Thumbs.db
-ehthumbs.db
-desktop.ini
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# ----------------------------------------------------------------------------
-# 4. Log dan berkas sementara
-# ----------------------------------------------------------------------------
 *.log
-*.tmp
-*.part
-*.partial
-*.lock
 
-# ============================================================================
-#  YANG SENGAJA TIDAK DIABAIKAN (jangan ubah tanpa dibahas tim)
-# ============================================================================
-# Data label hotspot milik anggota tim lain SUDAH TERLACAK dan sengaja
-# dipertahankan:
-#   data/hotspot_indonesia/*.parquet          (177 file per bulan)
-#   data/hotspot_raw/*.parquet                (178 file per bulan)
-#   data/hotspot_indonesia/combined/hotspot_indonesia_2012_2026-09.parquet
-#   data/hotspot_indonesia/combined/hotspot_indonesia_2012_2026-09.csv (legacy export)
-#
-# Karena sudah terlacak, aturan di atas TIDAK menghapusnya dari riwayat.
-#
-# CATATAN LISENSI: gadm41_IDN_1.json sudah ada di riwayat repo, padahal
-# docs/agent-notes/archive/PIPELINE_DEV_history.md mencatat batas redistribusi GADM. Jangan
-# tambahkan berkas GADM baru.
-# ============================================================================
-
-# ----------------------------------------------------------------------------
-# 6. Frontend (Node, Vite) — pelengkap frontend/.gitignore
-# ----------------------------------------------------------------------------
-# frontend/.gitignore sudah mengabaikan node_modules dan dist. Baris di bawah
-# ini jaring pengaman bila perintah npm dijalankan dari root repo.
-node_modules/
-.vite/
-.npm-cache/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Keluaran analisis graf kode: dibuat ulang, bukan sumber.
-frontend/graphify-out/
-
-# ----------------------------------------------------------------------------
-# 7. Variabel lingkungan
-# ----------------------------------------------------------------------------
+# Environment & Virtualenv
+env/
+venv/
 .env
-.env.*
-!.env.example
 
-.npm-cache/
+# Large Dataset Files (>100MB limit GitHub)
+dataset_apikah/dataset_utama_apikah.csv
+dataset_apikah/data train_val_test/train_preprocessed.csv
+dataset_apikah/data training_iklim/
+
+# OS specific
+.DS_Store
+Thumbs.db
