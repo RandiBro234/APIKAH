@@ -13,7 +13,20 @@ venv/
 # Large Dataset Files (>100MB limit GitHub)
 dataset_apikah/dataset_utama_apikah.csv
 dataset_apikah/data train_val_test/train_preprocessed.csv
-dataset_apikah/data training_iklim/
+
+# Parquet variabel iklim: folder di-track lewat .gitkeep, isinya tidak
+dataset_apikah/variabel_iklim/*.parquet
+# Nama folder lama, jika muncul lagi
+dataset_apikah/training_iklim/
+
+# Markdown hasil generate tidak di-track kecuali diminta eksplisit
+*.md
+!README.md
+!AGENTS.md
+!CLAUDE.md
+!DESIGN.md
+!PRD.md
+!PIPELINE_DEV.md
 
 # OS specific
 .DS_Store
