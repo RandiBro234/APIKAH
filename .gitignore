@@ -19,6 +19,9 @@ dataset_apikah/variabel_iklim/*.parquet
 # Nama folder lama, jika muncul lagi
 dataset_apikah/training_iklim/
 
+# Artefak training model: cache panel, model, metrik, dan plot
+modeling/artifacts/
+
 # Markdown hasil generate tidak di-track kecuali diminta eksplisit
 *.md
 !README.md
