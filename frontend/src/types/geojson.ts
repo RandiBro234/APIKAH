@@ -27,6 +27,10 @@ export type ProvinceProperties = {
   shape_iso: string
   shape_id: string
   level?: RiskLevel
+  level_d0?: RiskLevel
+  level_d1?: RiskLevel
+  level_d2?: RiskLevel
+  level_d3?: RiskLevel
   score?: number
   high_count?: number
   very_high_count?: number
@@ -34,6 +38,9 @@ export type ProvinceProperties = {
   cell_count?: number
   island?: string
   risk_area_ha?: number
+  hotspot_72h?: number
+  kabupaten_terdampak?: number
+  kabupaten_total?: number
 }
 
 export type DataMeta = {
