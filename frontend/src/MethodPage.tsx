@@ -97,6 +97,43 @@ export function MethodPage() {
           </div>
         </section>
 
+        <section className="method-block" aria-labelledby="aggregation-title">
+          <div className="method-block-heading">
+            <span className="eyebrow">AGREGASI PROVINSI</span>
+            <h2 id="aggregation-title">Dari kabupaten ke provinsi</h2>
+            <p>Peta Level 1 memakai agregasi kabupaten contoh. Aturan ini menjaga angka provinsi konsisten dengan daftar kabupaten.</p>
+          </div>
+          <ul className="source-list">
+            <li><strong>Level provinsi</strong><span>Level tertinggi dari kabupaten yang punya data.</span></li>
+            <li><strong>Kabupaten terdampak</strong><span>Jumlah kabupaten dengan data risiko pada periode terpilih.</span></li>
+            <li><strong>Hotspot 72 jam</strong><span>Jumlah deteksi hotspot 72 jam dari seluruh kabupaten di provinsi.</span></li>
+            <li><strong>Skor provinsi</strong><span>Skor tertinggi kabupaten, bukan rata-rata, agar wilayah berisiko tinggi tidak tenggelam.</span></li>
+            <li><strong>Horizon</strong><span>Data kabupaten contoh hanya tersedia untuk h1; horizon lain memakai selisih level provinsi sebagai aproksimasi.</span></li>
+          </ul>
+        </section>
+
+        <section className="method-block" aria-labelledby="drilldown-title">
+          <div className="method-block-heading">
+            <span className="eyebrow">ALUR DRILL-DOWN</span>
+            <h2 id="drilldown-title">Provinsi ke kabupaten</h2>
+            <p>Peta nasional menampilkan provinsi. Klik provinsi atau marker hotspot untuk membuka diorama kabupaten.</p>
+          </div>
+          <div className="method-steps">
+            <article className="method-step">
+              <span className="method-index">01</span>
+              <div><h3>Pilih provinsi</h3><p>Klik provinsi di peta atau marker hotspot. URL berubah menjadi /peta#nama-provinsi.</p></div>
+            </article>
+            <article className="method-step">
+              <span className="method-index">02</span>
+              <div><h3>Muat kabupaten</h3><p>GeoJSON kabupaten provinsi dimuat hanya saat dibutuhkan, lalu ditampilkan sebagai diorama.</p></div>
+            </article>
+            <article className="method-step">
+              <span className="method-index">03</span>
+              <div><h3>Pilih kabupaten</h3><p>Hover atau klik kabupaten di peta maupun daftar. Pilihan tersinkron dengan kartu detail di bawah.</p></div>
+            </article>
+          </div>
+        </section>
+
         <section className="method-block evaluation-block" aria-labelledby="evaluation-title">
           <div className="method-block-heading">
             <span className="eyebrow">EVALUASI</span>

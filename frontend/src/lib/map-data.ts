@@ -1,4 +1,5 @@
 import type { FeatureCollection, MultiPolygon, Polygon } from 'geojson'
+import { provinceSlug } from './slug'
 import type {
   DataMeta,
   HotspotFeatureCollection,
@@ -47,6 +48,66 @@ async function readJson<T>(url: string): Promise<T> {
   return response.json() as Promise<T>
 }
 
+function enrichProvinces(
+  provinces: ProvinceFeatureCollection,
+  sampleRisk: SampleRiskFile,
+  horizon: string,
+  fallbackToKabupaten: boolean,
+): ProvinceFeatureCollection {
+  return {
+    ...provinces,
+    features: provinces.features.map((province) => {
+      const provinceRisk = sampleRisk.features.filter((cell) => cell.properties.province.toLocaleLowerCase('id') === province.properties.province.toLocaleLowerCase('id'))
+      const horizonLevel = (province.properties as Record<string, unknown>)[`level_${horizon}`] as 1 | 2 | 3 | 4 | undefined
+      const aggregatedLevel = horizonLevel ?? (fallbackToKabupaten ? province.properties.level : undefined)
+      return {
+        ...province,
+        properties: {
+          ...province.properties,
+          has_data: aggregatedLevel !== undefined || (fallbackToKabupaten && province.properties.has_data === true),
+          level: aggregatedLevel,
+          score: province.properties.score ?? provinceRisk.reduce((score, cell) => Math.max(score, cell.properties.score), 0),
+          high_count: provinceRisk.filter((cell) => cell.properties.level === 3).length,
+          very_high_count: provinceRisk.filter((cell) => cell.properties.level === 4).length,
+          cell_count: provinceRisk.length,
+          island: provinceRisk[0]?.properties.island,
+          risk_area_ha: Math.round(provinceRisk.reduce((total, cell) => total + featureAreaHectares(cell), 0)),
+          hotspot_72h: province.properties.hotspot_72h ?? 0,
+          kabupaten_terdampak: province.properties.kabupaten_terdampak ?? 0,
+        },
+      }
+    }),
+  }
+}
+
+export async function loadMapBaseData(horizon: string): Promise<{
+  risk: RiskMapCollection
+  hotspots: HotspotFeatureCollection
+  provinces: ProvinceFeatureCollection
+  kabupatenIndex: KabupatenRiskRecord[]
+  meta: DataMeta
+}> {
+  const [sampleRisk, hotspots, provinces, meta, kabupatenRisk] = await Promise.all([
+    readJson<SampleRiskFile>(`/data/risk_${horizon}.sample.geojson`),
+    readJson<HotspotFeatureCollection>('/data/hotspots_72h.sample.geojson'),
+    readJson<ProvinceFeatureCollection>('/data/provinsi.geojson'),
+    readJson<DataMeta>('/data/meta.sample.json'),
+    readJson<KabupatenRiskFile>('/data/kabupaten_risk.json'),
+  ])
+
+  return {
+    risk: sampleRisk as RiskMapCollection,
+    hotspots,
+    provinces: enrichProvinces(provinces, sampleRisk, horizon, false),
+    kabupatenIndex: kabupatenRisk.kabupaten,
+    meta,
+  }
+}
+
+export async function loadKabupatenGeojson(provinceName: string): Promise<KabupatenFeatureCollection> {
+  return readJson<KabupatenFeatureCollection>(`/data/kabupaten/${provinceSlug(provinceName)}.geojson`)
+}
+
 export async function loadMapData(horizon: string): Promise<{
   risk: RiskMapCollection
   hotspots: HotspotFeatureCollection
@@ -64,37 +125,18 @@ export async function loadMapData(horizon: string): Promise<{
     readJson<KabupatenRiskFile>('/data/kabupaten_risk.json'),
   ])
 
-  const enrichedProvinces: ProvinceFeatureCollection = {
-    ...provinces,
-    features: provinces.features.map((province) => {
-      const provinceRisk = sampleRisk.features.filter((cell) => cell.properties.province.toLocaleLowerCase('id') === province.properties.province.toLocaleLowerCase('id'))
-      const maximumLevel = provinceRisk.reduce((level, cell) => Math.max(level, cell.properties.level), 0)
-      return {
-        ...province,
-        properties: {
-          ...province.properties,
-          has_data: provinceRisk.length > 0,
-          level: maximumLevel > 0 ? maximumLevel as 1 | 2 | 3 | 4 : undefined,
-          score: provinceRisk.reduce((score, cell) => Math.max(score, cell.properties.score), 0),
-          high_count: provinceRisk.filter((cell) => cell.properties.level === 3).length,
-          very_high_count: provinceRisk.filter((cell) => cell.properties.level === 4).length,
-          cell_count: provinceRisk.length,
-          island: provinceRisk[0]?.properties.island,
-          risk_area_ha: Math.round(provinceRisk.reduce((total, cell) => total + featureAreaHectares(cell), 0)),
-        },
-      }
-    }),
-  }
+  const enrichedProvinces = enrichProvinces(provinces, sampleRisk, horizon, true)
 
   // Gabungkan geometri ADM2 dengan angka risiko kabupaten. Angka risiko boleh
-  // berupa data contoh (is_mock=true); UI wajib menandainya.
-  const riskByKode = new Map<string, KabupatenRiskRecord>()
-  for (const row of kabupatenRisk.kabupaten) riskByKode.set(row.kode, row)
+  // berupa data contoh (is_mock=true); UI wajib menandainya. Kode di berkas
+  // risiko adalah ID sintetis, jadi join memakai nama kabupaten + provinsi.
+  const riskByKey = new Map<string, KabupatenRiskRecord>()
+  for (const row of kabupatenRisk.kabupaten) riskByKey.set(`${row.kabupaten}|${row.provinsi}`, row)
 
   const enrichedKabupaten: KabupatenFeatureCollection = {
     ...kabupatenGeom,
     features: kabupatenGeom.features.map((feature) => {
-      const record = riskByKode.get(feature.properties.kode)
+      const record = riskByKey.get(`${feature.properties.kabupaten}|${feature.properties.provinsi}`)
       if (!record) {
         return {
           ...feature,

@@ -35,6 +35,9 @@
   --map-hotspot-stroke: #ffffff;
   --map-no-data: #d6d6ce;
   --map-bg: #e2e2dc;
+  --map-sea: #ecebe4;
+  --map-neutral: #f7f5ef;
+  --map-diorama-bg: #f7f5ef;
   --map-land: #fcfcfa;
   --map-line: #c0c0b7;
   --paper-surface: #ffffff;
@@ -60,3 +63,4 @@
   --font-mono: var(--font-mono);
   --font-sans: var(--font-sans);
 }
+:root{--iso-surface:#e9e9e6;--iso-wall:#d9d9d3;--iso-border-under:#cfcfc8}
