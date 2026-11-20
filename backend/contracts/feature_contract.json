@@ -1,0 +1,412 @@
+{
+  "contract_version": "1.0.0",
+  "status": "proposal",
+  "canonical_pipeline": "hotspot_crawler",
+  "grid": {
+    "step_degrees": 0.25,
+    "cell_center_offset": 0.125,
+    "lat_c_formula": "floor(lat / 0.25) * 0.25 + 0.125",
+    "lon_c_formula": "floor(lon / 0.25) * 0.25 + 0.125",
+    "lat_i_formula": "floor((lat_c + 12) / 0.25)",
+    "lon_i_formula": "floor((lon_c - 94) / 0.25)",
+    "cell_id_formula": "lat_i * 1000 + lon_i",
+    "bounds": {
+      "lat_min": -11.5,
+      "lat_max": 6.5,
+      "lon_min": 94.0,
+      "lon_max": 141.5
+    },
+    "canonical_keys": [
+      "date",
+      "lat_c",
+      "lon_c"
+    ],
+    "estimated_full_cells": 13943,
+    "estimated_active_cells": 3267
+  },
+  "date_semantics": {
+    "label_date": "local solar date",
+    "timezone_note": "Label hotspot memakai tanggal lokal. Sekitar 34% baris berbeda dari tanggal UTC. Ingestion harian wajib memakai tanggal lokal yang sama.",
+    "timezone_offsets_hours": [
+      7,
+      8,
+      9
+    ]
+  },
+  "feature_columns": [
+    {
+      "name": "t2m_mean",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "open-meteo-forecast",
+      "live_notes": "temperature_2m rata-rata harian"
+    },
+    {
+      "name": "t2m_max",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "open-meteo-forecast",
+      "live_notes": "temperature_2m maksimum harian"
+    },
+    {
+      "name": "t2m_min",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "open-meteo-forecast",
+      "live_notes": "temperature_2m minimum harian"
+    },
+    {
+      "name": "rh_mean",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "open-meteo-forecast",
+      "live_notes": "relative_humidity_2m rata-rata harian"
+    },
+    {
+      "name": "rh_min",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "open-meteo-forecast",
+      "live_notes": "relative_humidity_2m minimum harian"
+    },
+    {
+      "name": "wind_mean",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "open-meteo-forecast",
+      "live_notes": "wind_speed_10m rata-rata harian"
+    },
+    {
+      "name": "wind_max",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "open-meteo-forecast",
+      "live_notes": "wind_speed_10m maksimum harian"
+    },
+    {
+      "name": "u10_mean",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "derived-from-open-meteo",
+      "live_notes": "komponen u dari wind_speed_10m dan wind_direction_10m"
+    },
+    {
+      "name": "v10_mean",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "derived-from-open-meteo",
+      "live_notes": "komponen v dari wind_speed_10m dan wind_direction_10m"
+    },
+    {
+      "name": "vpd_mean",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "derived-from-open-meteo",
+      "live_notes": "dihitung dari temperature_2m dan relative_humidity_2m"
+    },
+    {
+      "name": "vpd_max",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "derived-from-open-meteo",
+      "live_notes": "VPD maksimum harian dari suhu dan RH per jam"
+    },
+    {
+      "name": "swvl1_mean",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "open-meteo-forecast",
+      "live_notes": "soil_moisture_0_to_7cm"
+    },
+    {
+      "name": "swvl4_mean",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "not-available-live",
+      "live_notes": "lapisan 100-289 cm tidak tersedia di Open-Meteo; pakai nilai reanalysis terakhir atau imputasi training"
+    },
+    {
+      "name": "precip_mm",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "open-meteo-forecast",
+      "live_notes": "precipitation total harian"
+    },
+    {
+      "name": "ssrd_mjm2",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "derived-from-open-meteo",
+      "live_notes": "shortwave_radiation dikonversi ke MJ/m2"
+    },
+    {
+      "name": "pev_mm",
+      "dtype": "float32",
+      "source": "era5_daily",
+      "live": "derived-from-open-meteo",
+      "live_notes": "et0_fao_evapotranspiration sebagai proksi"
+    },
+    {
+      "name": "fwi",
+      "dtype": "float64",
+      "source": "fire_daily",
+      "live": "cems-reanalysis-lagged",
+      "live_notes": "belum ada forecast CEMS di pipeline; pakai nilai terakhir yang tersedia dan tandai keterlambatan"
+    },
+    {
+      "name": "dc",
+      "dtype": "float64",
+      "source": "fire_daily",
+      "live": "cems-reanalysis-lagged",
+      "live_notes": "drought code, reanalysis terakhir"
+    },
+    {
+      "name": "dmc",
+      "dtype": "float64",
+      "source": "fire_daily",
+      "live": "cems-reanalysis-lagged",
+      "live_notes": "duff moisture code, reanalysis terakhir"
+    },
+    {
+      "name": "kbdi",
+      "dtype": "float64",
+      "source": "fire_daily",
+      "live": "cems-reanalysis-lagged",
+      "live_notes": "Keetch-Byram drought index, reanalysis terakhir"
+    },
+    {
+      "name": "bulan",
+      "dtype": "int8",
+      "source": "calendar",
+      "live": "available",
+      "live_notes": "bulan tanggal target"
+    },
+    {
+      "name": "hari_dalam_tahun",
+      "dtype": "int16",
+      "source": "calendar",
+      "live": "available",
+      "live_notes": "day of year tanggal target"
+    },
+    {
+      "name": "musim_kemarau",
+      "dtype": "int8",
+      "source": "calendar",
+      "live": "available",
+      "live_notes": "1 untuk Juli-Oktober"
+    },
+    {
+      "name": "hujan_3h",
+      "dtype": "float64",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "total hujan berjalan 3 hari"
+    },
+    {
+      "name": "hujan_7h",
+      "dtype": "float64",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "total hujan berjalan 7 hari"
+    },
+    {
+      "name": "hujan_14h",
+      "dtype": "float64",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "total hujan berjalan 14 hari"
+    },
+    {
+      "name": "hujan_30h",
+      "dtype": "float64",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "total hujan berjalan 30 hari"
+    },
+    {
+      "name": "kering_beruntun",
+      "dtype": "float32",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "jumlah hari beruntun dengan hujan di bawah 1 mm"
+    },
+    {
+      "name": "t2m_mean_anom",
+      "dtype": "float32",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "anomali terhadap klimatologi bulanan sel"
+    },
+    {
+      "name": "rh_mean_anom",
+      "dtype": "float32",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "anomali RH terhadap klimatologi bulanan sel"
+    },
+    {
+      "name": "vpd_max_anom",
+      "dtype": "float32",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "anomali VPD maksimum terhadap klimatologi bulanan sel"
+    },
+    {
+      "name": "precip_mm_anom",
+      "dtype": "float32",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "anomali hujan terhadap klimatologi bulanan sel"
+    },
+    {
+      "name": "spi_30",
+      "dtype": "float32",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "SPI empiris 30 hari"
+    },
+    {
+      "name": "spi_90",
+      "dtype": "float32",
+      "source": "features_daily",
+      "live": "derived",
+      "live_notes": "SPI empiris 90 hari"
+    },
+    {
+      "name": "nino34_lag1",
+      "dtype": "float64",
+      "source": "climate_index",
+      "live": "noaa-monthly",
+      "live_notes": "anomali Nino3.4 bulan sebelumnya"
+    },
+    {
+      "name": "nino34_lag2",
+      "dtype": "float64",
+      "source": "climate_index",
+      "live": "noaa-monthly",
+      "live_notes": "anomali Nino3.4 dua bulan sebelumnya"
+    },
+    {
+      "name": "nino34_lag3",
+      "dtype": "float64",
+      "source": "climate_index",
+      "live": "noaa-monthly",
+      "live_notes": "anomali Nino3.4 tiga bulan sebelumnya"
+    },
+    {
+      "name": "dmi_lag1",
+      "dtype": "float64",
+      "source": "climate_index",
+      "live": "noaa-monthly",
+      "live_notes": "DMI bulan sebelumnya"
+    },
+    {
+      "name": "dmi_lag2",
+      "dtype": "float64",
+      "source": "climate_index",
+      "live": "noaa-monthly",
+      "live_notes": "DMI dua bulan sebelumnya"
+    },
+    {
+      "name": "dmi_lag3",
+      "dtype": "float64",
+      "source": "climate_index",
+      "live": "noaa-monthly",
+      "live_notes": "DMI tiga bulan sebelumnya"
+    }
+  ],
+  "excluded_columns": {
+    "keys": [
+      "date",
+      "lat_c",
+      "lon_c"
+    ],
+    "targets": [
+      "n_hotspot",
+      "n_hotspot_high",
+      "max_frp",
+      "ada_api"
+    ],
+    "leaky_operational": [
+      "nino34",
+      "dmi"
+    ],
+    "reason": "Kolom target dan indeks iklim bulan berjalan tidak boleh menjadi fitur."
+  },
+  "targets": {
+    "current": {
+      "name": "ada_api",
+      "definition": "1 bila sel memiliki minimal satu deteksi hotspot pada tanggal tersebut"
+    },
+    "exact_day": {
+      "name_template": "target_lead{h}",
+      "definition": "ada_api pada tanggal t+h untuk sel yang sama",
+      "horizons": [
+        1,
+        2,
+        3
+      ]
+    },
+    "window": {
+      "name_template": "target_window{h}",
+      "definition": "1 bila ada minimal satu hotspot pada salah satu hari t+1 sampai t+h",
+      "horizons_proposed": [
+        7,
+        14,
+        21
+      ],
+      "status": "menunggu keputusan tim ML"
+    }
+  },
+  "anti_leakage": {
+    "rule": "Baris untuk tanggal T hanya memakai informasi sampai T-1 untuk fitur yang berasal dari observasi.",
+    "lag_days": 1,
+    "shifted_in_training_table": [
+      "seluruh kolom era5_daily kecuali date, lat_c, lon_c",
+      "seluruh kolom fire_daily kecuali date, lat_c, lon_c"
+    ],
+    "already_shifted_in_derived": [
+      "hujan_3h",
+      "hujan_7h",
+      "hujan_14h",
+      "hujan_30h",
+      "kering_beruntun",
+      "t2m_mean_anom",
+      "rh_mean_anom",
+      "vpd_max_anom",
+      "precip_mm_anom",
+      "spi_30",
+      "spi_90"
+    ],
+    "not_shifted": [
+      "bulan",
+      "hari_dalam_tahun",
+      "musim_kemarau"
+    ]
+  },
+  "preprocessing": {
+    "imputation": "median per bulan, lalu median global bila masih kosong",
+    "clip_quantile": 0.995,
+    "clip_columns": [
+      "fwi",
+      "vpd_max",
+      "wind_max",
+      "fwi_vpd_interaction"
+    ],
+    "scaler": "RobustScaler, fit hanya pada data train",
+    "scaler_note": "Parameter scaler wajib disimpan di artefak model dan dipakai ulang saat inference."
+  },
+  "static_features": {
+    "status": "not_built",
+    "expected_file": "data/features_processed/static_features.parquet",
+    "expected_columns_note": "Sekitar 26 kolom statis per sel (DEM, tutupan lahan, gambut, populasi, jarak jalan/sungai). Belum masuk kontrak sampai berkas dibangun."
+  },
+  "operational_sources": {
+    "hotspot_actual": "NASA FIRMS NRT (VIIRS SNPP dan NOAA-20)",
+    "weather_forecast": "Open-Meteo atau GFS, horizon efektif sekitar 16 hari",
+    "fire_indices": "CEMS Fire reanalysis, tertinggal beberapa hari",
+    "climate_indices": "NOAA PSL Nino3.4 dan DMI bulanan",
+    "training_weather": "ERA5-Land reanalysis",
+    "distribution_shift_note": "Training memakai SP dan reanalysis; operasional memakai NRT dan forecast. Perbedaan distribusi harus divalidasi dan dikalibrasi."
+  }
+}
