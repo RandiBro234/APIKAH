@@ -18,3 +18,6 @@ dataset_apikah/data training_iklim/
 # OS specific
 .DS_Store
 Thumbs.db
+
+# Catatan kerja backend (internal, tidak untuk di-commit)
+docs/backend/RENCANA_BACKEND.md
