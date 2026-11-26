@@ -20,7 +20,11 @@ APIKAH/
 │   │   ├── nasa/        └── training/
 │   └── metadata/{manifests,logs,locks}/
 ├── hotspot_crawler/
-│   ├── apikah_crawler/                 # implementasi package
+│   ├── apikah_crawler/
+│   │   ├── copernicus/                 # crawler, processor, fitur ERA5/CEMS
+│   │   ├── nasa/                       # crawler NASA FIRMS
+│   │   ├── shared/                     # konfigurasi dan utilitas lintas sumber
+│   │   └── *.py                        # modul lain + shim kompatibilitas
 │   ├── tests/                          # unit, integrasi sintetis, CLI
 │   └── *.py                            # wrapper command lama
 └── docs/{pipeline,agent-notes,superpowers}/
@@ -30,14 +34,15 @@ Semua path keluaran ditentukan dari lokasi package, bukan current working direct
 
 ## Indeks fungsi crawler
 
-Implementasi utama berada di `hotspot_crawler/apikah_crawler/`. File `.py` yang langsung berada di `hotspot_crawler/` adalah wrapper kompatibilitas; wrapper meneruskan perintah ke package dan sengaja dipertahankan.
+Implementasi utama berada di `hotspot_crawler/apikah_crawler/`. File `.py` yang langsung berada di `hotspot_crawler/` adalah wrapper kompatibilitas; wrapper meneruskan perintah ke package dan sengaja dipertahankan. Modul lama di root package juga dipertahankan sebagai shim import agar tes dan kode lama tetap berjalan.
 
 | Kelompok | Modul | Fungsi |
 |---|---|---|
-| Konfigurasi | `config.py` | Menentukan root proyek, lokasi data, metadata, dan parameter path |
-| Utilitas | `common.py` | Download aman, lock, manifest, validasi, dan utilitas grid |
-| Crawler | `crawl_copernicus.py` | Mengambil ERA5-Land dan CEMS Fire |
-| Crawler | `crawl_static.py` | Mengambil data statis, indeks iklim, dan sumber pendukung |
+| Konfigurasi | `shared/config.py` | Menentukan root proyek, lokasi data, metadata, dan parameter path |
+| Utilitas | `shared/common.py` | Download aman, lock, manifest, validasi, dan utilitas grid |
+| Crawler Copernicus | `copernicus/crawl.py` | Mengambil ERA5-Land dan CEMS Fire |
+| Crawler NASA | `nasa/firms.py` | Mengambil hotspot VIIRS NASA FIRMS harian |
+| Crawler statis | `crawl_static.py` | Mengambil data statis, indeks iklim, dan sumber pendukung |
 | Postprocess | `postprocess_era5.py` | Mengubah ERA5-Land mentah menjadi tabel harian Parquet |
 | Postprocess | `postprocess_fire.py` | Mengubah CEMS Fire mentah menjadi tabel harian Parquet |
 | Fitur | `build_static_features.py` | Membuat fitur statis per grid |

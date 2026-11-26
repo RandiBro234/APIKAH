@@ -49,41 +49,88 @@ pekerjaan: skrip hanya perlu satu parameter `--days`.
 
 ---
 
-## Pipeline pembaruan mingguan — RENCANA, belum dibangun
+## Pipeline pembaruan harian — RENCANA, sebagian crawler sudah dibuat
 
-Diminta agar proyek memicu pengambilan data sendiri tiap minggu. Untuk mock up
-ini **sengaja tidak dibangun**; dicatat di sini agar tidak hilang.
+NASA FIRMS menjadi sumber hotspot aktual. Pengambilan dilakukan harian agar peta
+dan fitur model memakai observasi terbaru, bukan menunggu pembaruan mingguan.
 
-### Prasyarat
+### Alur waktu WIB
 
-| Hal | Keadaan |
-|---|---|
-| Akses jaringan | Sandbox pengembangan **tidak punya**. Skrip tidak bisa diuji end-to-end di sini. |
-| API key FIRMS | Dibutuhkan. **Jangan pernah ditulis di kode/dokumen.** Masuk `.env` saja (`.env` sudah di-gitignore baris 132). |
-| Data hotspot | Menurut `PIPELINE_DEV.md`, pengambilan FIRMS dipegang anggota lain. Koordinasikan sebelum menggandakan. |
+```text
+00:30  ambil hotspot NASA FIRMS
+01:00  ambil data Copernicus ERA5-Land dan CEMS Fire
+02:00  validasi input dan bangun fitur harian
+03:00  jalankan prediksi H+1, H+2, dan H+7
+03:30  publish output ke dashboard
+```
 
-### Rancangan
+Jika data belum lengkap, job retry tiap 30 menit sampai 05:00 WIB. Output baru
+hanya dipublish jika input wajib lengkap; jika gagal, prediksi terakhir diberi
+status **DATA BASI**.
 
-1. `tools/fetch_hotspots.py`
-   - Baca `FIRMS_MAP_KEY` dari `.env`, bukan dari argumen CLI (argumen masuk
-     riwayat shell).
-   - Unduh periode baru dari API area FIRMS, simpan ke
-     `data/hotspot_indonesia/`.
-   - **Idempoten**: lewati bulan yang berkasnya sudah ada dan ukurannya wajar.
-   - Tulis manifest kecil (tanggal unduh, jumlah baris, sumber) agar bisa diaudit.
+### NASA FIRMS
 
-2. `tools/refresh_weekly.py` — rantai: unduh → `prepare_adm2.py` →
-   `build_hotspots.py` → salin ke `frontend/public/data/`.
+- Sumber: `VIIRS_SNPP_NRT` dan `VIIRS_NOAA20_NRT`.
+- Area: seluruh Indonesia, bbox `94,-11.5,141.5,6.5`.
+- Setiap eksekusi mengambil observasi 72 jam terakhir.
+- Retry request maksimal 3 kali dengan jeda bertahap.
+- Output mentah:
 
-3. Penjadwalan: **Windows Task Scheduler**, tiap Senin.
-   Tidak perlu proses server hidup; cocok untuk laptop.
+```text
+data/hotspot_indonesia/raw/
+├── VIIRS_SNPP_NRT_YYYY-MM-DD.parquet
+└── VIIRS_NOAA20_NRT_YYYY-MM-DD.parquet
+```
+
+Implementasi: `hotspot_crawler/apikah_crawler/nasa/firms.py`, wrapper:
+`hotspot_crawler/crawl_nasa.py`.
+
+API key tidak boleh masuk source code, notebook, dokumen, argumen CLI, atau Git.
+Gunakan penyimpanan rahasia lokal yang disediakan environment.
+
+### Copernicus
+
+- ERA5-Land: cuaca harian per grid 0,25°.
+- CEMS Fire: indeks bahaya api harian, bukan deteksi titik hotspot.
+- Hasil olahan masuk `data/features_processed/copernicus/`.
+
+### Visualisasi peta
+
+Hotspot aktual dan prediksi harus terpisah:
+
+- **Hotspot aktual**: titik merah dari NASA FIRMS, dengan waktu observasi,
+  confidence, dan FRP. Tampilkan sebagai deteksi satelit, bukan konfirmasi
+  kebakaran.
+- **Risiko prediksi**: grid transparan hijau–merah untuk H+1, H+2, dan H+7.
+- Sediakan toggle terpisah: `Hotspot aktual`, `Risiko prediksi`, dan `Citra satelit`.
+
+### Modeling multi-horizon
+
+```text
+hotspot historis lag 1–3 hari
++ cuaca historis ERA5-Land
++ prakiraan cuaca masa depan
++ FWI dan fitur kekeringan
+→ prediksi H+1, H+2, H+7
+```
+
+Hotspot FIRMS terbaru dipakai sebagai fitur lag dan validasi visual. Data setelah
+waktu prediksi tidak boleh masuk fitur karena menyebabkan **data leakage**.
+ERA5-Land adalah reanalysis historis; prediksi masa depan perlu prakiraan cuaca,
+bukan ERA5-Land masa depan yang belum tersedia.
+
+### Penjadwalan
+
+Gunakan **Windows Task Scheduler** untuk menjalankan pipeline harian. Tidak perlu
+proses server hidup; cocok untuk laptop.
 
 ### Keputusan yang ditunda
 
-- Mekanisme pemicu (Task Scheduler vs loop Python vs tombol manual).
-- Apakah tanggal observasi digeser agar tampak mutakhir. **Saran: jangan** —
-  menggeser tanggal observasi berarti memalsukan data.
-- Sumber "aktual sekarang" yang lebih mutakhir, bila ada.
+- Mekanisme publish output ke frontend.
+- Format manifest harian dan aturan pemulihan saat input tidak lengkap.
+- Sumber prakiraan cuaca untuk fitur H+1, H+2, dan H+7.
+- Pengelompokan titik hotspot menjadi cluster; tahap awal memakai titik individual.
+
 
 ---
 
