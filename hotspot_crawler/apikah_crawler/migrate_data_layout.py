@@ -55,7 +55,17 @@ def build_plan(project_root: Path, legacy_root: Path | None = None) -> list[tupl
                 target = data_root / "features_raw" / "static" / source.name
             add_tree(source, target)
 
-    add_tree(legacy_root / "processed", data_root / "features_processed")
+    processed = legacy_root / "processed"
+    if processed.exists():
+        for source in sorted(processed.iterdir()):
+            if source.name in {"era5_daily", "fire_daily", "features_daily", "climate_index", "static_features.parquet"}:
+                target = data_root / "features_processed" / "copernicus"
+            else:
+                target = data_root / "features_processed"
+            if source.is_file():
+                plan.append((source, target / source.name))
+            else:
+                add_tree(source, target / source.name)
 
     logs = legacy_root / "logs"
     if logs.exists():

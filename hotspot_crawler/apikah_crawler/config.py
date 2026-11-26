@@ -37,6 +37,7 @@ RAW = FEATURES_RAW / "copernicus"
 STATIC = FEATURES_RAW / "static"
 MCD64A1_DIR = FEATURES_RAW / "nasa" / "mcd64a1"
 PROCESSED = FEATURES_PROCESSED
+COPERNICUS_PROCESSED = FEATURES_PROCESSED / "copernicus"
 LOGS = METADATA / "logs"
 
 # ---------------------------------------------------------------- klien (setelan jaringan)

@@ -13,6 +13,6 @@ Sebagian isi di arsip itu sudah usang setelah refactor:
 | Lokasi kode | `hotspot_crawler/apikah_crawler/`, wrapper CLI di `hotspot_crawler/` |
 | Lokasi data | satu root `data/` (`features_raw`, `features_processed`, `metadata`) |
 | Path default | mengikuti lokasi project, bukan CWD |
-| Indeks iklim | `data/features_processed/climate_index/*.parquet` |
+| Indeks iklim | `data/features_processed/copernicus/climate_index/*.parquet` |
 | Lock | per-target di `data/metadata/locks/`, manifest dikunci lintas proses |
 | Raw data | tidak di Git; arsip Drive + `README_data_mentah.txt` |

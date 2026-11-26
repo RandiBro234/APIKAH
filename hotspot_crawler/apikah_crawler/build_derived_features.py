@@ -5,10 +5,10 @@
     python build_derived_features.py --lag 1 --no-spi
 
 Masukan
-    data/features_processed/era5_daily/YYYY-MM.parquet   (dari postprocess_era5.py)
-    data/features_processed/climate_index/{nino34,dmi}.parquet
+    data/features_processed/copernicus/era5_daily/YYYY-MM.parquet   (dari postprocess_era5.py)
+    data/features_processed/copernicus/climate_index/{nino34,dmi}.parquet
 Keluaran
-    data/features_processed/features_daily/YYYY-MM.parquet
+    data/features_processed/copernicus/features_daily/YYYY-MM.parquet
 
 ATURAN ANTI-BOCOR (bagian 7.2 dokumen): fitur untuk tanggal T hanya boleh memakai
 data sampai T-LAG. Baris untuk tanggal T memuat cuaca mentah hari T (dipakai untuk
@@ -105,7 +105,7 @@ def month_ends(start: date, end: date) -> list[tuple[int, int]]:
 
 # ---------------------------------------------------------------------- masukan
 def load_weather(start: date, end: date) -> pd.DataFrame:
-    src = config.PROCESSED / "era5_daily"
+    src = config.COPERNICUS_PROCESSED / "era5_daily"
     files = [src / f"{y}-{m:02d}.parquet" for y, m in month_ends(start, end)]
     ada = [p for p in files if p.exists()]
     if not ada:
@@ -126,8 +126,8 @@ def load_climate() -> pd.DataFrame:
     """Indeks iklim Parquet (CSV kompatibilitas) + lag 1..3 bulan."""
     frames = []
     for name in CLIMATE_NAMES:
-        parquet = config.PROCESSED / "climate_index" / f"{name}.parquet"
-        legacy_csv = config.STATIC / "climate_index" / f"{name}.csv"
+        parquet = config.COPERNICUS_PROCESSED / "climate_index" / f"{name}.parquet"
+        legacy_csv = config.FEATURES_RAW / "static" / "climate_index" / f"{name}.csv"
         if parquet.exists():
             d = pd.read_parquet(parquet)
         elif legacy_csv.exists():
@@ -216,7 +216,7 @@ def process(start: date, end: date) -> int:
         log.warning("tanpa indeks iklim: kolom nino34/dmi akan absen")
 
     out = build(df, climate)
-    dest_dir = config.PROCESSED / "features_daily"
+    dest_dir = config.COPERNICUS_PROCESSED / "features_daily"
     dest_dir.mkdir(parents=True, exist_ok=True)
     n_tulis = 0
     for (y, m) in month_ends(start, end):

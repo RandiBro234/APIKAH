@@ -570,7 +570,7 @@ def target_cells() -> pd.DataFrame:
     Diambil dari era5_daily bila ada, supaya selnya PASTI sama dengan tabel cuaca
     (dan otomatis hanya sel darat). Kalau belum ada, dipakai seluruh bbox area.
     """
-    src = config.PROCESSED / "era5_daily"
+    src = config.COPERNICUS_PROCESSED / "era5_daily"
     files = sorted(src.glob("*.parquet"))
     if files:
         d = pd.read_parquet(files[0], columns=["lat_c", "lon_c"]).drop_duplicates()
@@ -621,7 +621,7 @@ def main(argv=None) -> int:
         gabung = gabung.merge(feats, on=["lat_c", "lon_c"], how="left")
         log.info("  -> %d kolom fitur", len(feats.columns) - 2)
 
-    dest = Path(args.out) if args.out else config.PROCESSED / "static_features.parquet"
+    dest = Path(args.out) if args.out else config.COPERNICUS_PROCESSED / "static_features.parquet"
     dest.parent.mkdir(parents=True, exist_ok=True)
     gabung = gabung.sort_values(["lat_c", "lon_c"]).reset_index(drop=True)
     gabung.to_parquet(dest, index=False)

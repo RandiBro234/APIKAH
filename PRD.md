@@ -166,8 +166,8 @@ Lisensi dan atribusi tiap sumber diperiksa sebelum rilis.
 ### Kontrak data (usulan)
 
 - `meta`: `generated_at` (ISO, WIB), `data_hotspot_latest_at`, `model_version`, `data_version`, `stale_after_hours`.
-- Risiko per hari (`d0` sampai `d3`): fitur poligon dengan `cell_id`, `level` (1-4), `score` (0-1), `province`, `island`, `drivers` (maksimal 3 kalimat), `peat_pct`.
-- Hotspot 72 jam: fitur titik dengan `time_local`, `confidence` (l/n/h), `frp`.
+- Prediksi per horizon (`risk_h1.geojson`, `risk_h2.geojson`, `risk_h7.geojson`): fitur poligon per grid dengan `cell_id`, `level` (1-4), `score` (0-1), `probability` (0-1), `prediction_date`, `horizon`, `province`, `island`, `drivers` (maksimal 3 kalimat), `peat_pct`.
+- Hotspot 72 jam: fitur titik terpisah dengan `time_local`, `confidence` (l/n/h), `frp`.
 - Perkiraan dampak (fase 2): `cell_id` atau wilayah, `area_low`, `area_mid`, `area_high`, porsi per tipe lahan.
 
 Pada tahap awal frontend boleh memakai file statis atau endpoint tiruan dengan data contoh yang jelas ditandai sampai data nyata tersedia.

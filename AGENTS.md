@@ -28,7 +28,7 @@ pip install -r requirements.txt
 - CLI wrapper dengan nama lama: `hotspot_crawler/*.py` (tetap dipakai, jangan ganti nama)
 - Tes: `hotspot_crawler/tests/`
 - Semua data di `data/`:
-  - `hotspot_indonesia/` + `hotspot_raw/` — label (tracked)
+  - `hotspot_indonesia/` — data label Indonesia mentah per-sumber, hasil olahan, dan gabungan (tracked)
   - `features_raw/` — input crawler mentah (diabaikan Git; lihat `README_data_mentah.txt`)
   - `features_processed/` — tabel Parquet turunan (sebagian tracked)
   - `metadata/{manifests,logs,locks}/`
@@ -144,8 +144,9 @@ Untuk semua pekerjaan UI, copy, atau kode di proyek ini:
 - Hormati reduced motion, keyboard, fokus terlihat, kontras WCAG AA, target sentuh 44px.
 
 ### Kontrak data
-- `meta.json`: `generated_at`, `data_hotspot_latest_at`, `model_version`, `data_version`, `stale_after_hours`.
-- Risiko d0-d3: GeoJSON Polygon dengan `cell_id`, `level` (1-4), `score` (0-1), `province`, `island`, maksimal 3 `drivers`, `peat_pct`.
+- `meta.json`: `generated_at`, `data_hotspot_latest_at`, `model_version`, `data_version`, `stale_after_hours`, `is_sample`, `horizons`.
+- Prediksi `risk_h1.geojson`, `risk_h2.geojson`, `risk_h7.geojson`: GeoJSON Polygon, satu feature per grid dan berisi `cell_id`, `level` (1-4), `score` (0-1), `probability` (0-1), `prediction_date`, `horizon` (`h1|h2|h7`), `province`, `island`, maksimal 3 `drivers`, `peat_pct`.
+- Observasi aktual tetap terpisah di `hotspots_72h.geojson` sebagai GeoJSON Point dengan `time_local`, `confidence` (`l|n|h`), `frp`.
 - Hotspot 72 jam: GeoJSON Point dengan `time_local`, `confidence` (`l|n|h`), `frp`.
 - Grid 0,25°: `lat_i = floor((lat + 12) / 0.25)`, `lon_i = floor((lon - 94) / 0.25)`, `cell_id = lat_i * 1000 + lon_i`. Rumus tidak boleh berubah.
 - Tampilkan “DATA BASI” bila `generated_at` melebihi `stale_after_hours`.

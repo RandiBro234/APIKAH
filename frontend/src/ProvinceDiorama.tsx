@@ -615,7 +615,7 @@ export function ProvinceDiorama({ province, horizon, generatedAt, closing = fals
             {HORIZONS.map((item) => (
               <button className={`horizon-button${horizon === item.key ? ' is-selected' : ''}`} key={item.key} type="button" aria-pressed={horizon === item.key} onClick={() => onHorizonChange(item.key)}>
                 {item.label}
-                <small>{new Date(Date.parse(generatedAt ?? '2026-10-30T00:00:00Z') + HORIZONS.findIndex((entry) => entry.key === item.key) * 86400000).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', timeZone: 'Asia/Jakarta' }).toUpperCase()}</small>
+                <small>{new Date(Date.parse(generatedAt ?? '2026-10-30T00:00:00Z') + (HORIZONS.find((entry) => entry.key === item.key)?.offsetDays ?? 0) * 86400000).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', timeZone: 'Asia/Jakarta' }).toUpperCase()}</small>
               </button>
             ))}
           </div>

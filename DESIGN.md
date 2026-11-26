@@ -133,7 +133,7 @@ Skala dasar 4 px: `1=4, 2=8, 3=12, 4=16, 6=24, 8=32, 12=48`. Padding panel 16 px
 1. **Bilah atas:** logo kiri; tab navigasi tengah (BERANDA, PETA, WILAYAH, RIWAYAT, METODE); kanan: lokasi/jam ("INDONESIA 02:30 WIB"), status data, tombol notifikasi, dan tombol tema.
 2. **Rel ikon kiri:** ikon garis tipis 24 px; aktif berbingkai siku; pemisah 1 px antar-grup.
 3. **Pengontrol skala** di atas peta: NASIONAL | PULAU | PROVINSI.
-4. **Pemilih hari:** AKTUAL | BESOK | LUSA | TULAT (segmented control).
+4. **Pemilih hari:** AKTUAL | BESOK | LUSA | MINGGU DEPAN (segmented control).
 5. **Kanvas peta** penuh.
 6. **Kartu info mengambang** tersambung garis 1 px ke sel terpilih.
 7. **Zoom +/- dan tombol lapisan** di kanan bawah peta.

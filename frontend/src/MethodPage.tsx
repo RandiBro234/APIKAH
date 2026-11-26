@@ -8,8 +8,8 @@ const methodology = [
   {
     index: '02',
     title: 'Label dan horizon',
-    text: 'Label kejadian berasal dari deteksi hotspot VIIRS yang teramati pada tanggal target. Horizon risiko mencakup besok, lusa, dan tulat.',
-    detail: 'Aktual menunjukkan observasi 24 jam terakhir, bukan hasil prediksi.',
+    text: 'Label kejadian berasal dari deteksi hotspot VIIRS yang teramati pada tanggal target. Horizon risiko mencakup besok, lusa, dan minggu depan.',
+    detail: 'Aktual menunjukkan hotspot yang teramati. Minggu depan berarti tepat tujuh hari setelah tanggal acuan.'
   },
   {
     index: '03',
@@ -108,7 +108,7 @@ export function MethodPage() {
             <li><strong>Kabupaten terdampak</strong><span>Jumlah kabupaten dengan data risiko pada periode terpilih.</span></li>
             <li><strong>Hotspot 72 jam</strong><span>Jumlah deteksi hotspot 72 jam dari seluruh kabupaten di provinsi.</span></li>
             <li><strong>Skor provinsi</strong><span>Skor tertinggi kabupaten, bukan rata-rata, agar wilayah berisiko tinggi tidak tenggelam.</span></li>
-            <li><strong>Horizon</strong><span>Data kabupaten contoh hanya tersedia untuk h1; horizon lain memakai selisih level provinsi sebagai aproksimasi.</span></li>
+            <li><strong>Horizon</strong><span>Besok, lusa, dan minggu depan dipetakan ke H+1, H+2, dan H+7. File keluaran model per horizon belum tersedia.</span></li>
           </ul>
         </section>
 
@@ -149,7 +149,7 @@ export function MethodPage() {
             <h2 id="sources-title">Data yang direncanakan</h2>
           </div>
           <ul className="source-list">
-            <li><strong>Hotspot</strong><span>NASA FIRMS VIIRS untuk label, riwayat, dan observasi hotspot.</span></li>
+            <li><strong>Hotspot</strong><span>NASA FIRMS VIIRS untuk label, riwayat, dan observasi hotspot. Titik observasi ditampilkan terpisah dari poligon risiko.</span></li>
             <li><strong>Cuaca</strong><span>ERA5 untuk pelatihan; sumber prakiraan operasional belum diputuskan.</span></li>
             <li><strong>Konteks lahan</strong><span>Gambut, tutupan lahan, dan batas wilayah menunggu verifikasi sumber serta lisensi.</span></li>
             <li><strong>Area terdampak</strong><span>Rentang dampak perlu data area terbakar historis dan backtest yang layak.</span></li>

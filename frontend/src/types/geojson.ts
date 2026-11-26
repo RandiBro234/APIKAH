@@ -6,6 +6,9 @@ export type RiskProperties = {
   cell_id: number
   level: RiskLevel
   score: number
+  probability?: number
+  prediction_date?: string
+  horizon?: 'd0' | 'd1' | 'd2' | 'd7'
   province: string
   island: string
   drivers: string[]
@@ -31,6 +34,9 @@ export type ProvinceProperties = {
   level_d1?: RiskLevel
   level_d2?: RiskLevel
   level_d3?: RiskLevel
+  level_d7?: RiskLevel
+  prediction_date?: string
+  model_version?: string
   score?: number
   high_count?: number
   very_high_count?: number
@@ -50,6 +56,7 @@ export type DataMeta = {
   data_version: string
   stale_after_hours: number
   is_sample: boolean
+  horizons?: Partial<Record<'h1' | 'h2' | 'h7', { prediction_date: string; file: string }>>
 }
 
 // --- Kabupaten/kota (ADM2). Lihat docs/KONTRAK-DATA-KABUPATEN.md ---

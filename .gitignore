@@ -10,10 +10,18 @@ env/
 venv/
 .env
 
-# Large Dataset Files (>100MB limit GitHub)
-dataset_apikah/dataset_utama_apikah.csv
-dataset_apikah/data train_val_test/train_preprocessed.csv
-dataset_apikah/data training_iklim/
+# Local agent notes
+/AGENTS.md
+/CLAUDE.md
+/DESIGN.md
+
+# Local UI/UX planning checklist
+/docs/landing-page-uiux-todo.md
+
+# Large local datasets and generated analysis output
+/data/dataset/
+/data/geo/geoBoundaries-IDN-ADM2.geojson
+/frontend/graphify-out/
 
 # OS specific
 .DS_Store

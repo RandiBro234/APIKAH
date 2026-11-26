@@ -3,7 +3,7 @@
     python postprocess_era5.py                 # semua bulan yang ada
     python postprocess_era5.py --from 2023-01 --to 2023-12
 
-Keluaran: data/features_processed/era5_daily/YYYY-MM.parquet
+Keluaran: data/features_processed/copernicus/era5_daily/YYYY-MM.parquet
 Kolom   : date, lat_c, lon_c, t2m_mean/max/min, rh_mean/min, wind_mean/max, u10_mean, v10_mean,
           vpd_mean/max, swvl1_mean, swvl4_mean, precip_mm, ssrd_mjm2, pev_mm
 Catatan : hari = hari UTC. Akumulasi (hujan, radiasi, PET) diambil dari nilai 00:00 UTC hari D+1
@@ -140,7 +140,7 @@ def process_month(year: int, month: int) -> bool:
     src_a = config.RAW / "era5land" / "accum" / f"{year}-{month:02d}.nc"
     ny, nm = _next_month(year, month)
     src_a_next = config.RAW / "era5land" / "accum" / f"{ny}-{nm:02d}.nc"
-    dest = config.PROCESSED / "era5_daily" / f"{year}-{month:02d}.parquet"
+    dest = config.COPERNICUS_PROCESSED / "era5_daily" / f"{year}-{month:02d}.parquet"
     # Bulan ini butuh berkas accum bulan BERIKUTNYA untuk melengkapi hari terakhirnya.
     # Cek kesegaran: kalau accum bulan berikutnya lebih baru dari parquet kita, parquet itu
     # pasti dibuat sebelum berkas tersebut ada, jadi hari terakhirnya masih kosong -> tulis ulang.
