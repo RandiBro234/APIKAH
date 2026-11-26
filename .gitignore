@@ -23,6 +23,31 @@ venv/
 /data/geo/geoBoundaries-IDN-ADM2.geojson
 /frontend/graphify-out/
 
+# Large Dataset Files (>100MB limit GitHub)
+dataset_apikah/dataset_utama_apikah.csv
+dataset_apikah/data train_val_test/train_preprocessed.csv
+
+# Parquet variabel iklim: folder di-track lewat .gitkeep, isinya tidak
+dataset_apikah/variabel_iklim/*.parquet
+
+# Nama folder lama, jika muncul lagi
+dataset_apikah/training_iklim/
+
+# Artefak training model: cache panel, model, metrik, dan plot
+modeling/artifacts/
+
+# Markdown hasil generate tidak di-track kecuali diminta eksplisit
+*.md
+!README.md
+!AGENTS.md
+!CLAUDE.md
+!DESIGN.md
+!PRD.md
+!PIPELINE_DEV.md
+
 # OS specific
 .DS_Store
 Thumbs.db
+
+# Catatan kerja backend (internal, tidak untuk di-commit)
+docs/backend/RENCANA_BACKEND.md
