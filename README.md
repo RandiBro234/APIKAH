@@ -8,17 +8,13 @@ Proyek **APIKAH** (*Analisis dan Prediksi Indeks Risiko Karhutla Terpadu*) berfo
 
 ```text
 APIKAH_PROJECT/
-├── dataset_apikah/
-│   ├── data hotspot_indonesia/     # Data historis titik panas satelit VIIRS per bulan (Parquet)
-│   ├── data training_iklim/        # Data grid cuaca & target per bulan (Parquet)
-│   ├── data train_val_test/        # Dataset hasil preprocessing siap modeling (Format CSV & JSON)
-│   │   ├── train_preprocessed.csv
-│   │   ├── val_preprocessed.csv
-│   │   ├── test_preprocessed.csv
-│   │   └── feature_metadata.json
-│   ├── sample_dataset_utama.csv    # Sampel 1.000 baris dataset utama untuk verifikasi cepat
-│   ├── merge_dataset.py            # Skrip reproduktif penggabungan data satelit dan cuaca
-│   └── dataset_utama_apikah.csv    # Dataset master terpadu (7.22 GB, 22.4M baris - disimpan lokal)
+├── data/
+│   ├── hotspot_indonesia/
+│   │   ├── raw/                    # Data sumber mentah per satelit
+│   │   ├── combined/               # Data gabungan kanonis
+│   │   └── *.parquet               # Data Indonesia yang sudah dinormalisasi
+│   ├── features_raw/               # Data mentah cuaca/iklim
+│   └── features_processed/         # Data olahan siap modeling
 ├── eda_apikah/
 │   ├── eda_apikah_new.ipynb        # Notebook EDA terpadu (11 Step Analisis & Visualisasi Lengkap)
 │   └── plots/                      # Berkas gambar visualisasi resolusi tinggi (PNG)
@@ -28,8 +24,6 @@ APIKAH_PROJECT/
 │       ├── peta_spasial_hotspot.png
 │       ├── peringkat_provinsi_hotspot.png
 │       └── tren_musiman_tahunan.png
-├── prepro_apikah/
-│   └── prepro_apikah_new.ipynb     # Notebook Preprocessing (9 Step Prapemrosesan Siap Modeling)
 ├── .gitignore                      # Konfigurasi pengabaian file berukuran besar (>100MB)
 └── README.md                       # Dokumentasi resmi proyek
 ```
@@ -60,4 +54,4 @@ APIKAH_PROJECT/
 
 ## Catatan Dataset Skala Besar
 
-Berkas dataset utama `dataset_utama_apikah.csv` berukuran 7.22 GB (22.411.062 baris) dan `train_preprocessed.csv` berukuran 145 MB melebihi batas unggah langsung GitHub (100 MB per berkas). Kedua berkas dikecualikan dari Git melalui `.gitignore` untuk mencegah penolakan push. Untuk menjalankan eksperimen cepat, berkas sampel `dataset_apikah/sample_dataset_utama.csv` disediakan di dalam repositori.
+Dataset historis dan hasil preprocessing tersimpan di bawah `data/`. Gunakan Parquet kanonis di `data/hotspot_indonesia/combined/` serta tabel fitur di `data/features_processed/` untuk eksperimen; data sumber mentah hotspot berada di `data/hotspot_indonesia/raw/`.

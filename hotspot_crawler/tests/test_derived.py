@@ -213,12 +213,14 @@ def test_load_climate_membuat_lag_bulanan():
 
     bulan = [1, 2, 3, 4, 5, 6]
     static_asli, processed_asli = config.STATIC, config.PROCESSED
+    copernicus_asli = config.COPERNICUS_PROCESSED
     with tempfile.TemporaryDirectory() as td:
         root = Path(td)
         config.STATIC = root / "raw"
         config.PROCESSED = root / "processed"
+        config.COPERNICUS_PROCESSED = config.PROCESSED / "copernicus"
         try:
-            tmp = config.PROCESSED / "climate_index"
+            tmp = config.COPERNICUS_PROCESSED / "climate_index"
             tmp.mkdir(parents=True, exist_ok=True)
             for name, vals in (("nino34", [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]),
                                ("dmi", [0.0, 0.1, 0.2, 0.3, 0.4, 0.5])):
@@ -227,6 +229,7 @@ def test_load_climate_membuat_lag_bulanan():
             clim = load_climate()
         finally:
             config.STATIC, config.PROCESSED = static_asli, processed_asli
+            config.COPERNICUS_PROCESSED = copernicus_asli
     assert not clim.empty, "load_climate mengembalikan kosong"
     for col in ("nino34_lag1", "nino34_lag2", "nino34_lag3"):
         assert col in clim.columns, f"{col} tidak ada"
@@ -243,11 +246,13 @@ def test_load_climate_memprioritaskan_parquet():
     import tempfile
 
     processed_asli, static_asli = config.PROCESSED, config.STATIC
+    copernicus_asli = config.COPERNICUS_PROCESSED
     with tempfile.TemporaryDirectory() as td:
         root = Path(td)
         config.PROCESSED = root / "processed"
+        config.COPERNICUS_PROCESSED = config.PROCESSED / "copernicus"
         config.STATIC = root / "raw"
-        pq_dir = config.PROCESSED / "climate_index"
+        pq_dir = config.COPERNICUS_PROCESSED / "climate_index"
         csv_dir = config.STATIC / "climate_index"
         pq_dir.mkdir(parents=True)
         csv_dir.mkdir(parents=True)

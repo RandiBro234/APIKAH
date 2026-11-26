@@ -12,7 +12,7 @@ Diperbarui 2026-10-31, setelah verifikasi akhir refactor.
 - Data mentah tidak masuk Git (16,91 GB, 4.135 berkas, 14 file >100 MB). Untuk dibagikan, tersedia `data/MANIFEST_raw.csv` + `python verify_data.py`; semua 4.135 berkas sudah diverifikasi cocok pada 2026-11-01.
 - Hasil pipeline lengkap 2012-2026 belum dibangun; yang ada baru contoh dua bulan.
 - MCD64A1 sudah diunduh tetapi sementara hanya raw HDF; tidak ada processor/fitur. Job crawl-nya mengunci direktori dan hanya skip bila fingerprint query serta semua nama granula HDF cocok.
-- Label bulanan tetap di `hotspot_indonesia/` dan `hotspot_raw/`; tabel gabungan ada di `hotspot_indonesia/combined/`.
+- Label bulanan ternormalisasi ada di `hotspot_indonesia/`, sumber mentah per-bulan di `hotspot_indonesia/raw/`, dan tabel gabungan di `hotspot_indonesia/combined/`.
 
 ## Kode dan verifikasi
 

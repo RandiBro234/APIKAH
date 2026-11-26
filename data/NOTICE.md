@@ -9,7 +9,7 @@ publik, serta adaptasi/modifikasi, **dengan syarat atribusi**.
 
 ## 1. ERA5-Land (Cuaca)
 
-Dipakai oleh: `features_processed/era5_daily/`, `features_processed/features_daily/`,
+Dipakai oleh: `features_processed/copernicus/era5_daily/`, `features_processed/copernicus/features_daily/`,
 `features_processed/training/` (kolom cuaca).
 
 - Sumber: Copernicus Climate Change Service (C3S) Climate Data Store.
@@ -25,7 +25,7 @@ Dipakai oleh: `features_processed/era5_daily/`, `features_processed/features_dai
 
 ## 2. CEMS Fire Danger Indices (Indeks bahaya api)
 
-Dipakai oleh: `features_processed/fire_daily/`, `features_processed/training/`
+Dipakai oleh: `features_processed/copernicus/fire_daily/`, `features_processed/training/`
 (kolom indeks api).
 
 - Sumber: Copernicus Emergency Management Service (CEMS) via CEMS Early Warning
@@ -70,7 +70,7 @@ Data lengkap 2012-01–2026-09 tidak disimpan di Git; bangun ulang dari
 
 ## 5. Data yang tidak tercakup notice ini
 
-- Label hotspot (VIIRS) di `hotspot_indonesia/` dan `hotspot_raw/` berasal dari
+- Label hotspot (VIIRS) di `hotspot_indonesia/` dan `hotspot_indonesia/raw/` berasal dari
   sumber lain (NASA FIRMS) dan dikelola tim label; lihat riwayat repo.
 - Batas wilayah GADM di `features_raw/static/boundaries/` **tidak** ikut
   didistribusikan (GADM melarang redistribusi); hanya dipakai lokal.

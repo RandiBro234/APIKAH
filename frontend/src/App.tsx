@@ -8,6 +8,7 @@ import { normalizeName, provinceSlug } from './lib/slug'
 import type {
   DataMeta,
   HotspotFeatureCollection,
+  RiskProperties,
   KabupatenRiskRecord,
   ProvinceProperties,
   RiskLevel,
@@ -21,6 +22,11 @@ import { RiwayatPage } from './RiwayatPage'
 import { LandingPage } from './LandingPage'
 import './App.css'
 
+const SATELLITE_SOURCE = 'satellite-imagery'
+const SATELLITE_LAYER = 'satellite-imagery-layer'
+const RISK_SOURCE = 'risk-grid-source'
+const RISK_FILL = 'risk-grid-fill'
+const RISK_LINE = 'risk-grid-line'
 const PROVINCE_SOURCE = 'province-boundaries'
 const PROVINCE_FILL = 'province-risk-fill'
 const PROVINCE_EXTRUDE = 'province-risk-extrude'
@@ -44,12 +50,20 @@ type ProvinceHoverProperties = Pick<
 >
 type ProvinceHover = { properties: ProvinceHoverProperties; point: [number, number] }
 type SelectedProvince = { properties: ProvinceProperties; geometry: Geometry }
+type SelectedRiskCell = { properties: RiskProperties; point: [number, number] }
 type HotspotPulse = { id: string; x: number; y: number }
 
 type MapLayers = {
+  risk: import('./lib/map-data').RiskMapCollection
   hotspots: HotspotFeatureCollection
   provinces: ProvinceFeatureCollection
   kabupatenIndex: KabupatenRiskRecord[]
+}
+
+type LayerVisibility = {
+  satellite: boolean
+  risk: boolean
+  hotspots: boolean
 }
 
 function tokenValue(token: string): string {
@@ -62,9 +76,17 @@ function basemapStyle(): maplibregl.StyleSpecification {
   return {
     version: 8,
     glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf',
-    sources: {},
+    sources: {
+      [SATELLITE_SOURCE]: {
+        type: 'raster',
+        tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
+        tileSize: 256,
+        attribution: 'Imagery © Esri and contributors',
+      },
+    },
     layers: [
       { id: 'theme-sea', type: 'background', paint: { 'background-color': '#00000000' } },
+      { id: SATELLITE_LAYER, type: 'raster', source: SATELLITE_SOURCE, layout: { visibility: 'none' }, paint: { 'raster-opacity': 0.86 } },
     ],
   }
 }
@@ -123,14 +145,17 @@ class DioramaErrorBoundary extends Component<{ children: ReactNode; onReset: () 
   }
 }
 
-function MapView({ layers, dataState, selectedProvince, externalHoverId, onMapReady, onSelectProvince, onHoverProvince }: {
+function MapView({ layers, dataState, layerVisibility, selectedProvince, externalHoverId, onMapReady, onSelectProvince, onHoverProvince, onSelectRiskCell, onHoverRiskCell }: {
   layers: MapLayers | null
   dataState: DataState
+  layerVisibility: LayerVisibility
   selectedProvince: ProvinceHoverProperties | null
   externalHoverId: string | null
   onMapReady: (map: MapLibreMap | null) => void
   onSelectProvince: (province: SelectedProvince) => void
   onHoverProvince: (hover: ProvinceHover | null) => void
+  onSelectRiskCell: (cell: SelectedRiskCell | null) => void
+  onHoverRiskCell: (cell: SelectedRiskCell | null) => void
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
@@ -242,24 +267,35 @@ function MapView({ layers, dataState, selectedProvince, externalHoverId, onMapRe
         map.once('idle', () => installLayersRef.current(map, data))
         return
       }
+      if (!map.getSource(RISK_SOURCE)) map.addSource(RISK_SOURCE, { type: 'geojson', data: data.risk })
+      else (map.getSource(RISK_SOURCE) as GeoJSONSource).setData(data.risk)
       if (!map.getSource(PROVINCE_SOURCE)) map.addSource(PROVINCE_SOURCE, { type: 'geojson', data: data.provinces, promoteId: 'shape_id' })
       else (map.getSource(PROVINCE_SOURCE) as GeoJSONSource).setData(data.provinces)
+
       if (!map.getSource(HOTSPOT_SOURCE)) map.addSource(HOTSPOT_SOURCE, { type: 'geojson', data: data.hotspots, cluster: true, clusterRadius: 44, clusterMaxZoom: 7 })
       else (map.getSource(HOTSPOT_SOURCE) as GeoJSONSource).setData(data.hotspots)
 
       if (!map.getLayer(INDONESIA_LAND)) map.addLayer(indonesiaLandStyle())
+      if (!map.getLayer(RISK_FILL)) map.addLayer({ id: RISK_FILL, type: 'fill', source: RISK_SOURCE, paint: { 'fill-color': ['match', ['get', 'level'], 1, riskColor(1), 2, riskColor(2), 3, riskColor(3), 4, riskColor(4), tokenValue('--map-neutral')], 'fill-opacity': ['interpolate', ['linear'], ['get', 'level'], 1, 0.2, 2, 0.4, 3, 0.65, 4, 0.9] } })
+      if (!map.getLayer(RISK_LINE)) map.addLayer({ id: RISK_LINE, type: 'line', source: RISK_SOURCE, paint: { 'line-color': tokenValue('--surface'), 'line-width': 0.6, 'line-opacity': 0.55 } })
+
       if (!map.getLayer(LAND_SHADOW)) map.addLayer({ id: LAND_SHADOW, type: 'line', source: PROVINCE_SOURCE, paint: { 'line-color': 'rgba(20, 20, 20, 0.05)', 'line-width': 8, 'line-blur': 8, 'line-translate': [0, 6] } })
       if (!map.getLayer(PROVINCE_FILL)) map.addLayer({ id: PROVINCE_FILL, type: 'fill', source: PROVINCE_SOURCE, paint: { 'fill-color': '#00000000', 'fill-opacity': ['case', ['==', ['get', 'has_data'], true], 0.9, 1] } })
       if (!map.getLayer(PROVINCE_EXTRUDE)) map.addLayer({ id: PROVINCE_EXTRUDE, type: 'fill-extrusion', source: PROVINCE_SOURCE, filter: ['==', ['get', 'has_data'], true], paint: { 'fill-extrusion-color': '#00000000', 'fill-extrusion-height': 0, 'fill-extrusion-height-transition': { duration: 180, delay: 0 }, 'fill-extrusion-opacity': 0.85, 'fill-extrusion-opacity-transition': { duration: 180, delay: 0 }, 'fill-extrusion-vertical-gradient': true } })
       if (!map.getLayer(PROVINCE_LINE)) map.addLayer({ id: PROVINCE_LINE, type: 'line', source: PROVINCE_SOURCE, layout: { 'line-join': 'round' }, paint: { 'line-color': '#ffffff', 'line-width': 1.2 } })
       if (!map.getLayer(PROVINCE_HOVER)) map.addLayer({ id: PROVINCE_HOVER, type: 'line', source: PROVINCE_SOURCE, layout: { 'line-join': 'round' }, paint: { 'line-color': tokenValue('--text'), 'line-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3.5, ['boolean', ['feature-state', 'hover'], false], 2.5, 0] as never, 'line-width-transition': { duration: 180, delay: 0 } } })
-      if (!map.getLayer(HOTSPOT_CLUSTER)) map.addLayer({ id: HOTSPOT_CLUSTER, type: 'circle', source: HOTSPOT_SOURCE, filter: ['has', 'point_count'], paint: { 'circle-color': tokenValue('--accent'), 'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 1, 10, 10, 14, 50, 18, 200, 22], 'circle-stroke-color': tokenValue('--surface'), 'circle-stroke-width': 2 } })
+       if (!map.getLayer(HOTSPOT_CLUSTER)) map.addLayer({ id: HOTSPOT_CLUSTER, type: 'circle', source: HOTSPOT_SOURCE, filter: ['has', 'point_count'], paint: { 'circle-color': '#ef4444', 'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 1, 10, 10, 14, 50, 18, 200, 22], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2 } })
       if (!map.getLayer(HOTSPOT_CLUSTER_COUNT)) map.addLayer({ id: HOTSPOT_CLUSTER_COUNT, type: 'symbol', source: HOTSPOT_SOURCE, filter: ['has', 'point_count'], layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Open Sans Semibold'], 'text-size': 11, 'text-allow-overlap': true, 'text-ignore-placement': true }, paint: { 'text-color': tokenValue('--on-accent') } })
-      if (!map.getLayer(HOTSPOT_CIRCLE)) map.addLayer({ id: HOTSPOT_CIRCLE, type: 'circle', source: HOTSPOT_SOURCE, filter: ['!', ['has', 'point_count']], paint: { 'circle-radius': ['interpolate', ['linear'], ['get', 'frp'], 0, 3, 100, 7], 'circle-color': tokenValue('--map-hotspot-fill'), 'circle-stroke-color': tokenValue('--map-hotspot-stroke'), 'circle-stroke-width': 1.25 } })
+       if (!map.getLayer(HOTSPOT_CIRCLE)) map.addLayer({ id: HOTSPOT_CIRCLE, type: 'circle', source: HOTSPOT_SOURCE, filter: ['!', ['has', 'point_count']], paint: { 'circle-radius': ['interpolate', ['linear'], ['get', 'frp'], 0, 3, 100, 7], 'circle-color': '#ef4444', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 1.25 } })
 
-      for (const id of [PROVINCE_FILL, PROVINCE_EXTRUDE, PROVINCE_LINE, PROVINCE_HOVER, HOTSPOT_CLUSTER, HOTSPOT_CLUSTER_COUNT, HOTSPOT_CIRCLE]) {
+      for (const id of [PROVINCE_FILL, PROVINCE_EXTRUDE, PROVINCE_LINE, PROVINCE_HOVER]) {
         map.setLayoutProperty(id, 'visibility', 'visible')
       }
+      map.setLayoutProperty(RISK_FILL, 'visibility', 'none')
+      map.setLayoutProperty(RISK_LINE, 'visibility', 'none')
+      map.setLayoutProperty(HOTSPOT_CLUSTER, 'visibility', 'none')
+      map.setLayoutProperty(HOTSPOT_CLUSTER_COUNT, 'visibility', 'none')
+      map.setLayoutProperty(HOTSPOT_CIRCLE, 'visibility', 'none')
     }
   }, [])
 
@@ -272,17 +308,29 @@ function MapView({ layers, dataState, selectedProvince, externalHoverId, onMapRe
   useEffect(() => {
     const map = mapRef.current
     if (!map || !layers || mapState !== 'ready') return
-    installLayersRef.current(map, layers)
-    paintProvinceLayers(map)
+   installLayersRef.current(map, layers)
+     paintProvinceLayers(map)
+     const setVisibility = (id: string, visible: boolean) => { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', visible ? 'visible' : 'none') }
+      setVisibility(SATELLITE_LAYER, layerVisibility.satellite)
+      if (map.getLayer(INDONESIA_LAND)) map.setPaintProperty(INDONESIA_LAND, 'fill-opacity', layerVisibility.satellite ? 0 : 1)
+      if (map.getLayer(PROVINCE_FILL)) map.setPaintProperty(PROVINCE_FILL, 'fill-opacity', layerVisibility.satellite ? 0 : ['case', ['==', ['get', 'has_data'], true], 0.9, 1] as never)
+      if (map.getLayer(PROVINCE_EXTRUDE)) map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-opacity', layerVisibility.satellite ? 0 : 0.85)
+      setVisibility(RISK_FILL, false)
+      setVisibility(RISK_LINE, false)
+      if (map.getLayer(PROVINCE_FILL)) map.setPaintProperty(PROVINCE_FILL, 'fill-opacity', layerVisibility.risk ? (layerVisibility.satellite ? 0.5 : 0.9) : 0)
+      if (map.getLayer(PROVINCE_EXTRUDE)) map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-opacity', layerVisibility.risk ? (layerVisibility.satellite ? 0.35 : 0.85) : 0)
+     setVisibility(HOTSPOT_CLUSTER, layerVisibility.hotspots)
+     setVisibility(HOTSPOT_CLUSTER_COUNT, layerVisibility.hotspots)
+     setVisibility(HOTSPOT_CIRCLE, layerVisibility.hotspots)
     const provinceSource = map.getSource(PROVINCE_SOURCE) as GeoJSONSource | undefined
     const hotspotSource = map.getSource(HOTSPOT_SOURCE) as GeoJSONSource | undefined
     if (provinceSource) provinceSource.setData(layers.provinces)
     if (hotspotSource) hotspotSource.setData(layers.hotspots)
-  }, [layers, mapState])
+   }, [layers, mapState, layerVisibility])
 
-  useEffect(() => {
-    const map = mapRef.current
-    if (!map || mapState !== 'ready' || !layers) {
+   useEffect(() => {
+     const map = mapRef.current
+     if (!map || mapState !== 'ready' || !layers) {
       queueMicrotask(() => setHotspotPulses([]))
       return
     }
@@ -293,13 +341,13 @@ function MapView({ layers, dataState, selectedProvince, externalHoverId, onMapRe
         setHotspotPulses([])
         return
       }
-      const pulses = map.queryRenderedFeatures({ layers: [HOTSPOT_CIRCLE] })
-        .filter((feature) => feature.geometry.type === 'Point')
-        .map((feature, index) => {
-          const geometry = feature.geometry as Point
-          const point = map.project(geometry.coordinates as [number, number])
-          return { id: `${feature.properties?.time_local ?? 'hotspot'}-${index}`, x: point.x, y: point.y }
-        })
+       const pulses = map.queryRenderedFeatures({ layers: [HOTSPOT_CLUSTER] })
+         .filter((feature) => feature.geometry.type === 'Point' && Number(feature.properties?.point_count ?? 0) >= 10)
+         .map((feature, index) => {
+           const geometry = feature.geometry as Point
+           const point = map.project(geometry.coordinates as [number, number])
+           return { id: `cluster-${feature.properties?.cluster_id ?? index}`, x: point.x, y: point.y }
+         })
       setHotspotPulses(pulses)
     }
     const schedule = () => {
@@ -326,6 +374,7 @@ function MapView({ layers, dataState, selectedProvince, externalHoverId, onMapRe
       applyHover(map, id)
     }
 
+    const riskAt = (event: MapMouseEvent) => map.queryRenderedFeatures(event.point, { layers: [RISK_FILL] })[0]
     const provinceAt = (event: MapMouseEvent) => {
       const isProvince = (feature: MapGeoJSONFeature) => feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon'
       const direct = map.queryRenderedFeatures(event.point, { layers: [PROVINCE_FILL] }).find(isProvince)
@@ -340,12 +389,15 @@ function MapView({ layers, dataState, selectedProvince, externalHoverId, onMapRe
     }
 
     const handleMove = (event: MapMouseEvent) => {
+      const riskFeature = riskAt(event)
+      const riskProperties = riskFeature?.properties as RiskProperties | undefined
+      onHoverRiskCell(riskProperties?.cell_id ? { properties: riskProperties, point: [event.point.x, event.point.y] } : null)
       const feature = provinceAt(event)
       const hotspotHit = map.queryRenderedFeatures(event.point, { layers: [HOTSPOT_CLUSTER, HOTSPOT_CIRCLE] }).length > 0
       if (!feature) {
-        map.getCanvas().style.cursor = hotspotHit ? 'pointer' : ''
-        setHover(null)
-        onHoverProvince(null)
+      map.getCanvas().style.cursor = hotspotHit || Boolean(riskAt(event)) ? 'pointer' : ''
+      setHover(null)
+      onHoverProvince(null)
         return
       }
       const properties = feature.properties as ProvinceHoverProperties | null
@@ -356,6 +408,12 @@ function MapView({ layers, dataState, selectedProvince, externalHoverId, onMapRe
     }
 
     const handleClick = (event: MapMouseEvent) => {
+      const riskFeature = riskAt(event)
+      const riskProperties = riskFeature?.properties as RiskProperties | undefined
+      if (riskProperties?.cell_id) {
+        onSelectRiskCell({ properties: riskProperties, point: [event.point.x, event.point.y] })
+        return
+      }
       const feature = provinceAt(event)
       if (!feature) return
       const properties = feature.properties as ProvinceProperties | null
@@ -367,6 +425,7 @@ function MapView({ layers, dataState, selectedProvince, externalHoverId, onMapRe
       map.getCanvas().style.cursor = ''
       setHover(null)
       onHoverProvince(null)
+      onHoverRiskCell(null)
     }
 
     const canvas = map.getCanvas()
@@ -380,7 +439,7 @@ function MapView({ layers, dataState, selectedProvince, externalHoverId, onMapRe
       canvas.style.cursor = ''
       setHover(null)
     }
-  }, [mapState, onHoverProvince, onSelectProvince, applyHover])
+  }, [mapState, onHoverProvince, onSelectProvince, onHoverRiskCell, onSelectRiskCell, applyHover])
 
   useEffect(() => {
     const map = mapRef.current
@@ -428,7 +487,10 @@ function App() {
   const isLandingPage = currentPath === '/'
   const isMapPage = currentPath === '/peta'
   const [horizon, setHorizon] = useState<HorizonKey>('d1')
+  const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>({ satellite: true, risk: true, hotspots: true })
   const [hoverProvince, setHoverProvince] = useState<ProvinceHover | null>(null)
+  const [hoverRiskCell, setHoverRiskCell] = useState<SelectedRiskCell | null>(null)
+  const [selectedRiskCell, setSelectedRiskCell] = useState<SelectedRiskCell | null>(null)
   const [top5HoverId, setTop5HoverId] = useState<string | null>(null)
   const [selectedProvince, setSelectedProvince] = useState<SelectedProvince | null>(null)
   const [dioramaClosing, setDioramaClosing] = useState(false)
@@ -477,6 +539,8 @@ function App() {
     }, 320)
   }, [resetNationalView])
   const handleHoverProvince = useCallback((hover: ProvinceHover | null) => setHoverProvince(hover), [])
+  const handleHoverRiskCell = useCallback((cell: SelectedRiskCell | null) => setHoverRiskCell(cell), [])
+  const handleSelectRiskCell = useCallback((cell: SelectedRiskCell | null) => { setSelectedRiskCell(cell); setSelectedProvince(null); window.history.replaceState({}, '', '/peta') }, [])
   const handleMapReady = useCallback((map: MapLibreMap | null) => { mapInstanceRef.current = map }, [])
   const topProvinces = useMemo(() => {
     if (!layers) return []
@@ -502,7 +566,7 @@ function App() {
     window.setTimeout(() => setDataState('loading'), 0)
     void loadMapBaseData(horizon).then((data) => {
       if (cancelled) return
-      setLayers({ hotspots: data.hotspots, provinces: data.provinces, kabupatenIndex: data.kabupatenIndex })
+       setLayers({ risk: data.risk, hotspots: data.hotspots, provinces: data.provinces, kabupatenIndex: data.kabupatenIndex })
       setMeta(data.meta)
       setDataState('ready')
     }).catch(() => {
@@ -659,11 +723,15 @@ function App() {
           <MapView
             layers={layers}
             dataState={dataState}
+            layerVisibility={layerVisibility}
             selectedProvince={selectedProvince?.properties ?? null}
-            externalHoverId={top5HoverId}
-            onMapReady={handleMapReady}
-            onSelectProvince={handleSelectProvince}
-            onHoverProvince={handleHoverProvince}
+           externalHoverId={top5HoverId}
+           onMapReady={handleMapReady}
+           onSelectProvince={handleSelectProvince}
+           onHoverProvince={handleHoverProvince}
+           onSelectRiskCell={handleSelectRiskCell}
+           onHoverRiskCell={handleHoverRiskCell}
+
           />
           {!selectedProvince && topProvinces.length > 0 && (
             <aside className="top5-panel" aria-label="Top 5 provinsi berdasarkan risiko">
@@ -703,9 +771,11 @@ function App() {
               </aside>}
             </div>
           </div>}
-          {!selectedProvince && hoverProvince && <div className="map-tooltip province-tooltip" style={tooltipStyle} role="status"><div className="tooltip-head"><strong>{hoverProvince.properties.province}</strong>{!hoverProvince.properties.has_data ? <span className="tooltip-empty">TANPA DATA</span> : <span className={`level-chip risk-level-${hoverProvince.properties.level} tooltip-badge`}><span className="level-bars" aria-hidden="true">{[1, 2, 3, 4].map((bar) => <i key={bar} className={bar <= (hoverProvince.properties.level ?? 1) ? 'filled' : ''} />)}</span>{riskLevelName(hoverProvince.properties.level ?? 1)}</span>}</div>{hoverProvince.properties.has_data && <><span>HOTSPOT 72 JAM {hoverProvince.properties.hotspot_72h ?? 0}</span><span>KABUPATEN TERDAMPAK {hoverProvince.properties.kabupaten_terdampak ?? 0}</span></>}</div>}
+           {!selectedProvince && selectedRiskCell && <div className="map-tooltip province-tooltip" style={{ left: Math.max(8, Math.min(selectedRiskCell.point[0] + 12, window.innerWidth - 248)), top: Math.max(8, Math.min(selectedRiskCell.point[1] + 12, window.innerHeight - 176)) }} role="status"><div className="tooltip-head"><strong>Grid {selectedRiskCell.properties.cell_id}</strong><span className={`level-chip risk-level-${selectedRiskCell.properties.level} tooltip-badge`}>{riskLevelName(selectedRiskCell.properties.level)}</span></div><span>PELUANG {Math.round((selectedRiskCell.properties.probability ?? selectedRiskCell.properties.score) * 100)}%</span>{selectedRiskCell.properties.prediction_date && <span>TANGGAL {selectedRiskCell.properties.prediction_date}</span>}<span>{selectedRiskCell.properties.province}</span>{selectedRiskCell.properties.drivers.length > 0 && <span>{selectedRiskCell.properties.drivers[0]}</span>}</div>}
+           {!selectedProvince && hoverRiskCell && <div className="map-tooltip province-tooltip" style={{ left: Math.max(8, Math.min(hoverRiskCell.point[0] + 12, window.innerWidth - 248)), top: Math.max(8, Math.min(hoverRiskCell.point[1] + 12, window.innerHeight - 176)) }} role="status"><div className="tooltip-head"><strong>Grid {hoverRiskCell.properties.cell_id}</strong><span className={`level-chip risk-level-${hoverRiskCell.properties.level} tooltip-badge`}><span className="level-bars" aria-hidden="true">{[1, 2, 3, 4].map((bar) => <i key={bar} className={bar <= hoverRiskCell.properties.level ? 'filled' : ''} />)}</span>{riskLevelName(hoverRiskCell.properties.level)}</span></div><span>PELUANG {Math.round((hoverRiskCell.properties.probability ?? hoverRiskCell.properties.score) * 100)}%</span><span>{hoverRiskCell.properties.province}</span>{hoverRiskCell.properties.prediction_date && <span>TANGGAL {hoverRiskCell.properties.prediction_date}</span>}</div>}
+           {!selectedProvince && hoverProvince && !hoverRiskCell && <div className="map-tooltip province-tooltip" style={tooltipStyle} role="status"><div className="tooltip-head"><strong>{hoverProvince.properties.province}</strong>{!hoverProvince.properties.has_data ? <span className="tooltip-empty">TANPA DATA</span> : <span className={`level-chip risk-level-${hoverProvince.properties.level} tooltip-badge`}><span className="level-bars" aria-hidden="true">{[1, 2, 3, 4].map((bar) => <i key={bar} className={bar <= (hoverProvince.properties.level ?? 1) ? 'filled' : ''} />)}</span>{riskLevelName(hoverProvince.properties.level ?? 1)}</span>}</div>{hoverProvince.properties.has_data && <><span>HOTSPOT 72 JAM {hoverProvince.properties.hotspot_72h ?? 0}</span><span>KABUPATEN TERDAMPAK {hoverProvince.properties.kabupaten_terdampak ?? 0}</span></>}</div>}
           {!selectedProvince && <div className="map-control-stack">
-            <fieldset className="horizon-control"><legend className="sr-only">PERIODE</legend><div className="horizon-options">{HORIZONS.map((item) => <button className={`horizon-button${horizon === item.key ? ' is-selected' : ''}`} key={item.key} type="button" aria-pressed={horizon === item.key} onClick={() => setHorizon(item.key)}>{item.label}<small>{new Date(Date.parse(meta?.generated_at ?? '2026-10-30T00:00:00Z') + HORIZONS.findIndex((entry) => entry.key === item.key) * 86400000).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', timeZone: 'Asia/Jakarta' }).toUpperCase()}</small></button>)}</div></fieldset>
+            <fieldset className="horizon-control layer-control"><legend className="sr-only">Lapisan peta</legend><div className="layer-toggles">{([['satellite', 'Citra satelit'], ['risk', 'Risiko'], ['hotspots', 'Hotspot aktual']] as const).map(([key, label]) => <label className="layer-toggle" key={key}><input type="checkbox" checked={layerVisibility[key]} onChange={(event) => setLayerVisibility((current) => ({ ...current, [key]: event.target.checked }))} /><span>{label}</span></label>)}</div></fieldset><fieldset className="horizon-control"><legend className="sr-only">PERIODE</legend><div className="horizon-options">{HORIZONS.map((item) => <button className={`horizon-button${horizon === item.key ? ' is-selected' : ''}`} key={item.key} type="button" aria-pressed={horizon === item.key} onClick={() => setHorizon(item.key)}>{item.label}{horizon === item.key && <small>{new Date(Date.parse(meta?.generated_at ?? '2026-10-30T00:00:00Z') + (HORIZONS.find((entry) => entry.key === item.key)?.offsetDays ?? 0) * 86400000).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', timeZone: 'Asia/Jakarta' }).toUpperCase()}</small>}</button>)}</div></fieldset>
           </div>}
           {selectedProvince && <DioramaErrorBoundary onReset={handleCloseDiorama}><ProvinceDiorama key={selectedProvince.properties.province} province={selectedProvince} horizon={horizon} generatedAt={meta?.generated_at} closing={dioramaClosing} onClose={handleCloseDiorama} onHorizonChange={setHorizon} /></DioramaErrorBoundary>}
         </div>

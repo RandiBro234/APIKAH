@@ -17,13 +17,15 @@
 .landing-cta:hover{background:var(--text);color:var(--on-accent);opacity:.9}
 .legend-trigger,.retry-button{border-radius:var(--r-pill)}
 
-/* Segmented control pil */
-.horizon-control{padding:4px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--surface);box-shadow:var(--shadow-float)}
-.horizon-options{gap:2px;padding:0;border:0;border-radius:var(--r-pill);background:transparent}
-.horizon-button{min-height:40px;padding:0 18px;border:0;border-radius:var(--r-pill);background:transparent;color:var(--text-muted);font-family:var(--font-sans);font-size:14px;font-weight:500;letter-spacing:0}
+/* Segmented control ringkas */
+.map-control-stack>.horizon-control:not(.layer-control){width:max-content!important;max-width:calc(100vw - 32px)!important}
+.horizon-control{padding:3px;border:1px solid var(--line);border-radius:var(--r-pill);background:color-mix(in srgb,var(--surface) 92%,transparent);box-shadow:var(--shadow-float)}
+.horizon-options{display:grid;grid-template-columns:repeat(4,max-content);gap:1px;padding:0;border:0;border-radius:var(--r-pill);background:transparent}
+.horizon-button{min-width:0;min-height:34px;padding:0 11px;border:0;border-radius:var(--r-pill);background:transparent;color:var(--text-muted);font-family:var(--font-sans);font-size:12px;font-weight:500;line-height:1.1;letter-spacing:0;white-space:nowrap}
 .horizon-button:hover{background:var(--surface-2);color:var(--text)}
 .horizon-button.is-selected{background:var(--accent);color:var(--on-accent);font-weight:600;box-shadow:none}
-.horizon-button.is-selected small{color:var(--on-accent);opacity:.75}
+.horizon-button small{display:block;margin-top:2px;font-size:10px;line-height:1;color:inherit;opacity:.72}
+.horizon-button.is-selected small{color:inherit;opacity:.75}
 
 /* Panel dan kartu melayang */
 .cell-detail,.legend-popover,.top-regions-panel{border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-float)}
@@ -54,6 +56,9 @@ a:focus-visible,button:focus-visible,select:focus-visible,[tabindex]:focus-visib
   .data-status{max-width:110px;font-size:11px}
   .header-sample{display:none}
   .map-stage{height:calc(100dvh - 96px)}
-  .horizon-button{padding:0 12px}
+  .map-control-stack>.horizon-control:not(.layer-control){max-width:calc(100vw - 24px)!important}
+  .horizon-options{grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .horizon-button{min-height:38px;padding:0 7px;font-size:11px}
+  .horizon-button small{font-size:9px}
   .cell-detail{padding:16px}
 }

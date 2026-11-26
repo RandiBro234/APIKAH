@@ -29,17 +29,19 @@ class ClimateParquetTests(unittest.TestCase):
         config.PROCESSED = self.root / "features_processed"
         config.METADATA = self.root / "metadata"
         config.LOGS = self.root / "metadata" / "logs"
+        config.COPERNICUS_PROCESSED = config.PROCESSED / "copernicus"
 
     def tearDown(self):
         config.STATIC = self.old_static
         config.PROCESSED = self.old_processed
         config.METADATA = self.old_metadata
         config.LOGS = self.old_logs
+        config.COPERNICUS_PROCESSED = config.FEATURES_PROCESSED / "copernicus"
         self.temp.cleanup()
 
     def test_write_climate_table_as_parquet(self):
         rows = [(2012, 1, 0.1), (2012, 2, 0.2)]
-        dest = config.PROCESSED / "climate_index" / "nino34.parquet"
+        dest = config.COPERNICUS_PROCESSED / "climate_index" / "nino34.parquet"
 
         write_climate_parquet("nino34", rows, dest)
 
@@ -63,7 +65,7 @@ class ClimateParquetTests(unittest.TestCase):
 
         get.assert_not_called()
         for name in config.ENSO_URLS:
-            dest = config.PROCESSED / "climate_index" / f"{name}.parquet"
+            dest = config.COPERNICUS_PROCESSED / "climate_index" / f"{name}.parquet"
             self.assertTrue(dest.is_file())
             self.assertEqual(len(pd.read_parquet(dest)), 12)
             self.assertEqual((source_dir / f"{name}.raw.txt").read_text(encoding="utf-8"), text)
@@ -95,7 +97,7 @@ class ClimateParquetTests(unittest.TestCase):
 
         self.assertCountEqual(calls, list(config.ENSO_URLS))
         for name in config.ENSO_URLS:
-            self.assertTrue((config.PROCESSED / "climate_index" / f"{name}.parquet").is_file())
+            self.assertTrue((config.COPERNICUS_PROCESSED / "climate_index" / f"{name}.parquet").is_file())
 
 
 if __name__ == "__main__":

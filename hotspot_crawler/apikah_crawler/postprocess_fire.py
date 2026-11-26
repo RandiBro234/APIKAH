@@ -3,7 +3,7 @@
     python postprocess_fire.py                  # semua bulan yang ada
     python postprocess_fire.py --from 2023-07 --to 2023-08
 
-Keluaran: data/features_processed/fire_daily/YYYY-MM.parquet
+Keluaran: data/features_processed/copernicus/fire_daily/YYYY-MM.parquet
 Kolom   : date, lat_c, lon_c, fwi, dc, dmc, kbdi
 
 DUA HAL YANG DIBUKTIKAN DARI BERKAS ASLI (2023-07), BUKAN DARI DOKUMENTASI:
@@ -106,7 +106,7 @@ def map_to_label_grid(arr: np.ndarray, cems_lat, cems_lon, label_lat, label_lon,
 # ---------------------------------------------------------------------- masukan
 def label_grid() -> tuple[np.ndarray, np.ndarray]:
     """Grid sel 0,25 derajat acuan (konvensi sama dengan label dan era5_daily)."""
-    src = config.PROCESSED / "era5_daily"
+    src = config.COPERNICUS_PROCESSED / "era5_daily"
     files = sorted(src.glob("*.parquet"))
     if files:
         d = pd.read_parquet(files[0], columns=["lat_c", "lon_c"]).drop_duplicates()
@@ -154,7 +154,7 @@ def process_month(year: int, month: int, lat: np.ndarray, lon: np.ndarray) -> bo
     import xarray as xr
 
     src = config.RAW / "cems_fire" / f"{year}-{month:02d}.nc"
-    dest = config.PROCESSED / "fire_daily" / f"{year}-{month:02d}.parquet"
+    dest = config.COPERNICUS_PROCESSED / "fire_daily" / f"{year}-{month:02d}.parquet"
     if done(dest):
         return True
     if not done(src):

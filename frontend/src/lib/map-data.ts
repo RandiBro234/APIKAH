@@ -16,8 +16,11 @@ export type RiskMapCollection = FeatureCollection<Polygon | MultiPolygon, RiskPr
 export type ProvinceFeature = FeatureCollection<MultiPolygon | Polygon, ProvinceProperties>['features'][number]
 export type ProvinceFeatureCollection = FeatureCollection<MultiPolygon | Polygon, ProvinceProperties>
 
-type SampleRiskFile = RiskFeatureCollection & {
+type RiskFile = RiskFeatureCollection & {
   aggregate?: RiskFeatureCollection
+  horizon?: string
+  prediction_date?: string
+  model_version?: string
 }
 
 // Approximate geodesic area of a polygon ring in hectares (planar approximation
@@ -48,9 +51,35 @@ async function readJson<T>(url: string): Promise<T> {
   return response.json() as Promise<T>
 }
 
+function modelHorizon(horizon: string): string {
+  return { d0: 'actual', d1: 'h1', d2: 'h2', d7: 'h7' }[horizon] ?? horizon
+}
+
+async function readRisk(horizon: string): Promise<RiskFile> {
+  const modelKey = modelHorizon(horizon)
+  try {
+    return await readJson<RiskFile>(`/data/risk_${modelKey}.geojson`)
+  } catch {
+    const sampleHorizon = horizon === 'd7' ? 'd3' : horizon
+    return readJson<RiskFile>(`/data/risk_${sampleHorizon}.sample.geojson`)
+  }
+}
+
+async function readMeta(): Promise<DataMeta> {
+  const meta = await readJson<Partial<DataMeta>>('/data/meta.json')
+  return {
+    generated_at: meta.generated_at ?? new Date(0).toISOString(),
+    data_hotspot_latest_at: meta.data_hotspot_latest_at ?? new Date(0).toISOString(),
+    model_version: meta.model_version ?? 'belum tersedia',
+    data_version: meta.data_version ?? 'belum tersedia',
+    stale_after_hours: meta.stale_after_hours ?? 24,
+    is_sample: meta.is_sample ?? meta.model_version?.toLowerCase() === 'contoh',
+  }
+}
+
 function enrichProvinces(
   provinces: ProvinceFeatureCollection,
-  sampleRisk: SampleRiskFile,
+  sampleRisk: RiskFile,
   horizon: string,
   fallbackToKabupaten: boolean,
 ): ProvinceFeatureCollection {
@@ -88,10 +117,10 @@ export async function loadMapBaseData(horizon: string): Promise<{
   meta: DataMeta
 }> {
   const [sampleRisk, hotspots, provinces, meta, kabupatenRisk] = await Promise.all([
-    readJson<SampleRiskFile>(`/data/risk_${horizon}.sample.geojson`),
-    readJson<HotspotFeatureCollection>('/data/hotspots_72h.sample.geojson'),
+    readRisk(horizon),
+    readJson<HotspotFeatureCollection>('/data/hotspots_72h.geojson').catch(() => readJson<HotspotFeatureCollection>('/data/hotspots_72h.sample.geojson')),
     readJson<ProvinceFeatureCollection>('/data/provinsi.geojson'),
-    readJson<DataMeta>('/data/meta.sample.json'),
+    readMeta(),
     readJson<KabupatenRiskFile>('/data/kabupaten_risk.json'),
   ])
 
@@ -117,10 +146,10 @@ export async function loadMapData(horizon: string): Promise<{
   meta: DataMeta
 }> {
   const [sampleRisk, hotspots, provinces, meta, kabupatenGeom, kabupatenRisk] = await Promise.all([
-    readJson<SampleRiskFile>(`/data/risk_${horizon}.sample.geojson`),
-    readJson<HotspotFeatureCollection>('/data/hotspots_72h.sample.geojson'),
+    readRisk(horizon),
+    readJson<HotspotFeatureCollection>('/data/hotspots_72h.geojson').catch(() => readJson<HotspotFeatureCollection>('/data/hotspots_72h.sample.geojson')),
     readJson<ProvinceFeatureCollection>('/data/provinsi.geojson'),
-    readJson<DataMeta>('/data/meta.sample.json'),
+    readMeta(),
     readJson<KabupatenFeatureCollection>('/data/kabupaten.geojson'),
     readJson<KabupatenRiskFile>('/data/kabupaten_risk.json'),
   ])

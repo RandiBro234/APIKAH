@@ -5,9 +5,9 @@
     python build_training_table.py --no-labels          # tabel fitur saja (untuk inferensi)
 
 Masukan
-    data/features_processed/era5_daily/YYYY-MM.parquet       16 kolom cuaca (OTORITATIF)
-    data/features_processed/fire_daily/YYYY-MM.parquet        4 indeks api CEMS
-    data/features_processed/features_daily/YYYY-MM.parquet   22 kolom turunan
+    data/features_processed/copernicus/era5_daily/YYYY-MM.parquet       16 kolom cuaca (OTORITATIF)
+    data/features_processed/copernicus/fire_daily/YYYY-MM.parquet        4 indeks api CEMS
+    data/features_processed/copernicus/features_daily/YYYY-MM.parquet   22 kolom turunan
         (12 kolom cuaca di berkas ini DIABAIKAN -- sudah diambil dari era5_daily,
          supaya tidak terhitung dua kali)
     data/features_processed/static_features.parquet          26 kolom statis (per sel, bila sudah ada)
@@ -124,7 +124,7 @@ def load_labels(start: date, end: date) -> pd.DataFrame:
 
 
 def load_static() -> pd.DataFrame:
-    p = config.PROCESSED / "static_features.parquet"
+    p = config.COPERNICUS_PROCESSED / "static_features.parquet"
     if not p.exists():
         log.warning("static_features.parquet belum ada -- kolom statis dilewati "
                     "(jalankan build_static_features.py dulu)")
@@ -136,17 +136,17 @@ def load_static() -> pd.DataFrame:
 # ------------------------------------------------------------------ penggabungan
 def merge_month(year: int, month: int, labels: pd.DataFrame, static: pd.DataFrame,
                 lag: int, pack_derived: list[str]) -> pd.DataFrame | None:
-    e = read_month(config.PROCESSED / "era5_daily", year, month)
+    e = read_month(config.COPERNICUS_PROCESSED / "era5_daily", year, month)
     if e.empty:
         log.warning("lewati %d-%02d: era5_daily belum ada", year, month)
         return None
-    f = read_month(config.PROCESSED / "fire_daily", year, month)
-    d = read_month(config.PROCESSED / "features_daily", year, month)
+    f = read_month(config.COPERNICUS_PROCESSED / "fire_daily", year, month)
+    d = read_month(config.COPERNICUS_PROCESSED / "features_daily", year, month)
 
     # Bulan sebelumnya sebagai konteks penggeseran (supaya hari pertama bulan tidak kosong).
     py, pm = prev_month(year, month)
-    e_prev = read_month(config.PROCESSED / "era5_daily", py, pm)
-    f_prev = read_month(config.PROCESSED / "fire_daily", py, pm)
+    e_prev = read_month(config.COPERNICUS_PROCESSED / "era5_daily", py, pm)
+    f_prev = read_month(config.COPERNICUS_PROCESSED / "fire_daily", py, pm)
 
     cuaca = [c for c in e.columns if c not in KEYS]
     api = [c for c in f.columns if c not in KEYS]
@@ -207,9 +207,9 @@ def main(argv=None) -> int:
     # tentukan kolom turunan sekali saja, dari berkas pertama yang ada
     pack_derived: list[str] = []
     for y, m in iter_months(args.start, args.end):
-        probe = read_month(config.PROCESSED / "features_daily", y, m)
+        probe = read_month(config.COPERNICUS_PROCESSED / "features_daily", y, m)
         if not probe.empty:
-            e = read_month(config.PROCESSED / "era5_daily", y, m)
+            e = read_month(config.COPERNICUS_PROCESSED / "era5_daily", y, m)
             semua = derived_columns(probe.columns, [c for c in e.columns if c not in KEYS])
             bocor = [c for c in CLIMATE_LEAKY if c in semua]
             pack_derived = [c for c in semua if c not in set(bocor)]

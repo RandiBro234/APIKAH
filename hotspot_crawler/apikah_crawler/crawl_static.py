@@ -54,7 +54,7 @@ def do_enso(dry: bool) -> None:
 
     for name, url in config.ENSO_URLS.items():
         raw = config.STATIC / "climate_index" / f"{name}.raw.txt"
-        dest = config.PROCESSED / "climate_index" / f"{name}.parquet"
+        dest = config.COPERNICUS_PROCESSED / "climate_index" / f"{name}.parquet"
         if dry:
             print("ENSO", name, url, "raw ->", raw, "Parquet ->", dest)
             continue

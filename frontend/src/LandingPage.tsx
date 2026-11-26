@@ -10,6 +10,7 @@ const HORIZONS = [
   { key: 'd0', label: 'Aktual' },
   { key: 'd1', label: 'Besok' },
   { key: 'd2', label: 'Lusa' },
+  { key: 'd7', label: 'Minggu depan' },
 ]
 
 const STATS = [
@@ -20,6 +21,11 @@ const STATS = [
 ]
 
 const LEVELS: RiskLevel[] = [1, 2, 3, 4]
+const NAV_ITEMS = [
+  { href: '#ringkasan', label: 'Ringkasan' },
+  { href: '#cara-kerja', label: 'Cara kerja' },
+  { href: '#fitur', label: 'Fitur' },
+] as const
 
 type Featured = { name: string; level: RiskLevel; drivers: string[] }
 
@@ -36,8 +42,12 @@ function useRevealOnScroll() {
         entry.target.classList.add('is-visible')
         observer.unobserve(entry.target)
       }
-    }, { threshold: 0.12 })
-    nodes.forEach((node) => observer.observe(node))
+    }, { threshold: 0.01, rootMargin: '0px 0px 80px 0px' })
+    nodes.forEach((node) => {
+      const rect = node.getBoundingClientRect()
+      if (rect.top < window.innerHeight && rect.bottom > 0) node.classList.add('is-visible')
+      else observer.observe(node)
+    })
     return () => observer.disconnect()
   }, [])
 }
@@ -53,10 +63,12 @@ const STEPS = [
   { num: '01', title: 'Kumpulkan data', text: 'Hotspot satelit, cuaca, dan kondisi lahan dikumpulkan setiap hari.' },
   { num: '02', title: 'Hitung risiko', text: 'Model belajar dari riwayat 2012-2026 untuk memperkirakan peluang hotspot muncul.' },
   { num: '03', title: 'Tentukan level', text: 'Skor diterjemahkan menjadi empat level yang mudah dibaca.' },
-  { num: '04', title: 'Tampilkan dan beri tahu', text: 'Peta, daftar wilayah, dan notifikasi Telegram sesuai lokasi.' },
+  { num: '04', title: 'Tampilkan di peta', text: 'Lihat level risiko per area pada dashboard. Informasi lain masih dalam pengembangan.' },
 ]
 
 export function LandingPage() {
+  const [activeSection, setActiveSection] = useState('ringkasan')
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const [horizon, setHorizon] = useState('d0')
   const [provinces, setProvinces] = useState<ProvinceFeature[] | null>(null)
   const [featured, setFeatured] = useState<Featured | null>(null)
@@ -84,30 +96,81 @@ export function LandingPage() {
     return () => { cancelled = true }
   }, [horizon])
 
+  useEffect(() => {
+    const sections = NAV_ITEMS
+      .map(({ href }) => document.querySelector<HTMLElement>(href))
+      .filter((section): section is HTMLElement => section !== null)
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+      if (visible) setActiveSection(visible.target.id)
+    }, { rootMargin: '-72px 0px -35% 0px', threshold: [0, 0.25, 0.6, 1] })
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <main className="dashboard landing-page">
       <header className="topbar lp-topbar">
         <a className="wordmark" href="/" aria-label="HOTSPOT.ID, beranda"><span className="wordmark-mark" aria-hidden="true" /><span>HOTSPOT.ID</span></a>
         <nav className="lp-links" aria-label="Bagian halaman">
-          <a className="lp-link" href="#ringkasan">Ringkasan</a>
-          <a className="lp-link" href="#cara-kerja">Cara kerja</a>
-          <a className="lp-link" href="#fitur">Fitur</a>
+          {NAV_ITEMS.map(({ href, label }) => {
+            const sectionId = href.slice(1)
+            return (
+              <a
+                className="lp-link"
+                href={href}
+                aria-current={activeSection === sectionId ? 'location' : undefined}
+                key={href}
+              >
+                {label}
+              </a>
+            )
+          })}
           <a className="lp-link" href="/metode">Metode</a>
         </nav>
         <div className="topbar-right">
           <a className="top-pill" href="/peta">Buka dashboard</a>
+          <button
+            className="lp-menu-toggle"
+            type="button"
+            aria-expanded={mobileNavOpen}
+            aria-controls="lp-mobile-nav"
+            onClick={() => setMobileNavOpen((open) => !open)}
+          >
+            Menu
+          </button>
         </div>
       </header>
+      <nav className="lp-mobile-nav" id="lp-mobile-nav" aria-label="Bagian halaman versi mobile" hidden={!mobileNavOpen}>
+          {NAV_ITEMS.map(({ href, label }) => {
+            const sectionId = href.slice(1)
+            return (
+              <a
+                className="lp-link"
+                href={href}
+                aria-current={activeSection === sectionId ? 'location' : undefined}
+                key={href}
+                onClick={() => setMobileNavOpen(false)}
+              >
+                {label}
+              </a>
+            )
+          })}
+          <a className="lp-link" href="/metode" onClick={() => setMobileNavOpen(false)}>Metode</a>
+      </nav>
 
       <section className="lp-hero" aria-labelledby="judul-utama">
           <div className="lp-hero-copy">
-            <h1 className="lp-h1" id="judul-utama">Tahu lebih dulu di mana risiko munculnya hotspot</h1>
-            <p className="lp-sub">Peringatan dini karhutla untuk seluruh Indonesia, 1 sampai 3 hari ke depan, dihitung dari data satelit dan cuaca.</p>
+            <p className="lp-eyebrow">Klasifikasi risiko wilayah</p>
+            <h1 className="lp-h1" id="judul-utama">Ketahui kabupaten/kota yang perlu diperhatikan lebih dulu</h1>
+            <p className="lp-sub">Sistem membaca pola hotspot, cuaca, dan kondisi lahan dari 2012 sampai 2026 untuk mengelompokkan status risiko wilayah pada horizon yang dipilih.</p>
             <div className="lp-actions">
-              <a className="lp-btn lp-btn-primary" href="/peta">Buka dashboard</a>
+              <a className="lp-btn lp-btn-primary" href="/peta">Buka peta wilayah</a>
               <a className="lp-btn lp-btn-secondary" href="#cara-kerja">Lihat cara kerja</a>
             </div>
-            <p className="lp-hero-note">Hotspot adalah deteksi satelit, bukan konfirmasi kebakaran.</p>
+            <p className="lp-hero-note">Status 0 sampai 3 menunjukkan tingkat risiko wilayah. Hotspot adalah deteksi satelit, bukan konfirmasi kebakaran.</p>
           </div>
 
           <div className="lp-hero-card">
@@ -119,10 +182,13 @@ export function LandingPage() {
                   </button>
                 ))}
               </div>
+              <span className="lp-horizon-note">Pilih periode untuk melihat klasifikasi wilayah</span>
             </div>
 
-            <div className="lp-card-map">
-              <MapPreview provinces={provinces} featured={featured} />
+            <div className="lp-card-map" aria-busy={provinces === null && !failed}>
+              {provinces === null && !failed && <p className="lp-card-state" role="status">Memuat pratinjau peta...</p>}
+              {failed && <p className="lp-card-state" role="alert">Pratinjau peta gagal dimuat. Muat ulang halaman untuk mencoba lagi.</p>}
+              {provinces && <MapPreview provinces={provinces} featured={featured} />}
             </div>
 
             <div className="lp-card-foot">
@@ -130,29 +196,30 @@ export function LandingPage() {
               <span className="lp-tag">Data contoh</span>
             </div>
 
-            {failed && <p className="lp-card-error">Data contoh gagal dimuat.</p>}
-            <p className="sr-only">Peta Indonesia dengan provinsi diwarnai menurut level risiko untuk periode yang dipilih. Legenda memuat arti warna dan rentang tiap level.</p>
+            <p className="sr-only">Peta wilayah Indonesia dengan provinsi diwarnai menurut status risiko untuk periode yang dipilih. Legenda memuat arti warna dan rentang tiap level.</p>
           </div>
       </section>
 
       <div className="lp-main">
         <section className="lp-section lp-summary" id="ringkasan" aria-labelledby="judul-ringkasan">
-          <div className="lp-reveal">
+          <div className="lp-section-head lp-summary-head lp-reveal">
             <p className="lp-eyebrow">Ringkasan</p>
             <h2 className="lp-h2" id="judul-ringkasan">Alat bantu keputusan untuk kesiapsiagaan</h2>
-            <p className="lp-body">Sistem ini memperkirakan risiko munculnya hotspot untuk area seluas sekitar 25 x 25 km, lalu menampilkannya sebagai empat level yang mudah dibaca. Ini bukan peringatan resmi dan bukan konfirmasi kebakaran.</p>
+            <p className="lp-body">Sistem memperkirakan risiko hotspot untuk area sekitar 25 × 25 km dan menampilkannya dalam empat level. Bukan peringatan resmi atau konfirmasi kebakaran.</p>
           </div>
-          <div className="lp-reveal">
-            <dl className="lp-stats">
-              {STATS.map((stat) => (
-                <div className="lp-stat" key={stat.value}>
-                  <dt className="lp-stat-label">{stat.label}</dt>
-                  <dd className="lp-stat-value">{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="lp-sources">Sumber data: NASA FIRMS untuk hotspot satelit, ERA5 untuk cuaca, geoBoundaries untuk batas wilayah.</p>
+          <div className="lp-summary-action lp-reveal">
+            <p>Mulai dari wilayah yang perlu diperhatikan lebih dulu.</p>
+            <a className="lp-card-link" href="/peta">Lihat peta risiko</a>
           </div>
+          <dl className="lp-stats lp-reveal">
+            {STATS.map((stat) => (
+              <div className="lp-stat" key={stat.value}>
+                <dd className="lp-stat-value">{stat.value}</dd>
+                <dt className="lp-stat-label">{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
+          <p className="lp-sources lp-reveal">Sumber: NASA FIRMS (hotspot satelit), ERA5 (cuaca), geoBoundaries (batas wilayah).</p>
         </section>
 
         <section className="lp-section" id="cara-kerja" aria-labelledby="judul-cara-kerja">
@@ -163,7 +230,7 @@ export function LandingPage() {
           <ol className="lp-steps">
             {STEPS.map((step, index) => (
               <li className="lp-step lp-reveal" key={step.num}>
-                <span className="lp-step-icon">{STEP_ICONS[index]}</span>
+                <div className="lp-step-icon">{STEP_ICONS[index]}</div>
                 <span className="lp-step-num">{step.num}</span>
                 <h3>{step.title}</h3>
                 <p>{step.text}</p>
@@ -190,85 +257,44 @@ export function LandingPage() {
             <p className="lp-eyebrow">Fitur</p>
             <h2 className="lp-h2" id="judul-fitur">Yang bisa kamu lakukan</h2>
           </div>
-          <div className="lp-bento">
-            <article className="lp-card lp-card-wide lp-reveal">
-              <span className="lp-badge lp-badge-live">Tersedia</span>
-              <h3>Peta risiko 1-3 hari</h3>
-              <p>Lihat level risiko tiap area, dari aktual sampai tiga hari ke depan.</p>
-              <div className="lp-mini">
-                <div className="lp-mini-strip" aria-hidden="true">
-                  {LEVELS.map((level) => <i key={level} style={{ background: `var(${RISK_LEVELS[level].colorToken})` }} />)}
-                </div>
-                <p>Contoh tampilan level: Rendah sampai Sangat tinggi.</p>
-              </div>
+          <div className="lp-feature-list">
+            <article className="lp-feature-primary lp-reveal">
+              <span className="lp-badge lp-badge-live">Bisa dicoba</span>
+              <h3>Peta risiko per wilayah</h3>
+              <p>Pilih periode aktual, besok, atau lusa untuk melihat perubahan level risiko. Buka dashboard untuk menjelajahi peta lebih lanjut.</p>
+              <a className="lp-card-link" href="/peta">Buka peta risiko</a>
             </article>
-
-            <article className="lp-card lp-reveal">
-              <span className="lp-badge">Segera</span>
-              <h3>Faktor pendorong per wilayah</h3>
-              <p>Alasan sebuah area berisiko, ditulis dengan kalimat sehari-hari.</p>
-              <div className="lp-mini">
-                <div className="lp-mini-quote"><span>Contoh: hujan rendah sepekan terakhir.</span><span>Contoh: lahan gambut kering.</span><span>Contoh: hotspot berulang di sekitar area.</span></div>
-              </div>
+            <article className="lp-feature-secondary lp-reveal">
+              <h3>Yang sedang dikembangkan</h3>
+              <ul>
+                <li>Faktor pendorong risiko per area</li>
+                <li>Peringkat wilayah</li>
+                <li>Notifikasi berdasarkan lokasi pantauan</li>
+              </ul>
             </article>
-
-            <article className="lp-card lp-reveal">
-              <span className="lp-badge">Segera</span>
-              <h3>Peringkat wilayah</h3>
-              <p>Daftar prioritas agar koordinasi tidak menebak.</p>
-              <div className="lp-mini">
-                <div className="lp-mini-row"><span>Contoh provinsi A</span><b>4</b></div>
-                <div className="lp-mini-row"><span>Contoh provinsi B</span><b>3</b></div>
-                <div className="lp-mini-row"><span>Contoh provinsi C</span><b>2</b></div>
-              </div>
-            </article>
-
-            <article className="lp-card lp-reveal">
-              <span className="lp-badge">Segera</span>
-              <h3>Perkiraan area terdampak</h3>
-              <p>Selalu berupa rentang, bukan satu angka pasti.</p>
-              <div className="lp-mini lp-range">
-                <span className="lp-range-flag">Perkiraan</span>
-                <span className="lp-range-track" aria-hidden="true"><i /></span>
-                <div className="lp-range-labels"><span>Contoh 120 ha</span><span>Contoh 340 ha</span></div>
-              </div>
-            </article>
-
-            <article className="lp-card lp-reveal">
-              <span className="lp-badge">Segera</span>
-              <h3>Notifikasi Telegram</h3>
-              <p>Peringatan singkat untuk wilayah yang kamu pantau.</p>
-              <div className="lp-mini">
-                <div className="lp-mini-quote">
-                  <span>Contoh pesan: Risiko Tinggi di wilayah pantauanmu untuk besok.</span>
-                </div>
-              </div>
-            </article>
-
-            <article className="lp-card lp-reveal">
-              <span className="lp-badge">Tersedia</span>
-              <h3>Metode dan transparansi</h3>
-              <p>Ambang level, sumber data, dan batasan sistem dijelaskan terbuka.</p>
-              <a className="lp-card-link" href="/metode">Buka halaman Metode</a>
+            <article className="lp-feature-method lp-reveal">
+              <h3>Metode dan batasan</h3>
+              <p>Sumber data, cara membaca level, dan keterbatasan sistem tersedia terbuka.</p>
+              <a className="lp-card-link" href="/metode">Baca metode</a>
             </article>
           </div>
         </section>
 
         <section className="lp-cta lp-reveal" aria-labelledby="judul-ajakan">
-          <h2 id="judul-ajakan">Lihat peta risiko hari ini</h2>
-          <p>Buka dashboard untuk melihat level risiko per area dan hotspot yang terdeteksi dalam 72 jam terakhir.</p>
-          <a className="lp-btn lp-btn-invert" href="/peta">Buka dashboard</a>
-        </section>
+            <h2 id="judul-ajakan">Lihat peta risiko hari ini</h2>
+            <p>Buka dashboard untuk melihat level risiko per area dan hotspot yang terdeteksi dalam 72 jam terakhir.</p>
+            <a className="lp-btn lp-btn-invert" href="/peta">Buka dashboard</a>
+          </section>
 
-        <footer className="lp-footer">
-          <p>Hotspot adalah deteksi satelit, bukan konfirmasi kebakaran. Sistem ini alat bantu keputusan, bukan peringatan resmi.</p>
-          <p>Sumber data: NASA FIRMS, ERA5, geoBoundaries.</p>
-          <div className="lp-footer-links">
-            <span className="lp-badge">Data contoh</span>
-            <a href="/metode">Metode</a>
-            <span>Projek Sistem Cerdas</span>
-          </div>
-        </footer>
+          <footer className="lp-footer">
+            <p>Hotspot adalah deteksi satelit, bukan konfirmasi kebakaran. Sistem ini alat bantu keputusan, bukan peringatan resmi.</p>
+            <p>Sumber data: NASA FIRMS, ERA5, geoBoundaries.</p>
+            <div className="lp-footer-links">
+              <span className="lp-badge">Data contoh</span>
+              <a href="/metode">Metode</a>
+              <span>Projek Sistem Cerdas</span>
+            </div>
+          </footer>
       </div>
     </main>
   )

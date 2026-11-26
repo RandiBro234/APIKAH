@@ -47,7 +47,7 @@ class DataMigrationTests(unittest.TestCase):
         self.assertEqual(got["static/mcd64a1/month.hdf"], "features_raw/nasa/mcd64a1/month.hdf")
         self.assertEqual(got["static/worldcover/tile.tif"], "features_raw/static/worldcover/tile.tif")
         self.assertEqual(got["processed/era5_daily/2022-12.parquet"],
-                         "features_processed/era5_daily/2022-12.parquet")
+                         "features_processed/copernicus/era5_daily/2022-12.parquet")
         self.assertEqual(got["logs/manifest_era5land.json"], "metadata/manifests/manifest_era5land.json")
         self.assertEqual(got["logs/crawl.log"], "metadata/logs/crawl.log")
 

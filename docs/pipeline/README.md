@@ -9,15 +9,15 @@ APIKAH/
 ├── data/
 │   ├── hotspot_indonesia/              # label area Indonesia (tracked)
 │   │   └── combined/                   # Parquet kanonis; CSV legacy terpotong
-│   ├── hotspot_raw/                    # label sumber (tracked)
+│   ├── hotspot_indonesia/raw/          # label sumber mentah (tracked)
 │   ├── features_raw/
-│   │   ├── copernicus/era5land/{instant,accum}/
+│   │   ├── copernicus/era5_land/{instant,accum}/
 │   │   ├── copernicus/cems_fire/
 │   │   ├── nasa/mcd64a1/
 │   │   └── static/{boundaries,climate_index,dem,hansen,osm,peatlands,worldcover,worldpop}/
 │   ├── features_processed/
-│   │   ├── era5_daily/  ├── fire_daily/  ├── climate_index/
-│   │   ├── static/      ├── features_daily/  └── training/
+│   │   ├── copernicus/{era5_daily,fire_daily,climate_index,features_daily,static_features.parquet}
+│   │   ├── nasa/        └── training/
 │   └── metadata/{manifests,logs,locks}/
 ├── hotspot_crawler/
 │   ├── apikah_crawler/                 # implementasi package
@@ -28,10 +28,49 @@ APIKAH/
 
 Semua path keluaran ditentukan dari lokasi package, bukan current working directory. Jalankan command dari `APIKAH/hotspot_crawler/` agar wrapper dan package ditemukan.
 
+## Indeks fungsi crawler
+
+Implementasi utama berada di `hotspot_crawler/apikah_crawler/`. File `.py` yang langsung berada di `hotspot_crawler/` adalah wrapper kompatibilitas; wrapper meneruskan perintah ke package dan sengaja dipertahankan.
+
+| Kelompok | Modul | Fungsi |
+|---|---|---|
+| Konfigurasi | `config.py` | Menentukan root proyek, lokasi data, metadata, dan parameter path |
+| Utilitas | `common.py` | Download aman, lock, manifest, validasi, dan utilitas grid |
+| Crawler | `crawl_copernicus.py` | Mengambil ERA5-Land dan CEMS Fire |
+| Crawler | `crawl_static.py` | Mengambil data statis, indeks iklim, dan sumber pendukung |
+| Postprocess | `postprocess_era5.py` | Mengubah ERA5-Land mentah menjadi tabel harian Parquet |
+| Postprocess | `postprocess_fire.py` | Mengubah CEMS Fire mentah menjadi tabel harian Parquet |
+| Fitur | `build_static_features.py` | Membuat fitur statis per grid |
+| Fitur | `build_derived_features.py` | Membuat fitur turunan cuaca, kekeringan, dan indeks iklim |
+| Training | `build_training_table.py` | Menggabungkan tabel menjadi dataset siap modeling |
+| Validasi | `verify_params.py` | Memeriksa parameter terhadap katalog resmi API |
+| Validasi | `preflight.py` | Memeriksa endpoint dan kredensial sebelum crawling |
+| Validasi | `verify_data.py` | Memeriksa kelengkapan dan checksum data mentah |
+| Operasional | `report_manifest.py` | Membaca dan merangkum status manifest |
+| Operasional | `migrate_data_layout.py` | Merencanakan atau menerapkan migrasi layout data |
+| Pengujian | `smoke_static.py` | Menjalankan pemeriksaan cepat fitur statis sintetis |
+| Data iklim | `climate_tables.py` | Menulis dan membaca tabel indeks iklim Parquet |
+
+### Urutan kerja
+
+```text
+verify_params + preflight
+        ↓
+crawl_copernicus / crawl_static
+        ↓
+postprocess_era5 + postprocess_fire
+        ↓
+build_static_features + build_derived_features
+        ↓
+build_training_table
+```
+
+`tests/` menguji modul package. Jangan mengedit wrapper untuk memperbaiki logika; ubah modul dengan nama sama di `apikah_crawler/`.
+
 ## Format data
 
 - Pertahankan sumber grid/vektor dalam format aslinya: ERA5/CEMS `.nc`, MCD64A1 `.hdf`, raster `.tif`, OSM `.pbf`, dan GeoJSON.
-- Tabel tabular yang sudah diparse/diolah disimpan sebagai Parquet. Climate-index NOAA yang dipakai pipeline tersedia di `data/features_processed/climate_index/{nino34,dmi}.parquet`; sumber teks `.raw.txt` tetap di `features_raw` untuk provenance.
+- Tabel tabular yang sudah diparse/diolah disimpan sebagai Parquet. Climate-index NOAA yang dipakai pipeline tersedia di `data/features_processed/copernicus/climate_index/{nino34,dmi}.parquet`; sumber teks `.raw.txt` tetap di `features_raw` untuk provenance.
 - ERA5/CEMS sudah memiliki processor menuju Parquet (`postprocess_era5.py`, `postprocess_fire.py`); raster statis masuk ke `static_features.parquet`. Feature builder membuat `features_daily` dan tabel training.
 - MCD64A1 untuk saat ini **hanya data mentah**; belum ada processor burned-area. Job `burned` memakai lock direktori dan skip hanya jika fingerprint query serta semua nama granula HDF yang diharapkan ada sebagai file lokal non-kosong.
 - CSV gabungan hotspot legacy hanya berisi 1.048.575 baris; Parquet gabungan berisi 3.941.038. Gunakan Parquet untuk analisis lengkap; CSV dipertahankan sebagai file historis/kompatibilitas.
@@ -110,7 +149,7 @@ Pembagiannya:
 
 | Arsip Drive | Ukuran | Isi |
 |---|---|---|
-| `copernicus.zip` | 7,16 GB | `era5land/{instant,accum}`, `cems_fire` (531 `.nc`) |
+| `copernicus.zip` | 7,16 GB | `era5_land/{instant,accum}`, `cems_fire` (531 `.nc`) |
 | `nasa.zip` | 4,07 GB | `mcd64a1` (2.992 `.hdf`) |
 | `static.zip` | 5,68 GB | hansen, worldcover, dem, osm, boundaries, peatlands (612 berkas) |
 
