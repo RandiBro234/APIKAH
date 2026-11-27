@@ -1,4 +1,4 @@
-import { Component, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Component, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import * as maplibregl from 'maplibre-gl'
 import type { GeoJSONSource, Map as MapLibreMap, MapGeoJSONFeature, MapMouseEvent } from 'maplibre-gl'
 import type { Geometry, Point } from 'geojson'
@@ -38,6 +38,7 @@ const HOTSPOT_SOURCE = 'hotspot-observation-source'
 const HOTSPOT_CIRCLE = 'hotspot-observation-circles'
 const HOTSPOT_CLUSTER = 'hotspot-cluster-circles'
 const HOTSPOT_CLUSTER_COUNT = 'hotspot-cluster-count'
+const HOTSPOT_DENSITY_PULSE = 'hotspot-density-pulse'
 const NATIONAL_BOUNDS: [[number, number], [number, number]] = [[94.5, -11.5], [141.5, 6.5]]
 maplibregl.setWorkerUrl(new URL('maplibre-gl/dist/maplibre-gl-worker.mjs', import.meta.url).toString())
 const levelNames = ['RENDAH', 'SEDANG', 'TINGGI', 'SANGAT TINGGI'] as const
@@ -51,7 +52,7 @@ type ProvinceHoverProperties = Pick<
 type ProvinceHover = { properties: ProvinceHoverProperties; point: [number, number] }
 type SelectedProvince = { properties: ProvinceProperties; geometry: Geometry }
 type SelectedRiskCell = { properties: RiskProperties; point: [number, number] }
-type HotspotPulse = { id: string; x: number; y: number }
+type HotspotPulse = { id: string; x: number; y: number; count: number }
 
 type MapLayers = {
   risk: import('./lib/map-data').RiskMapCollection
@@ -286,6 +287,7 @@ function MapView({ layers, dataState, layerVisibility, selectedProvince, externa
       if (!map.getLayer(PROVINCE_HOVER)) map.addLayer({ id: PROVINCE_HOVER, type: 'line', source: PROVINCE_SOURCE, layout: { 'line-join': 'round' }, paint: { 'line-color': tokenValue('--text'), 'line-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3.5, ['boolean', ['feature-state', 'hover'], false], 2.5, 0] as never, 'line-width-transition': { duration: 180, delay: 0 } } })
        if (!map.getLayer(HOTSPOT_CLUSTER)) map.addLayer({ id: HOTSPOT_CLUSTER, type: 'circle', source: HOTSPOT_SOURCE, filter: ['has', 'point_count'], paint: { 'circle-color': '#ef4444', 'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 1, 10, 10, 14, 50, 18, 200, 22], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2 } })
       if (!map.getLayer(HOTSPOT_CLUSTER_COUNT)) map.addLayer({ id: HOTSPOT_CLUSTER_COUNT, type: 'symbol', source: HOTSPOT_SOURCE, filter: ['has', 'point_count'], layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-font': ['Open Sans Semibold'], 'text-size': 11, 'text-allow-overlap': true, 'text-ignore-placement': true }, paint: { 'text-color': tokenValue('--on-accent') } })
+       if (!map.getLayer(HOTSPOT_DENSITY_PULSE)) map.addLayer({ id: HOTSPOT_DENSITY_PULSE, type: 'circle', source: HOTSPOT_SOURCE, filter: ['all', ['!', ['has', 'point_count']], ['==', ['get', 'density'], 'high']], paint: { 'circle-radius': ['interpolate', ['linear'], ['get', 'frp'], 0, 6, 100, 10], 'circle-color': '#00000000', 'circle-stroke-color': '#FF2D3D', 'circle-stroke-width': 1.5, 'circle-opacity': 0.8 } })
        if (!map.getLayer(HOTSPOT_CIRCLE)) map.addLayer({ id: HOTSPOT_CIRCLE, type: 'circle', source: HOTSPOT_SOURCE, filter: ['!', ['has', 'point_count']], paint: { 'circle-radius': ['interpolate', ['linear'], ['get', 'frp'], 0, 3, 100, 7], 'circle-color': '#ef4444', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 1.25 } })
 
       for (const id of [PROVINCE_FILL, PROVINCE_EXTRUDE, PROVINCE_LINE, PROVINCE_HOVER]) {
@@ -294,8 +296,9 @@ function MapView({ layers, dataState, layerVisibility, selectedProvince, externa
       map.setLayoutProperty(RISK_FILL, 'visibility', 'none')
       map.setLayoutProperty(RISK_LINE, 'visibility', 'none')
       map.setLayoutProperty(HOTSPOT_CLUSTER, 'visibility', 'none')
-      map.setLayoutProperty(HOTSPOT_CLUSTER_COUNT, 'visibility', 'none')
-      map.setLayoutProperty(HOTSPOT_CIRCLE, 'visibility', 'none')
+map.setLayoutProperty(HOTSPOT_CLUSTER_COUNT, 'visibility', 'none')
+       map.setLayoutProperty(HOTSPOT_DENSITY_PULSE, 'visibility', 'none')
+       map.setLayoutProperty(HOTSPOT_CIRCLE, 'visibility', 'none')
     }
   }, [])
 
@@ -320,8 +323,9 @@ function MapView({ layers, dataState, layerVisibility, selectedProvince, externa
       if (map.getLayer(PROVINCE_FILL)) map.setPaintProperty(PROVINCE_FILL, 'fill-opacity', layerVisibility.risk ? (layerVisibility.satellite ? 0.5 : 0.9) : 0)
       if (map.getLayer(PROVINCE_EXTRUDE)) map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-opacity', layerVisibility.risk ? (layerVisibility.satellite ? 0.35 : 0.85) : 0)
      setVisibility(HOTSPOT_CLUSTER, layerVisibility.hotspots)
-     setVisibility(HOTSPOT_CLUSTER_COUNT, layerVisibility.hotspots)
-     setVisibility(HOTSPOT_CIRCLE, layerVisibility.hotspots)
+setVisibility(HOTSPOT_CLUSTER_COUNT, layerVisibility.hotspots)
+      setVisibility(HOTSPOT_DENSITY_PULSE, layerVisibility.hotspots)
+      setVisibility(HOTSPOT_CIRCLE, layerVisibility.hotspots)
     const provinceSource = map.getSource(PROVINCE_SOURCE) as GeoJSONSource | undefined
     const hotspotSource = map.getSource(HOTSPOT_SOURCE) as GeoJSONSource | undefined
     if (provinceSource) provinceSource.setData(layers.provinces)
@@ -337,16 +341,16 @@ function MapView({ layers, dataState, layerVisibility, selectedProvince, externa
     let frame = 0
     const update = () => {
       frame = 0
-      if (!map.getLayer(HOTSPOT_CIRCLE)) {
+      if (!map.getLayer(HOTSPOT_CIRCLE) || !layerVisibility.hotspots) {
         setHotspotPulses([])
         return
       }
-       const pulses = map.queryRenderedFeatures({ layers: [HOTSPOT_CLUSTER] })
-         .filter((feature) => feature.geometry.type === 'Point' && Number(feature.properties?.point_count ?? 0) >= 10)
+const pulses = map.queryRenderedFeatures({ layers: [HOTSPOT_DENSITY_PULSE] })
+          .filter((feature) => feature.geometry.type === 'Point')
          .map((feature, index) => {
            const geometry = feature.geometry as Point
            const point = map.project(geometry.coordinates as [number, number])
-           return { id: `cluster-${feature.properties?.cluster_id ?? index}`, x: point.x, y: point.y }
+           return { id: `density-${feature.id ?? index}`, x: point.x, y: point.y, count: Number(feature.properties?.frp ?? 0) }
          })
       setHotspotPulses(pulses)
     }
@@ -363,9 +367,9 @@ function MapView({ layers, dataState, layerVisibility, selectedProvince, externa
       map.off('zoom', schedule)
       map.off('idle', schedule)
     }
-  }, [layers, mapState])
+  }, [layers, mapState, layerVisibility.hotspots])
 
-  useEffect(() => {
+   useEffect(() => {
     const map = mapRef.current
     if (!map || mapState !== 'ready') return
 
@@ -462,7 +466,7 @@ function MapView({ layers, dataState, layerVisibility, selectedProvince, externa
     <div className="map-root">
       <div ref={containerRef} className="map-canvas" role="application" aria-label="Peta risiko provinsi. Gunakan tombol tab untuk memilih periode. Klik provinsi untuk memilih." />
       <div className="hotspot-pulse-layer" aria-hidden="true">
-        {hotspotPulses.map((pulse) => <span key={pulse.id} className="hotspot-pulse" style={{ left: pulse.x, top: pulse.y }} />)}
+        {hotspotPulses.map((pulse) => <span key={pulse.id} className="hotspot-pulse" style={{ left: pulse.x, top: pulse.y, '--pulse-scale': Math.min(2.2, 1 + pulse.count / 40) } as CSSProperties} aria-label={`${pulse.count} hotspot dalam cluster`} />)}
       </div>
       {mapState !== 'ready' && (
         <div className="map-state" role="status" aria-live="polite">
@@ -781,7 +785,7 @@ function App() {
         </div>
       </section>
 
-      <span className="sr-only" aria-live="polite">Peta {HORIZONS.find((item) => item.key === horizon)?.label} dipilih{selectedProvince ? `, ${selectedProvince.properties.province} dipilih` : ''}.</span>
+      {meta?.is_sample && <span className="sample-tag map-sample-tag">DATA CONTOH · TITIK HOTSPOT SIMULASI</span>}<span className="sr-only" aria-live="polite">Peta {HORIZONS.find((item) => item.key === horizon)?.label} dipilih{selectedProvince ? `, ${selectedProvince.properties.province} dipilih` : ''}.</span>
     </main>
   )
 }

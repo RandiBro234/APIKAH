@@ -19,6 +19,8 @@ export type HotspotProperties = {
   time_local: string
   confidence: 'l' | 'n' | 'h'
   frp: number
+  density?: 'high' | 'normal'
+  is_mock?: boolean
 }
 
 export type RiskFeatureCollection = FeatureCollection<Polygon, RiskProperties>
