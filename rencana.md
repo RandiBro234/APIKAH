@@ -124,10 +124,129 @@ bukan ERA5-Land masa depan yang belum tersedia.
 Gunakan **Windows Task Scheduler** untuk menjalankan pipeline harian. Tidak perlu
 proses server hidup; cocok untuk laptop.
 
+### Integrasi hasil model dengan backend FastAPI dan frontend
+
+Model prediksi dikerjakan oleh anggota tim lain. Backend FastAPI tidak melatih
+model; tugasnya menerima hasil model, menyimpan atau membacanya, lalu menyediakan
+hasil yang sama kepada frontend dan layanan notifikasi.
+
+#### Alur sederhana
+
+```text
+NASA FIRMS + data cuaca
+        ↓
+proses data dan model prediksi (anggota tim model)
+        ↓ hasil H+1, H+2, H+7
+backend FastAPI
+        ├── menyediakan prediksi untuk dashboard
+        └── nanti memeriksa ambang dan mengirim notifikasi Telegram
+        ↓
+frontend React menampilkan hasil sesuai wilayah pilihan user
+```
+
+Untuk tahap awal, kerjakan hasil **Besok (H+1)** di halaman Peringatan. H+2 dan
+H+7 tetap tersedia untuk peta bila hasil model sudah siap. Frontend tidak
+menghitung atau menebak risiko sendiri; frontend hanya meminta dan menampilkan
+hasil dari backend.
+
+#### Bagian yang dikerjakan tiap anggota
+
+- **Anggota model**: menghasilkan prediksi per wilayah dan horizon, beserta
+  tanggal prediksi, skor/probabilitas, level risiko, dan versi model.
+- **Backend FastAPI**: menerima atau membaca hasil model, menyediakan API untuk
+  frontend, dan memeriksa apakah data masih baru. Token Telegram hanya disimpan
+  di backend, bukan di frontend atau Git.
+- **Frontend React**: mengirim pilihan wilayah dan horizon ke API, lalu
+  menampilkan hasil, waktu pembaruan, status data, serta pesan saat data belum
+  tersedia atau gagal dimuat.
+
+#### Kontrak hasil prediksi
+
+Sebelum menghubungkan kode, sepakati satu bentuk data. Contoh berikut hanya
+contoh format, bukan hasil prediksi nyata:
+
+```json
+{
+  "region_id": "IDN-ADM2-0063",
+  "region_name": "Bojonegoro",
+  "province": "Jawa Timur",
+  "horizon": "h1",
+  "prediction_date": "2026-11-29",
+  "risk_level": 3,
+  "probability": 0.42,
+  "drivers": ["curah hujan rendah", "riwayat hotspot meningkat"],
+  "generated_at": "2026-11-28T03:30:00Z",
+  "model_version": "v0.1"
+}
+```
+
+Arti field: `region_id` adalah ID wilayah yang stabil dan sama dengan ID di
+frontend; `horizon` bernilai `h1`, `h2`, atau `h7`; `risk_level` bernilai 1-4;
+`probability` bernilai 0-1; `drivers` berisi alasan dari model bila tersedia;
+`generated_at` adalah waktu hasil dibuat dalam UTC. `drivers` tidak wajib untuk
+rilis awal. Jangan mengirim field buatan atau menampilkan nilai contoh sebagai
+hasil operasional.
+
+#### Endpoint backend yang direncanakan
+
+- `GET /api/predictions?region_id=IDN-ADM2-0063&horizon=h1`: ambil prediksi
+  satu wilayah untuk horizon yang diminta. Balas data prediksi di atas, atau
+  status belum tersedia bila model belum menghasilkan data.
+- `GET /api/regions`: ambil daftar ID, nama kabupaten/kota, dan provinsinya,
+  bila frontend nantinya tidak lagi memakai daftar lokal.
+- `GET /health`: cek apakah backend dapat dijangkau.
+
+Endpoint pengiriman data model diperlukan hanya bila hasilnya dikirim langsung
+ke FastAPI. Pilih salah satu cara bersama anggota model:
+
+1. Backend membaca file hasil model dari lokasi yang disepakati; sederhana untuk
+   prototipe di satu mesin.
+2. Proses model mengirim hasil ke endpoint internal FastAPI, misalnya
+   `POST /api/internal/predictions`; lindungi endpoint ini dengan autentikasi
+   layanan dan jangan buka untuk publik.
+
+Jangan membuat dua sumber hasil yang berbeda. Tetapkan satu cara dan satu format
+sebelum integrasi.
+
+#### Tampilan dan arti data di halaman Peringatan
+
+- User memilih provinsi, lalu kabupaten/kota. Pilihan manual tetap tersedia dan
+  lokasi GPS tidak diminta otomatis.
+- Bagian utama menampilkan **risiko munculnya hotspot besok** dari model untuk
+  wilayah pilihan, jika memang model menyediakan hasil pada tingkat tersebut.
+- Tampilkan level risiko, probabilitas atau skor sesuai definisi model, tanggal
+  prediksi, waktu hasil dibuat, dan versi model. Jangan menyamakan probabilitas
+  dengan kepastian kebakaran.
+- Jika model hanya menghasilkan prediksi tingkat provinsi atau grid, beri label
+  tingkat data sebenarnya. Jangan menyebutnya prediksi kabupaten. Untuk nilai
+  kabupaten hasil agregasi grid, tampilkan juga cakupan sel yang dipakai.
+- Faktor risiko hanya ditampilkan bila disediakan model atau analisis yang
+  disepakati. Jangan menyimpulkan penyebab dari angka hotspot saja.
+- Jika prediksi belum ada, data gagal dimuat, atau sudah basi, tampilkan status
+  tersebut dengan jelas. Jangan menggantinya diam-diam dengan data contoh.
+- Hotspot NASA FIRMS tetap menjadi bagian **kondisi teramati**, terpisah dari
+  **risiko prediksi**. Jumlah hotspot dihitung dari titik yang masuk ke geometri
+  wilayah pilihan. Selalu tampilkan waktu sumber dan catatan: “Hotspot adalah
+  deteksi satelit, bukan konfirmasi kebakaran.”
+
+#### Tahapan integrasi
+
+1. Anggota model dan backend menyepakati ID wilayah, horizon, nama field, zona
+   waktu, dan cara mengirim atau membaca hasil.
+2. Uji satu hasil H+1 untuk satu wilayah, lalu pastikan ID-nya cocok dengan
+   pilihan di frontend.
+3. Sambungkan halaman Peringatan ke `GET /api/predictions` dan buat tampilan
+   memuat, berhasil, kosong, gagal, serta data basi.
+4. Cocokkan angka di halaman dengan file atau layanan sumber sebelum menyalakan
+   penggunaan operasional.
+5. Setelah alur prediksi stabil, baru sambungkan preferensi wilayah dan ambang
+   user ke pengiriman Telegram terjadwal.
+
 ### Keputusan yang ditunda
 
-- Mekanisme publish output ke frontend.
-- Format manifest harian dan aturan pemulihan saat input tidak lengkap.
+- Lokasi dan format final file hasil model.
+- Apakah hasil model dibaca dari file atau dikirim ke FastAPI.
+- Nama field final dan definisi apakah nilai utama adalah skor atau probabilitas.
 - Sumber prakiraan cuaca untuk fitur H+1, H+2, dan H+7.
 - Pengelompokan titik hotspot menjadi cluster; tahap awal memakai titik individual.
 
