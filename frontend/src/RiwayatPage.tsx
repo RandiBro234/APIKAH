@@ -13,13 +13,21 @@ const yearPeaks = [
   { year: 2023, count: 250000, elNino: true },
 ]
 
-const concentration = [
-  { share: '50%', cells: 290 },
-  { share: '80%', cells: 828 },
-  { share: '95%', cells: 1541 },
+const islandShares = [
+  { island: 'Kalimantan', share: 37.1 },
+  { island: 'Sumatera', share: 31.8 },
+  { island: 'Maluku & Papua', share: 10.6 },
+  { island: 'Bali & Nusa Tenggara', share: 9.0 },
+  { island: 'Sulawesi', share: 6.9 },
+  { island: 'Jawa', share: 4.6 },
 ]
 
-const totalCells = 3267
+const totalDetections = 3941038
+const daytimeShare = 66
+const nighttimeShare = 34
+const highConfidenceShare = 3.16
+const formatPercent = (value: number) => `${value.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`
+const formatPercent2 = (value: number) => `${value.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`
 const maxMonthly = Math.max(...monthlyPattern.map((m) => m.rate))
 const maxYearCount = Math.max(...yearPeaks.map((y) => y.count))
 
@@ -35,32 +43,32 @@ export function RiwayatPage() {
           <a className="nav-tab" href="/">Beranda</a>
           <a className="nav-tab" href="/peta">Peta</a>
           <a className="nav-tab" href="/wilayah">Wilayah</a>
+          <a className="nav-tab" href="/peringatan">Peringatan</a>
           <a className="nav-tab nav-active" href="/riwayat" aria-current="page">Riwayat</a>
-          <a className="nav-tab" href="/metode">Metode</a>
         </nav>
-        <span className="sample-label method-sample">Data contoh</span>
+          <span className="sample-label method-sample">EDA NASA FIRMS</span>
       </header>
 
       <section className="method-content" aria-labelledby="riwayat-title">
         <div className="method-intro">
           <span className="eyebrow">RIWAYAT DAN TREN</span>
-          <h1 id="riwayat-title">Pola musiman dan tahun El Niño</h1>
-          <p>Ringkasan analisis data historis hotspot Indonesia, 20 Jan 2012 sampai 30 Sep 2026 (3.941.038 deteksi, NASA FIRMS VIIRS). Konteks waktu untuk membaca risiko saat ini.</p>
+          <h1 id="riwayat-title">Apa yang terlihat dari data hotspot?</h1>
+          <p>Eksplorasi 3.941.038 deteksi NASA FIRMS VIIRS di Indonesia, 20 Jan 2012 sampai 30 Sep 2026. Angka menggambarkan deteksi satelit, bukan jumlah kebakaran terkonfirmasi.</p>
         </div>
 
-        <section className="method-warning" aria-label="Catatan pembacaan data">
+        <section className="method-warning" aria-label="Batasan analisis">
           <span className="method-warning-mark" aria-hidden="true">i</span>
           <div>
-            <strong>TIDAK ADA TREN JANGKA PANJANG YANG SIGNIFIKAN</strong>
-            <p>Variasi antar tahun dipengaruhi kondisi iklim. Riwayat memberi konteks musiman, bukan jaminan kejadian.</p>
+            <strong>TREN JANGKA PANJANG BELUM SIGNIFIKAN</strong>
+            <p>Uji pada data historis belum membedakan tren jangka panjang dari variasi antar musim. Riwayat memberi konteks, bukan jaminan kejadian.</p>
           </div>
         </section>
 
         <section className="method-block" aria-labelledby="musiman-title">
           <div className="method-block-heading">
             <span className="eyebrow">POLA MUSIMAN</span>
-            <h2 id="musiman-title">Risiko memuncak di musim kemarau</h2>
-            <p>Laju dasar kejadian "ada hotspot dalam 1-3 hari" rata-rata 9,9%. Terendah Desember (3,4%), memuncak September (23,7%).</p>
+            <h2 id="musiman-title">Deteksi paling sering pada Agustus sampai Oktober</h2>
+            <p>Tiga bulan ini menyumbang 70,7% dari seluruh deteksi pada dataset. September menjadi puncak; ini pola historis, bukan kepastian untuk tahun berikutnya.</p>
           </div>
           <div className="riwayat-chart" role="img" aria-label="Grafik batang laju hotspot per bulan, puncak September 23,7 persen">
             {monthlyPattern.map((item) => (
@@ -76,8 +84,8 @@ export function RiwayatPage() {
         <section className="method-block" aria-labelledby="tahunan-title">
           <div className="method-block-heading">
             <span className="eyebrow">PERBANDINGAN TAHUNAN</span>
-            <h2 id="tahunan-title">Tahun El Niño lebih parah</h2>
-            <p>Puncak deteksi tahunan. Tahun El Niño (2015, 2019, 2023) ditandai khusus; 2015 adalah tahun terparah.</p>
+            <h2 id="tahunan-title">Jumlah deteksi berubah tajam antar tahun</h2>
+            <p>2015 menjadi tahun tertinggi pada rentang yang dianalisis. 2026 hanya mencakup Januari sampai September.</p>
           </div>
           <ul className="riwayat-year-list">
             {yearPeaks.map((year) => (
@@ -93,21 +101,26 @@ export function RiwayatPage() {
           </ul>
         </section>
 
-        <section className="method-block" aria-labelledby="konsentrasi-title">
+        <section className="method-block" aria-labelledby="pulau-title">
           <div className="method-block-heading">
-            <span className="eyebrow">KONSENTRASI WILAYAH</span>
-            <h2 id="konsentrasi-title">Risiko menumpuk di sedikit titik</h2>
-            <p>Dari {totalCells.toLocaleString('id-ID')} titik aktif, sebagian besar hotspot terkonsentrasi pada sebagian kecil wilayah — dasar logika prioritas di tab WILAYAH.</p>
+            <span className="eyebrow">SEBARAN PER PULAU</span>
+            <h2 id="pulau-title">Kalimantan dan Sumatera menyumbang porsi terbesar</h2>
+            <p>Persentase dari 3.941.038 deteksi di seluruh rentang dataset.</p>
+          </div>
+          <ul className="riwayat-year-list">{islandShares.map((item) => <li className="riwayat-year-row" key={item.island}><span className="riwayat-year-label"><strong>{item.island}</strong></span><span className="riwayat-year-track" aria-hidden="true"><i style={{ width: `${item.share}%` }} /></span><span className="riwayat-year-value">{formatPercent(item.share)}</span></li>)}</ul>
+        </section>
+
+        <section className="method-block" aria-labelledby="waktu-title">
+          <div className="method-block-heading">
+            <span className="eyebrow">WAKTU DETEKSI</span>
+            <h2 id="waktu-title">Satelit mendeteksi hotspot siang dan malam</h2>
+            <p>Kolom siang/malam memberi konteks waktu pengamatan, bukan waktu pasti api mulai muncul.</p>
           </div>
           <ul className="riwayat-conc-list">
-            {concentration.map((item) => (
-              <li className="riwayat-conc-row" key={item.share}>
-                <strong>{item.share} hotspot</strong>
-                <span>berasal dari <b>{item.cells.toLocaleString('id-ID')}</b> titik ({Math.round((item.cells / totalCells) * 100)}% wilayah)</span>
-              </li>
-            ))}
+            <li className="riwayat-conc-row"><strong>Siang · {daytimeShare}%</strong><span>{Math.round(totalDetections * daytimeShare / 100).toLocaleString('id-ID')} deteksi pada lintasan siang.</span></li>
+            <li className="riwayat-conc-row"><strong>Malam · {nighttimeShare}%</strong><span>{Math.round(totalDetections * nighttimeShare / 100).toLocaleString('id-ID')} deteksi pada lintasan malam.</span></li>
+            <li className="riwayat-conc-row"><strong>Confidence tinggi · {formatPercent2(highConfidenceShare)}</strong><span>Sebagian besar deteksi tercatat dengan confidence nominal; confidence bukan ukuran luas kebakaran.</span></li>
           </ul>
-          <a className="riwayat-link" href="/wilayah">LIHAT PRIORITAS WILAYAH</a>
         </section>
 
         <section className="method-block data-block" aria-labelledby="catatan-title">
@@ -116,10 +129,10 @@ export function RiwayatPage() {
             <h2 id="catatan-title">Cara membaca angka ini</h2>
           </div>
           <ul className="source-list">
-            <li><strong>Sumber</strong><span>NASA FIRMS VIIRS (SNPP dan NOAA-20), 2012 sampai Sep 2026, hanya di dalam Indonesia.</span></li>
-            <li><strong>Waktu</strong><span>Tanggal UTC berbeda dari tanggal lokal pada 34% catatan; label memakai tanggal lokal (waktu surya).</span></li>
-            <li><strong>Arti hotspot</strong><span>Deteksi satelit, bukan konfirmasi kebakaran. Angka historis adalah konteks, bukan prediksi.</span></li>
-            <li><strong>Model operasional</strong><span>Belum terhubung; metrik evaluasi per tahun dijelaskan di halaman METODE.</span></li>
+            <li><strong>Sumber</strong><span>NASA FIRMS VIIRS (SNPP dan NOAA-20), 20 Jan 2012 sampai 30 Sep 2026, hanya titik dalam Indonesia.</span></li>
+            <li><strong>Waktu</strong><span>Waktu akuisisi di sumber memakai UTC. Tanggal lokal berdasarkan bujur dapat berbeda pada 34% catatan, terutama deteksi malam.</span></li>
+            <li><strong>Confidence</strong><span>Confidence menggambarkan keyakinan deteksi satelit, bukan ukuran luas atau tingkat bahaya kebakaran.</span></li>
+            <li><strong>Batasan</strong><span>Hotspot adalah deteksi satelit, bukan konfirmasi kebakaran. Statistik historis memberi konteks, bukan prediksi.</span></li>
           </ul>
         </section>
 

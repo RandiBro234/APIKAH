@@ -16,9 +16,9 @@ import type {
 import { RISK_LEVELS, riskColor } from './lib/risk'
 import { RiskLegend } from './Legend'
 import { ProvinceDiorama } from './ProvinceDiorama'
-import { MethodPage } from './MethodPage'
 import { WilayahPage } from './WilayahPage'
 import { RiwayatPage } from './RiwayatPage'
+import { PeringatanPage } from './PeringatanPage'
 import { LandingPage } from './LandingPage'
 import './App.css'
 
@@ -102,7 +102,7 @@ function indonesiaLandStyle(): maplibregl.LayerSpecification {
   }
 }
 
-function paintProvinceLayers(map: MapLibreMap) {
+function paintProvinceLayers(map: MapLibreMap, riskVisible: boolean, satelliteVisible: boolean) {
   const neutral = tokenValue('--map-neutral')
   const provinceFill = ['case', ['==', ['get', 'has_data'], true], ['match', ['get', 'level'], 1, riskColor(1), 2, riskColor(2), 3, riskColor(3), 4, riskColor(4), neutral], neutral] as never
   const extrudeColor = ['match', ['get', 'level'], 1, riskColor(1), 2, riskColor(2), 3, riskColor(3), 4, riskColor(4), neutral] as never
@@ -113,11 +113,16 @@ function paintProvinceLayers(map: MapLibreMap) {
   ] as never
   map.setPaintProperty('theme-sea', 'background-color', tokenValue('--map-sea'))
   if (map.getLayer(INDONESIA_LAND)) map.setPaintProperty(INDONESIA_LAND, 'fill-color', tokenValue('--map-land'))
-  if (map.getLayer(PROVINCE_FILL)) map.setPaintProperty(PROVINCE_FILL, 'fill-color', provinceFill)
-  if (map.getLayer(PROVINCE_EXTRUDE)) {
-    map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-color', extrudeColor)
-    map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-height', extrudeHeight)
+  if (map.getLayer(PROVINCE_FILL)) {
+    map.setLayoutProperty(PROVINCE_FILL, 'visibility', riskVisible ? 'visible' : 'none')
+    map.setPaintProperty(PROVINCE_FILL, 'fill-color', provinceFill)
+    map.setPaintProperty(PROVINCE_FILL, 'fill-opacity', satelliteVisible ? 0.5 : 0.9)
   }
+      if (map.getLayer(PROVINCE_EXTRUDE)) {
+        map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-color', extrudeColor)
+        map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-height', extrudeHeight)
+        map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-opacity', riskVisible ? (satelliteVisible ? 0.35 : 0.85) : 0)
+      }
   if (map.getLayer(PROVINCE_LINE)) map.setPaintProperty(PROVINCE_LINE, 'line-color', '#ffffff')
   if (map.getLayer(PROVINCE_HOVER)) {
     map.setPaintProperty(PROVINCE_HOVER, 'line-color', tokenValue('--text'))
@@ -165,6 +170,10 @@ function MapView({ layers, dataState, layerVisibility, selectedProvince, externa
   const [mapState, setMapState] = useState<MapState>('loading')
   const [attempt, setAttempt] = useState(0)
   const [hotspotPulses, setHotspotPulses] = useState<HotspotPulse[]>([])
+  const layerVisibilityRef = useRef(layerVisibility)
+  useEffect(() => {
+    layerVisibilityRef.current = layerVisibility
+  }, [layerVisibility])
 
   const applyHover = useCallback((map: MapLibreMap, id: string | null) => {
     if (!map.getSource(PROVINCE_SOURCE)) return
@@ -290,38 +299,43 @@ function MapView({ layers, dataState, layerVisibility, selectedProvince, externa
        if (!map.getLayer(HOTSPOT_DENSITY_PULSE)) map.addLayer({ id: HOTSPOT_DENSITY_PULSE, type: 'circle', source: HOTSPOT_SOURCE, filter: ['all', ['!', ['has', 'point_count']], ['==', ['get', 'density'], 'high']], paint: { 'circle-radius': ['interpolate', ['linear'], ['get', 'frp'], 0, 6, 100, 10], 'circle-color': '#00000000', 'circle-stroke-color': '#FF2D3D', 'circle-stroke-width': 1.5, 'circle-opacity': 0.8 } })
        if (!map.getLayer(HOTSPOT_CIRCLE)) map.addLayer({ id: HOTSPOT_CIRCLE, type: 'circle', source: HOTSPOT_SOURCE, filter: ['!', ['has', 'point_count']], paint: { 'circle-radius': ['interpolate', ['linear'], ['get', 'frp'], 0, 3, 100, 7], 'circle-color': '#ef4444', 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 1.25 } })
 
-      for (const id of [PROVINCE_FILL, PROVINCE_EXTRUDE, PROVINCE_LINE, PROVINCE_HOVER]) {
-        map.setLayoutProperty(id, 'visibility', 'visible')
-      }
-      map.setLayoutProperty(RISK_FILL, 'visibility', 'none')
+       for (const id of [PROVINCE_LINE, PROVINCE_HOVER]) {
+         map.setLayoutProperty(id, 'visibility', 'visible')
+       }
+       map.setLayoutProperty(PROVINCE_FILL, 'visibility', layerVisibilityRef.current.risk ? 'visible' : 'none')
+       map.setLayoutProperty(PROVINCE_EXTRUDE, 'visibility', layerVisibilityRef.current.risk ? 'visible' : 'none')
+       map.setLayoutProperty(RISK_FILL, 'visibility', 'none')
       map.setLayoutProperty(RISK_LINE, 'visibility', 'none')
       map.setLayoutProperty(HOTSPOT_CLUSTER, 'visibility', 'none')
 map.setLayoutProperty(HOTSPOT_CLUSTER_COUNT, 'visibility', 'none')
-       map.setLayoutProperty(HOTSPOT_DENSITY_PULSE, 'visibility', 'none')
-       map.setLayoutProperty(HOTSPOT_CIRCLE, 'visibility', 'none')
-    }
-  }, [])
+        map.setLayoutProperty(HOTSPOT_DENSITY_PULSE, 'visibility', layerVisibilityRef.current.hotspots ? 'visible' : 'none')
+        map.setLayoutProperty(HOTSPOT_CIRCLE, 'visibility', layerVisibilityRef.current.hotspots ? 'visible' : 'none')
+        map.setLayoutProperty(HOTSPOT_CLUSTER, 'visibility', layerVisibilityRef.current.hotspots ? 'visible' : 'none')
+        map.setLayoutProperty(HOTSPOT_CLUSTER_COUNT, 'visibility', layerVisibilityRef.current.hotspots ? 'visible' : 'none')
+     }
+   }, [])
 
   useEffect(() => {
     const map = mapRef.current
     if (!map || mapState !== 'ready') return
-    paintProvinceLayers(map)
-  }, [mapState])
+    paintProvinceLayers(map, layerVisibility.risk, layerVisibility.satellite)
+  }, [mapState, layerVisibility.risk, layerVisibility.satellite])
 
   useEffect(() => {
     const map = mapRef.current
     if (!map || !layers || mapState !== 'ready') return
    installLayersRef.current(map, layers)
-     paintProvinceLayers(map)
+paintProvinceLayers(map, layerVisibility.risk, layerVisibility.satellite)
      const setVisibility = (id: string, visible: boolean) => { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', visible ? 'visible' : 'none') }
       setVisibility(SATELLITE_LAYER, layerVisibility.satellite)
       if (map.getLayer(INDONESIA_LAND)) map.setPaintProperty(INDONESIA_LAND, 'fill-opacity', layerVisibility.satellite ? 0 : 1)
-      if (map.getLayer(PROVINCE_FILL)) map.setPaintProperty(PROVINCE_FILL, 'fill-opacity', layerVisibility.satellite ? 0 : ['case', ['==', ['get', 'has_data'], true], 0.9, 1] as never)
-      if (map.getLayer(PROVINCE_EXTRUDE)) map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-opacity', layerVisibility.satellite ? 0 : 0.85)
-      setVisibility(RISK_FILL, false)
-      setVisibility(RISK_LINE, false)
+      if (map.getLayer(INDONESIA_LAND)) map.setPaintProperty(INDONESIA_LAND, 'fill-opacity', layerVisibility.satellite ? 0 : 1)
       if (map.getLayer(PROVINCE_FILL)) map.setPaintProperty(PROVINCE_FILL, 'fill-opacity', layerVisibility.risk ? (layerVisibility.satellite ? 0.5 : 0.9) : 0)
       if (map.getLayer(PROVINCE_EXTRUDE)) map.setPaintProperty(PROVINCE_EXTRUDE, 'fill-extrusion-opacity', layerVisibility.risk ? (layerVisibility.satellite ? 0.35 : 0.85) : 0)
+      setVisibility(PROVINCE_FILL, layerVisibility.risk)
+      setVisibility(PROVINCE_EXTRUDE, layerVisibility.risk)
+      setVisibility(RISK_FILL, false)
+      setVisibility(RISK_LINE, false)
      setVisibility(HOTSPOT_CLUSTER, layerVisibility.hotspots)
 setVisibility(HOTSPOT_CLUSTER_COUNT, layerVisibility.hotspots)
       setVisibility(HOTSPOT_DENSITY_PULSE, layerVisibility.hotspots)
@@ -485,9 +499,9 @@ const pulses = map.queryRenderedFeatures({ layers: [HOTSPOT_DENSITY_PULSE] })
 
 function App() {
   const currentPath = window.location.pathname
-  const isMethodPage = currentPath === '/metode'
   const isWilayahPage = currentPath === '/wilayah'
   const isRiwayatPage = currentPath === '/riwayat'
+  const isPeringatanPage = currentPath === '/peringatan'
   const isLandingPage = currentPath === '/'
   const isMapPage = currentPath === '/peta'
   const [horizon, setHorizon] = useState<HorizonKey>('d1')
@@ -562,8 +576,8 @@ function App() {
   }, [handleSelectProvince])
 
   useEffect(() => {
-    document.title = isMethodPage ? 'Metode dan data | HOTSPOT.ID' : isLandingPage ? 'HOTSPOT.ID | Risiko munculnya hotspot' : 'HOTSPOT.ID | Peta risiko munculnya hotspot'
-  }, [isMethodPage, isLandingPage])
+    document.title = isLandingPage ? 'HOTSPOT.ID | Risiko munculnya hotspot' : 'HOTSPOT.ID | Peta risiko munculnya hotspot'
+  }, [isLandingPage])
 
   useEffect(() => {
     let cancelled = false
@@ -698,7 +712,7 @@ function App() {
     return () => window.clearInterval(timer)
   }, [meta])
 
-  if (isMethodPage) return <MethodPage />
+  if (isPeringatanPage) return <PeringatanPage />
   if (isWilayahPage) return <WilayahPage />
   if (isRiwayatPage) return <RiwayatPage />
   if (isLandingPage) return <LandingPage />
@@ -714,7 +728,7 @@ function App() {
       <header className="topbar">
         <a className="wordmark" href="/peta" aria-label="HOTSPOT.ID, peta"><span className="wordmark-mark" aria-hidden="true" /><span>HOTSPOT.ID</span></a>
         <nav className="main-nav" aria-label="Navigasi utama">
-          <a className="nav-tab" href="/">Beranda</a><a className="nav-tab nav-active" href="/peta" aria-current="page">Peta</a><a className="nav-tab" href="/wilayah">Wilayah</a><a className="nav-tab" href="/riwayat">Riwayat</a><a className="nav-tab" href="/metode">Metode</a>
+          <a className="nav-tab" href="/">Beranda</a><a className="nav-tab nav-active" href="/peta" aria-current="page">Peta</a><a className="nav-tab" href="/wilayah">Wilayah</a><a className="nav-tab" href="/peringatan">Peringatan</a><a className="nav-tab" href="/riwayat">Riwayat</a>
         </nav>
         <div className="topbar-right">
           {meta?.is_sample && <span className="sample-tag header-sample">Data contoh</span>}

@@ -116,8 +116,8 @@ export function WilayahPage() {
           <a className="nav-tab" href="/">Beranda</a>
           <a className="nav-tab" href="/peta">Peta</a>
           <a className="nav-tab nav-active" href="/wilayah" aria-current="page">Wilayah</a>
+          <a className="nav-tab" href="/peringatan">Peringatan</a>
           <a className="nav-tab" href="/riwayat">Riwayat</a>
-          <a className="nav-tab" href="/metode">Metode</a>
         </nav>
         <span className="sample-label method-sample">Data contoh</span>
       </header>

@@ -38,6 +38,7 @@ export function MethodPage() {
           <a className="nav-tab" href="/">Beranda</a>
           <a className="nav-tab" href="/peta">Peta</a>
           <a className="nav-tab" href="/wilayah">Wilayah</a>
+          <a className="nav-tab" href="/peringatan">Peringatan</a>
           <a className="nav-tab" href="/riwayat">Riwayat</a>
           <a className="nav-tab nav-active" href="/metode" aria-current="page">Metode</a>
         </nav>

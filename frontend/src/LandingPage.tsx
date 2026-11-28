@@ -128,7 +128,7 @@ export function LandingPage() {
               </a>
             )
           })}
-          <a className="lp-link" href="/metode">Metode</a>
+
         </nav>
         <div className="topbar-right">
           <a className="top-pill" href="/peta">Buka dashboard</a>
@@ -158,7 +158,6 @@ export function LandingPage() {
               </a>
             )
           })}
-          <a className="lp-link" href="/metode" onClick={() => setMobileNavOpen(false)}>Metode</a>
       </nav>
 
       <section className="lp-hero" aria-labelledby="judul-utama">
@@ -275,7 +274,6 @@ export function LandingPage() {
             <article className="lp-feature-method lp-reveal">
               <h3>Metode dan batasan</h3>
               <p>Sumber data, cara membaca level, dan keterbatasan sistem tersedia terbuka.</p>
-              <a className="lp-card-link" href="/metode">Baca metode</a>
             </article>
           </div>
         </section>
@@ -291,7 +289,7 @@ export function LandingPage() {
             <p>Sumber data: NASA FIRMS, ERA5, geoBoundaries.</p>
             <div className="lp-footer-links">
               <span className="lp-badge">Data contoh</span>
-              <a href="/metode">Metode</a>
+
               <span>Projek Sistem Cerdas</span>
             </div>
           </footer>
